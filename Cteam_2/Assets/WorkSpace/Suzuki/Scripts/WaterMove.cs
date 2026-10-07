@@ -6,7 +6,8 @@ public class WaterMove : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float upJumpPower;
     [SerializeField] private float rayLength;
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask groundLayer;// 地面(すり抜けない床)のレイヤー
+    [SerializeField] private LayerMask grateLayer; // 網(すり抜け床)のレイヤー
 
 
     private Rigidbody rb;
@@ -16,6 +17,8 @@ public class WaterMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Grate"), true);
     }
 
     // Update is called once per frame
