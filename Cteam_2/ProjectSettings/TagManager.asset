@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - DestroyObj
-  - WireMesh
+  - Water
+  - Ice
+  - Steam
   layers:
   - Default
   - TransparentFX
