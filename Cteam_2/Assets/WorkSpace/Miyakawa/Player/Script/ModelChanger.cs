@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ModelChanger : MonoBehaviour
 {
+    [SerializeField] private ModelTracking modelTracking;
+
     [SerializeField] private GameObject model1_ice;
     [SerializeField] private GameObject model2_water;
     [SerializeField] private GameObject model3_steam;
@@ -12,6 +14,7 @@ public class ModelChanger : MonoBehaviour
         model1_ice.SetActive(false);
         model2_water.SetActive(true);
         model3_steam.SetActive(false);
+        
     }
 
  public void ChangeModel_ice()
