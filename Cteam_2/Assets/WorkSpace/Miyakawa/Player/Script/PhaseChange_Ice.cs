@@ -1,42 +1,59 @@
+//キーを離した時に状態を水にする場合は、
+//コメントアウトしているコードを元に戻してください。
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PhaseChange_Ice : MonoBehaviour
 {
-    public InputActionAsset inputAction_PhaseChanger; // Inspectorで設定
-    InputAction Ice;
+    [Tooltip("Inspector に直接 InputAction を割り当て（InputActionReference を推奨）")]
+    [SerializeField] private InputActionReference iceActionRef;
 
-    private void Awake()
-    {
-        // "Player"という名前のアクションマップをInputActionAssetから探し出します。
-        var actionMap = inputAction_PhaseChanger.FindActionMap("PhaseChange");
+    [Tooltip("状態を変更する EnumList_Player を Inspector で割当て")]
+    [SerializeField] private EnumList_Player changeStatePlayer;
 
-        // アクションマップ内から"CKey"という名前のアクションを取得し、cKeyActionに割り当てます。
-        Ice = actionMap.FindAction("Ice");
-    }
-
-    private void Start()
-    {
-
-    }
+    [Tooltip("モデルを変更するModelChangeを割り当て")]
+    [SerializeField] private ModelChanger modelChanger;
 
     private void OnEnable()
     {
+        if (!Application.isPlaying) return;
 
+        if (iceActionRef == null)
+        {
+            Debug.LogWarning("iceActionRef が未設定です。", this);
+            return;
+        }
+
+        var action = iceActionRef.action;
+        action.performed += OnChangePerformed;
+     //   action.canceled += OnChangeCanceled;
+        action.Enable();
+
+        Debug.Log($"OnEnable 登録: {name} action={action.name}", this);
     }
 
     private void OnDisable()
     {
+        if (iceActionRef == null) return;
 
+        var action = iceActionRef.action;
+        action.performed -= OnChangePerformed;
+ //       action.canceled -= OnChangeCanceled;
+        action.Disable();
+
+        Debug.Log($"OnDisable 解除: {name} action={action.name}", this);
     }
 
-    void Update()
+    private void OnChangePerformed(InputAction.CallbackContext ctx)
     {
-        // 毎フレーム呼ばれるUpdateメソッド内で、Cキーがこのフレームで押されたかを確認します。
-        if (Ice.WasPressedThisFrame())
-        {
-            // Cキーが押された場合に、メッセージをコンソールに表示します。
-            Debug.Log("状態を固体に変更。");
-        }
+        modelChanger.ChangeModel_ice();
+        Debug.Log("現在の状態:固体");
+    }
+
+    private void OnChangeCanceled(InputAction.CallbackContext ctx)
+    {
+        modelChanger.ChangeModel_water();
+        Debug.Log("現在の状態:液体");
     }
 }

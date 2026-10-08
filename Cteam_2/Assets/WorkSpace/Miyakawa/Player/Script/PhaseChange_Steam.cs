@@ -1,42 +1,58 @@
+//キーを離した時に状態を水にする場合は、
+//コメントアウトしているコードを元に戻してください。
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PhaseChange_Steam : MonoBehaviour
 {
-    public InputActionAsset inputAction_PhaseChanger; // Inspectorで設定
-    InputAction Steam;
+    [Tooltip("InputActionを割り当て")]
+    public InputActionReference steamActionRef; 
 
-    private void Awake()
-    {
-        // "Player"という名前のアクションマップをInputActionAssetから探し出します。
-        var actionMap = inputAction_PhaseChanger.FindActionMap("PhaseChange");
+    [Tooltip("EnumListを割り当て")]
+    [SerializeField] private EnumList_Player changeStatePlayer;
 
-        // アクションマップ内から"CKey"という名前のアクションを取得し、cKeyActionに割り当てます。
-        Steam = actionMap.FindAction("Steam");
-    }
-
-    private void Start()
-    {
-
-    }
+    [Tooltip("ModelChangerを割り当て")]
+    [SerializeField] private ModelChanger modelChanger;
 
     private void OnEnable()
     {
+        if (!Application.isPlaying) return;
 
+        if(steamActionRef == null) 
+        {
+            Debug.LogWarning("iceActionRefが未設定です。");
+        }
+
+        var action = steamActionRef.action;
+        action.performed += OnChangePerformed;
+//        action.canceled += OnChangeCanceled;
+        action.Enable();
+
+        Debug.Log($"OnEnable 登録: {name} action={action.name}", this);
     }
 
     private void OnDisable()
     {
+        if (steamActionRef == null) return;
 
+        var action = steamActionRef.action;
+        action.performed -= OnChangePerformed;
+//        action.canceled -= OnChangeCanceled;
+        action.Disable();
+
+        Debug.Log($"OnDisable 解除: {name} action={action.name}", this);
     }
 
-    void Update()
+    private void OnChangePerformed(InputAction.CallbackContext ctx)
     {
-        // 毎フレーム呼ばれるUpdateメソッド内で、Cキーがこのフレームで押されたかを確認します。
-        if (Steam.WasPressedThisFrame())
-        {
-            // Cキーが押された場合に、メッセージをコンソールに表示します。
-            Debug.Log("状態を気体に変更。");
-        }
+        modelChanger.ChangeModel_steam();
+        Debug.Log("現在の状態:気体");
+    }
+
+    private void OnChangeCanceled(InputAction.CallbackContext ctx)
+    {
+        modelChanger.ChangeModel_water();
+        Debug.Log("現在の状態:液体");
     }
 }

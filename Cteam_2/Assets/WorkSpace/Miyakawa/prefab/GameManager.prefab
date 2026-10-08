@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1425225182325600284}
   - component: {fileID: 7666630900248902032}
   - component: {fileID: 101198026536972977}
+  - component: {fileID: 9076303205779742720}
+  - component: {fileID: 2505396965240379742}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,7 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b48ff7a64a6d454cac0a6f6203e6244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhaseChange_Ice
-  inputAction_PhaseChanger: {fileID: -944628639613478452, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  iceActionRef: {fileID: 1807813727635214234, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  changeStatePlayer: {fileID: 9076303205779742720}
+  modelChanger: {fileID: 2505396965240379742}
 --- !u!114 &7666630900248902032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +63,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd020c049299c9e40aed351f1e510fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhaseChange_Water
-  inputAction_PhaseChanger: {fileID: -944628639613478452, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  waterActionRef: {fileID: 2236198880951406082, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  changeStatePlayer: {fileID: 9076303205779742720}
+  modelChanger: {fileID: 2505396965240379742}
 --- !u!114 &101198026536972977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,4 +78,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b62c13a310d9846a1bc0779ba53c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhaseChange_Steam
-  inputAction_PhaseChanger: {fileID: -944628639613478452, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  steamActionRef: {fileID: 4738413763807401727, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  changeStatePlayer: {fileID: 9076303205779742720}
+  modelChanger: {fileID: 2505396965240379742}
+--- !u!114 &9076303205779742720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294013682024227840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a8bc185b5951143925e18b6e0eece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnumList_Player
+  playerState: 0
+--- !u!114 &2505396965240379742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294013682024227840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8909d0e05f0d5f74399906cba80b38e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ModelChange
+  model1_ice: {fileID: 5582364414919764648, guid: 71e38b0c0691a6841a406fbba0e63fee, type: 3}
+  model2_water: {fileID: 8769857430651742260, guid: db00d2a614122da4ab4176746ba46b5c, type: 3}
+  model3_steam: {fileID: 8203392959535864935, guid: 8ac8f70743d1f1840b4c74f1e397af70, type: 3}
