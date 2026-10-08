@@ -21,9 +21,9 @@ public class breakblock : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") && playerMove.rb.linearVelocity.magnitude > breakSpeed && playerMove.isIce)
+        if (other.gameObject.CompareTag("Block") && playerMove.rb.linearVelocity.magnitude > breakSpeed && playerMove.isIce)
         {
-            Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 }
