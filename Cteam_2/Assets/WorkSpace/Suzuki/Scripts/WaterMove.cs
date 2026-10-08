@@ -23,11 +23,11 @@ public class WaterMove : MonoBehaviour
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, rayLength, groundLayer);
 
-        if (Keyboard.current.rightArrowKey.isPressed)
+        if (Keyboard.current.dKey.isPressed)
         {
             transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
         }
-        if (Keyboard.current.leftArrowKey.isPressed)
+        if (Keyboard.current.aKey.isPressed)
         {
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
         }
