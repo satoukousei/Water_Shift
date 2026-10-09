@@ -48,12 +48,14 @@ public class PhaseChange_Ice : MonoBehaviour
     private void OnChangePerformed(InputAction.CallbackContext ctx)
     {
         modelChanger.ChangeModel_ice();
+        changeStatePlayer.SetState(EnumList_Player.PlayerState.Ice);
         Debug.Log("Œ»İ‚Ìó‘Ô:ŒÅ‘Ì");
     }
 
     private void OnChangeCanceled(InputAction.CallbackContext ctx)
     {
         modelChanger.ChangeModel_water();
+        changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
         Debug.Log("Œ»İ‚Ìó‘Ô:‰t‘Ì");
     }
 }

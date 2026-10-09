@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class EnumList_Player : MonoBehaviour
 {
-    [Header("プレイヤーの初期状態")]
+    [Header("プレイヤーの初期状態")]// プレイヤーの状態を文字列で保持
     [SerializeField]
-    private PlayerState playerState = PlayerState.Water; // プレイヤーの状態を文字列で保持する変数
+    private PlayerState playerState = PlayerState.Water; 
 
     public enum PlayerState { Water, Ice, Steam }
 

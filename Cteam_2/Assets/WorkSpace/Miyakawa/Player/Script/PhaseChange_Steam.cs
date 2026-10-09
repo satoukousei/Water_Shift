@@ -47,12 +47,14 @@ public class PhaseChange_Steam : MonoBehaviour
     private void OnChangePerformed(InputAction.CallbackContext ctx)
     {
         modelChanger.ChangeModel_steam();
+        changeStatePlayer.SetState(EnumList_Player.PlayerState.Steam);
         Debug.Log("Œ»İ‚Ìó‘Ô:‹C‘Ì");
     }
 
     private void OnChangeCanceled(InputAction.CallbackContext ctx)
     {
         modelChanger.ChangeModel_water();
+        changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
         Debug.Log("Œ»İ‚Ìó‘Ô:‰t‘Ì");
     }
 }

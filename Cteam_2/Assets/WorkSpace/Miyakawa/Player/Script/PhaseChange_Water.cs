@@ -46,12 +46,14 @@ public class PhaseChange_Water : MonoBehaviour
     private void OnChangePerformed(InputAction.CallbackContext ctx)
     {
         modelChanger.ChangeModel_water();
+        changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
         Debug.Log("Œ»İ‚Ìó‘Ô:‰t‘Ì");
     }
 
     private void OnChangeCanceled(InputAction.CallbackContext ctx)
     {
-        modelChanger.ChangeModel_water();   
+        modelChanger.ChangeModel_water();
+        changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
         Debug.Log("Œ»İ‚Ìó‘Ô:‰t‘Ì");
     }
 }
