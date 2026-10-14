@@ -7,18 +7,6 @@ public class breakblock : MonoBehaviour
 
     [SerializeField] private PlayerMove playerMove;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Block") && playerMove.rb.linearVelocity.magnitude > breakSpeed && playerMove.isIce)

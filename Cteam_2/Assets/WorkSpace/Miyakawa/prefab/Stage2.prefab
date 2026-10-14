@@ -1132,6 +1132,8 @@ GameObject:
   - component: {fileID: 1093034961865916905}
   - component: {fileID: 1387786692891809715}
   - component: {fileID: 2541573620026110133}
+  - component: {fileID: 382953448755714973}
+  - component: {fileID: 1891339338313464806}
   m_Layer: 0
   m_Name: Block_Net(2)
   m_TagString: Untagged
@@ -1231,6 +1233,42 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &382953448755714973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4445499330692363768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af0cda36dbf56c41a39c5eae36d4664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TagPassFloor
+  passableTags:
+  - Water
+  - Steam
+--- !u!65 &1891339338313464806
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4445499330692363768}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5221521802947415744
 GameObject:
@@ -1356,6 +1394,8 @@ GameObject:
   - component: {fileID: 8778682256999923225}
   - component: {fileID: 4393625477096310864}
   - component: {fileID: 1642204972662054286}
+  - component: {fileID: 2946386718904835268}
+  - component: {fileID: 204724764752539015}
   m_Layer: 0
   m_Name: Block_Net(1)
   m_TagString: Untagged
@@ -1455,6 +1495,42 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2946386718904835268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689962238545102047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af0cda36dbf56c41a39c5eae36d4664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TagPassFloor
+  passableTags:
+  - Water
+  - Steam
+--- !u!65 &204724764752539015
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689962238545102047}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6359403679428843645
 GameObject:
