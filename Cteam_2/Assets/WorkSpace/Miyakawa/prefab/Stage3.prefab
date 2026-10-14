@@ -1020,6 +1020,7 @@ GameObject:
   - component: {fileID: 6215339312185482631}
   - component: {fileID: 2715663492534939551}
   - component: {fileID: 3928916512959224242}
+  - component: {fileID: 9145985641645268084}
   m_Layer: 0
   m_Name: BreakableBlock
   m_TagString: block
@@ -1120,6 +1121,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &9145985641645268084
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2615884569791627762}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &3045208221076751224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2589,6 +2617,7 @@ GameObject:
   - component: {fileID: 4743039530584059877}
   - component: {fileID: 4078283939002088987}
   - component: {fileID: 8688178708870620593}
+  - component: {fileID: 3009086643506853481}
   m_Layer: 0
   m_Name: Block_Net(1)
   m_TagString: Untagged
@@ -2704,6 +2733,27 @@ MonoBehaviour:
   passableTags:
   - Water
   - Steam
+--- !u!65 &3009086643506853481
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5305277568183241002}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5884744410415870987
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,6 +2767,7 @@ GameObject:
   - component: {fileID: 3793990274300602486}
   - component: {fileID: 3182856835543667811}
   - component: {fileID: 6374350066522377456}
+  - component: {fileID: 2312997152370731894}
   m_Layer: 0
   m_Name: Block_Net(2)
   m_TagString: Untagged
@@ -2832,6 +2883,27 @@ MonoBehaviour:
   passableTags:
   - Water
   - Steam
+--- !u!65 &2312997152370731894
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5884744410415870987}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6980504776223135776
 GameObject:
   m_ObjectHideFlags: 0
