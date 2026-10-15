@@ -9,7 +9,7 @@ public class WaterMove : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;// 地面(すり抜けない床)のレイヤー
     [SerializeField] private Rigidbody rb;
 
-
+    [SerializeField] private new Vector3 jumpDirection;
 
     private bool isGrounded;
 
@@ -21,7 +21,7 @@ public class WaterMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.Raycast(transform.parent.position, Vector3.down, rayLength, groundLayer);
+        isGrounded = Physics.Raycast(transform.parent.position + jumpDirection, Vector3.down, rayLength, groundLayer);
 
         if (Keyboard.current.dKey.isPressed)
         {
