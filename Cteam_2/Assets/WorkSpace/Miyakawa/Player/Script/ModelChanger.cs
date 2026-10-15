@@ -8,7 +8,7 @@ public class ModelChanger : MonoBehaviour
     [SerializeField] private GameObject model2_water;
     [SerializeField] private GameObject model3_steam;
     [SerializeField] private WaterMove water;
-    [SerializeField] private Steam_Playe_Move steam;
+    [SerializeField] private SteamPlayerMove steam;
     [SerializeField] private PlayerMove ice;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
