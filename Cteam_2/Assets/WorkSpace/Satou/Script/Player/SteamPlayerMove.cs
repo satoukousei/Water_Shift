@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Steam_Playe_Move : MonoBehaviour
+public class SteamPlayerMove : MonoBehaviour
 {
     [SerializeField] private float upperMoveSpeed = 5f;
 
