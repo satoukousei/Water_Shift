@@ -1,24 +1,15 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float MoveSpeed;
-
     [SerializeField] public Rigidbody rb;
+    [SerializeField] private EnumList_Player stateHolder; // プレイヤーの状態を持つスクリプト
 
-    public bool isIce = true; 
+    // 状態から自動で決まる(直接代入はしない)
+    public bool isIce => stateHolder.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
 
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Keyboard.current.dKey.isPressed)     // 右
@@ -26,7 +17,7 @@ public class PlayerMove : MonoBehaviour
             transform.parent.position += new Vector3(MoveSpeed * Time.deltaTime, 0, 0);
         }
 
-        if (Keyboard.current.aKey.isPressed)     //左
+        if (Keyboard.current.aKey.isPressed)     // 左
         {
             transform.parent.position += new Vector3(-MoveSpeed * Time.deltaTime, 0, 0);
         }
