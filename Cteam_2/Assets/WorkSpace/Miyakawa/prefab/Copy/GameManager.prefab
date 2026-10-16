@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4893467797179136533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8065018090643025290}
+  - component: {fileID: 1493620754301535481}
+  - component: {fileID: 1419858266382723667}
+  - component: {fileID: 5194955762970380744}
+  - component: {fileID: 4214940328171432587}
+  - component: {fileID: 1996261977759434374}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8065018090643025290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893467797179136533}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.46586, y: -0, z: 1.37261}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1493620754301535481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893467797179136533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a8bc185b5951143925e18b6e0eece6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnumList_Player
+  playerState: 1
+--- !u!114 &1419858266382723667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893467797179136533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8909d0e05f0d5f74399906cba80b38e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ModelChange
+  modelTracking: {fileID: 0}
+  model1_ice: {fileID: 0}
+  model2_water: {fileID: 0}
+  model3_steam: {fileID: 0}
+  water: {fileID: 0}
+  steam: {fileID: 0}
+  ice: {fileID: 0}
+--- !u!114 &5194955762970380744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893467797179136533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7708d64cb1605af4095ec864514a64e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseChange_Water_Copy
+  rb: {fileID: 0}
+  waterActionRef: {fileID: 2236198880951406082, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  changeStatePlayer: {fileID: 1493620754301535481}
+  modelChanger: {fileID: 1419858266382723667}
+--- !u!114 &4214940328171432587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893467797179136533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5744e20ad45aedf4d9fade1c04d89d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseChange_Steam_Copy
+  steamActionRef: {fileID: 4738413763807401727, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  changeStatePlayer: {fileID: 1493620754301535481}
+  modelChanger: {fileID: 1419858266382723667}
+--- !u!114 &1996261977759434374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893467797179136533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2324582acd5727b40bf7d0de4faf1aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseChange_Ice_Copy
+  rb: {fileID: 0}
+  iceActionRef: {fileID: 1807813727635214234, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  changeStatePlayer: {fileID: 1493620754301535481}
+  modelChanger: {fileID: 1419858266382723667}
