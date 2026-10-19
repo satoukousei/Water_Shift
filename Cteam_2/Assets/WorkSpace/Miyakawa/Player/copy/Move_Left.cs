@@ -9,6 +9,9 @@ public class Move_Left : MonoBehaviour
     [Tooltip("EnumListを割り当て")]
     [SerializeField] private EnumList_Player playerState;
 
+    [Tooltip("Playerを割り当て")]
+    [SerializeField] private GameObject playerModel;
+
     private void OnEnable()
     {
         if (!Application.isPlaying) return;
@@ -41,7 +44,7 @@ public class Move_Left : MonoBehaviour
         var state = playerState.CurrentPlayerState;
         if (state == EnumList_Player.PlayerState.Water || state == EnumList_Player.PlayerState.Ice)
         {
-            transform.parent.position += new Vector3(-1f * Time.deltaTime, 0, 0);
+            playerModel.transform.position += new Vector3(-1f * Time.deltaTime, 0, 0);
         }
     }
 

@@ -183,7 +183,8 @@ PrefabInstance:
       propertyPath: rigidbodyParent
       value: 
       objectReference: {fileID: 896964196}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6483434910272895427, guid: a29edb486c611b248a71751e4eeada9d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -198,17 +199,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2666660688765498842, guid: a29edb486c611b248a71751e4eeada9d, type: 3}
   m_PrefabInstance: {fileID: 162022687}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &162022690 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6483434910272895427, guid: a29edb486c611b248a71751e4eeada9d, type: 3}
-  m_PrefabInstance: {fileID: 162022687}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162022688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e41bb26b9538f41803b4b937bbc278, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Steam_Playe_Move
 --- !u!1001 &240811526
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -277,7 +267,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4223318775200690639, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -287,17 +278,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3695734139620275692, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
   m_PrefabInstance: {fileID: 240811526}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &240811528 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4223318775200690639, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
-  m_PrefabInstance: {fileID: 240811526}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240811527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 425f4c5222369c2408d3f15d7f133df0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
 --- !u!4 &240811529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4286245160582457285, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
@@ -590,7 +570,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3098103959275240925, guid: e335e82805e6b25498842eaf2979b89e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -605,17 +586,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4461217175817726447, guid: e335e82805e6b25498842eaf2979b89e, type: 3}
   m_PrefabInstance: {fileID: 1538189602}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1538189605 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3098103959275240925, guid: e335e82805e6b25498842eaf2979b89e, type: 3}
-  m_PrefabInstance: {fileID: 1538189602}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538189603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04921c039a3634e48a1b12a1a307e183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WaterMove
 --- !u!1001 &1810416493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -873,15 +843,15 @@ PrefabInstance:
     - target: {fileID: 1419858266382723667, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: ice
       value: 
-      objectReference: {fileID: 240811528}
+      objectReference: {fileID: 0}
     - target: {fileID: 1419858266382723667, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: steam
       value: 
-      objectReference: {fileID: 162022690}
+      objectReference: {fileID: 0}
     - target: {fileID: 1419858266382723667, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: water
       value: 
-      objectReference: {fileID: 1538189605}
+      objectReference: {fileID: 0}
     - target: {fileID: 1419858266382723667, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: model1_ice
       value: 
@@ -989,6 +959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Move_Right
   playerActionRef: {fileID: 2236198880951406082, guid: beb278614d079d14d86d7c1ec372dbe8, type: 3}
   playerState: {fileID: 9076303204620067019}
+  moveSpeed: 3
 --- !u!114 &9076303204620067024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1003,6 +974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Move_Left
   playerActionRef: {fileID: 1807813727635214234, guid: beb278614d079d14d86d7c1ec372dbe8, type: 3}
   playerState: {fileID: 9076303204620067019}
+  playerModel: {fileID: 896964193}
 --- !u!114 &9076303204620067025
 MonoBehaviour:
   m_ObjectHideFlags: 0

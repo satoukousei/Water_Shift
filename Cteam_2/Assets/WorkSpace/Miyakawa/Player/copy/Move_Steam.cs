@@ -6,13 +6,6 @@ public class Move_Steam : MonoBehaviour
 
     [SerializeField] private Rigidbody rigidBodyParent;
 
-
-
-    void Awake()
-    {
-
-    }
-
     void FixedUpdate()
     {
         UpperMove();
