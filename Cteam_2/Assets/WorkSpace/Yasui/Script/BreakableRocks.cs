@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class breakblock : MonoBehaviour
+public class BreakableRocks : MonoBehaviour
 {
     [SerializeField] private float breakSpeed;     //壊すために必要な落下速度
 
@@ -21,6 +21,7 @@ public class breakblock : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        //プレイヤーが氷状態かつ一定の速度でブロック破壊
         if (other.gameObject.CompareTag("Player") && playerMove.rb.linearVelocity.magnitude > breakSpeed && playerMove.isIce)
         {
             Destroy(gameObject);

@@ -7,7 +7,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float MoveSpeed;
     public Rigidbody rb;
 
-    public bool isIce = true;     //氷状態であるかどうかのトリガー(あとで移動させる)
+    public bool isIce = true;     //氷状態であるかどうかのトリガー
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
