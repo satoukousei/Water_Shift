@@ -14812,6 +14812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1821274576}
   - component: {fileID: 1821274577}
+  - component: {fileID: 1821274578}
   m_Layer: 7
   m_Name: Block_Net(1)_root
   m_TagString: Block
@@ -15032,7 +15033,7 @@ MonoBehaviour:
     onDemolition: 1
     onActivation: 0
     byOffset: 0
-    fadeType: 1
+    fadeType: 5
     fadeTime: 1
     lifeType: 4
     lifeTime: 0.2
@@ -15088,6 +15089,19 @@ MonoBehaviour:
   skr: {fileID: 0}
   rest: {fileID: 0}
   sound: {fileID: 0}
+--- !u!114 &1821274578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821274575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e56fe1c3091eb4ca726a100d62a733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RayDestroyCount
+  removeDelay: 3
 --- !u!1 &1892325281
 GameObject:
   m_ObjectHideFlags: 0
