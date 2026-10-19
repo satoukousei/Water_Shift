@@ -960,6 +960,7 @@ MonoBehaviour:
   playerActionRef: {fileID: 2236198880951406082, guid: beb278614d079d14d86d7c1ec372dbe8, type: 3}
   playerState: {fileID: 9076303204620067019}
   moveSpeed: 3
+  playerModel: {fileID: 896964193}
 --- !u!114 &9076303204620067024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -974,6 +975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Move_Left
   playerActionRef: {fileID: 1807813727635214234, guid: beb278614d079d14d86d7c1ec372dbe8, type: 3}
   playerState: {fileID: 9076303204620067019}
+  moveSpeed: 3
   playerModel: {fileID: 896964193}
 --- !u!114 &9076303204620067025
 MonoBehaviour:
@@ -989,6 +991,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Move_Jump
   playerActionRef: {fileID: 4738413763807401727, guid: beb278614d079d14d86d7c1ec372dbe8, type: 3}
   playerState: {fileID: 9076303204620067019}
+  playerModel: {fileID: 896964193}
+  jumpPower: 5
+  rayLength: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -12,6 +12,9 @@ public class Move_Right : MonoBehaviour
     [Tooltip("移動速度")]
     [SerializeField] private float moveSpeed = 1f;
 
+    [Tooltip("Playerを割り当て")]
+    [SerializeField] private GameObject playerModel;
+
     private bool isMoving;
 
     private void OnEnable()
@@ -52,7 +55,7 @@ public class Move_Right : MonoBehaviour
         if (state == EnumList_Player.PlayerState.Water || state == EnumList_Player.PlayerState.Ice)
         {
             // 右方向に継続移動（速度は moveSpeed）
-            transform.parent.position += new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);
+            playerModel.transform.position += new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);
         }
     }
 
