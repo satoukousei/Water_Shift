@@ -16,7 +16,7 @@ public class PhaseChange_Water_Copy : MonoBehaviour
     [SerializeField] private EnumList_Player changeStatePlayer;
 
     [Tooltip("ModelChanger‚ğŠ„‚è“–‚Ä")]
-    [SerializeField] private ModelChanger modelChanger;
+    [SerializeField] private ModelChanger_Copy modelChanger_Copy;
 
     private void OnEnable()
     {
@@ -48,7 +48,7 @@ public class PhaseChange_Water_Copy : MonoBehaviour
     }
     private void OnChangePerformed(InputAction.CallbackContext ctx)
     {
-        modelChanger.ChangeModel_water();
+        modelChanger_Copy.ChangeModel_water();
         changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
         RbSwitch();
         Debug.Log("Œ»İ‚Ìó‘Ô:‰t‘Ì");
@@ -56,7 +56,7 @@ public class PhaseChange_Water_Copy : MonoBehaviour
 
     private void OnChangeCanceled(InputAction.CallbackContext ctx)
     {
-        modelChanger.ChangeModel_water();
+        modelChanger_Copy.ChangeModel_water();
         changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
         RbSwitch();
         Debug.Log("Œ»İ‚Ìó‘Ô:‰t‘Ì");
