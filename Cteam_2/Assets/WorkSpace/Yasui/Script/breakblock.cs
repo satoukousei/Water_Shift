@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class breakblock : MonoBehaviour
 {
-    [SerializeField] private float breakSpeed;       // 壊すために必要な速度
+    [SerializeField] private float breakRockSpeed;       // 壊すために必要な速度
     [SerializeField] private PlayerMove playerMove;
 
     private void OnCollisionEnter(Collision collision)
@@ -15,7 +15,7 @@ public class breakblock : MonoBehaviour
         {
             return;           // Blockタグだけ
         }
-        if (collision.relativeVelocity.magnitude < breakSpeed)
+        if (collision.relativeVelocity.magnitude < breakRockSpeed)
         {
             return;   // 速度が足りない
         }
