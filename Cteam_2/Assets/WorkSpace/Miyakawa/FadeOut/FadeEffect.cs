@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 
 public class FadeEffect : MonoBehaviour
@@ -24,12 +25,12 @@ public class FadeEffect : MonoBehaviour
     void Update()
     {
         //デバッグ用のキー入力処理
-        if (Input.GetKey(KeyCode.F))
+        if (Keyboard.current.fKey.isPressed)
         {
             StartCoroutine(fade(true));
             Debug.Log("フェードアウト処理を実行");
         }
-        if (Input.GetKey(KeyCode.G))
+        if (Keyboard.current.gKey.isPressed)
         {
             StartCoroutine(fade(false));
             Debug.Log("フェードアウト処理を実行");
