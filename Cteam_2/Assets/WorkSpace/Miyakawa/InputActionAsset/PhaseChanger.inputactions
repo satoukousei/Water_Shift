@@ -52,7 +52,18 @@
                 {
                     "name": "",
                     "id": "45d42349-4ec4-4599-b113-cb86c29d8dc4",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ice",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb7f42ff-e2e6-4d8c-9769-cfd67d48bbfc",
+                    "path": "<XInputController>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -74,7 +85,18 @@
                 {
                     "name": "",
                     "id": "9f9d280c-d184-4c7a-9c3b-c9d4d141174b",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<SwitchProControllerHID>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Water",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f483266-9b2e-4f20-82d5-3e93725bfc81",
+                    "path": "<XInputController>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -96,7 +118,18 @@
                 {
                     "name": "",
                     "id": "d6743b87-28a8-4b9a-82b9-ef5ef98703c4",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<SwitchProControllerHID>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e24bbb3e-4d21-4e7d-886c-d6b787f4ef91",
+                    "path": "<XInputController>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
