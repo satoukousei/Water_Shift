@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "name": "PlayerInformation",
+    "maps": [
+        {
+            "name": "PlayerInformation",
+            "id": "85f2d4b7-f527-48e8-9c13-1fa52825357f",
+            "actions": [
+                {
+                    "name": "BaseManual",
+                    "type": "Button",
+                    "id": "5ac4b2e8-ae15-414f-9972-1ee8e7c5c7f7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bb47f4ff-4c03-4f3f-9afb-a879b6b491de",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BaseManual",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1986ca64-8f8f-4b65-a095-9e2aebf33a8f",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BaseManual",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

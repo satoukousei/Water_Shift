@@ -13,6 +13,13 @@ public class FadeEffect : MonoBehaviour
     [Tooltip("ˆÃ“]‘O‚Ì‘Ò‚¿ŽžŠÔ")]
     [SerializeField] private float beforeWaitTime = 1.0f;
 
+    Events events;
+
+    void Start()
+    {
+        events = GetComponent<Events>();
+    }
+
     public void StartFadeIn()
     {
         StartCoroutine(fade(false));
@@ -47,6 +54,7 @@ public class FadeEffect : MonoBehaviour
         {
             targetAlphaColor = 1;
             yield return new WaitForSeconds(beforeWaitTime);
+
         }
         else
         {
@@ -61,6 +69,9 @@ public class FadeEffect : MonoBehaviour
                 fadeImage.color = new Color(0f,0f,0f,startAlphaColor);
                 yield return null;
             }
-        
+
+            yield return new WaitForSeconds(2f);
+        if (!isFadeOut) events.EndFadein.Invoke();
+
     }
 }

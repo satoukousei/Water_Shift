@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: 8636698411410783862}
   - component: {fileID: 1228033948537080090}
   - component: {fileID: 2091253801876002713}
+  - component: {fileID: 5874894895144296340}
+  - component: {fileID: 8007741964947797512}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -195,3 +197,45 @@ MonoBehaviour:
   fadeImage: {fileID: 0}
   fadeDuration: 1
   beforeWaitTime: 1
+--- !u!114 &5874894895144296340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893467797179136533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6ac89a71eaa5f4286705b22854bd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ViewTheManual
+  isFirstStage: 0
+  manualImage: {fileID: 0}
+  manualActionRef: {fileID: 1807813727635214234, guid: c1155dbf292224a4a9040464b3723b96, type: 3}
+--- !u!114 &8007741964947797512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893467797179136533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642a92cf2b024d24997cc29fd6cf649f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Events
+  EndFadein:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5874894895144296340}
+        m_TargetAssemblyTypeName: ViewTheManual, Assembly-CSharp
+        m_MethodName: FirstViewManual
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
