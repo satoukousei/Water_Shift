@@ -7,4 +7,6 @@ public class Events : MonoBehaviour
 
     public UnityEvent EndFadein;
 
+    public UnityEvent Goal; 
+
 }
