@@ -107,7 +107,7 @@
                 {
                     "name": "",
                     "id": "949c2742-0323-4cd2-90ce-2d2048e63cb8",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<XInputController>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -119,6 +119,17 @@
                     "name": "",
                     "id": "d6743b87-28a8-4b9a-82b9-ef5ef98703c4",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c262734-5eff-4985-b448-5e83205b0dfb",
+                    "path": "<SwitchProControllerHID>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
