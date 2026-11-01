@@ -1,9 +1,12 @@
 using UnityEngine;
 using static EnumList_Player;
 
+/// <summary>
+/// 氷の状態で水の上を渡ることができるスクリプト
+/// 水のオブジェクトにcolliderを付けて使用
+/// </summary>
 public class FloatingWaterArea : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("浮力の設定")]
     [SerializeField] private float buoyancyForce = 15f;
 
