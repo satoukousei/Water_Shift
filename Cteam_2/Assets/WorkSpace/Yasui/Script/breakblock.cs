@@ -7,7 +7,7 @@ public class breakblock : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!playerMove.isIce)
+        if (!playerMove.IsIce)
         {
             return;                                   // 氷のときだけ
         }

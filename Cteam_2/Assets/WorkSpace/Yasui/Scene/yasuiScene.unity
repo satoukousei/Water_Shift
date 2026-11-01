@@ -148,11 +148,11 @@ Transform:
   m_GameObject: {fileID: 158787605}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 2.6, z: -4}
+  m_LocalPosition: {x: 0.36000013, y: -0.4000001, z: 0}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2077741265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &158787607
 BoxCollider:
@@ -257,7 +257,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &1024925631
 GameObject:
@@ -556,7 +556,7 @@ Transform:
   m_GameObject: {fileID: 1664422509}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.85, y: 7.24, z: -4}
+  m_LocalPosition: {x: 4.28, y: 11.47, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -587,7 +587,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1664422515
 MonoBehaviour:
@@ -601,11 +601,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425f4c5222369c2408d3f15d7f133df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
+  rb: {fileID: 1664422514}
+  stateHolder: {fileID: 0}
   moveSpeed: 3
   rayDirection: 1
-  slideSpeed: 5
-  rb: {fileID: 1664422514}
-  isIce: 1
+  slideSpeed: 8
+  slideAcceleration: 3
+  afterSlideSpeed: 6
+  rotateSpeed: 15
+  stopSpeed: 5
+  slideAngle: 0
+  Rb: {fileID: 1664422514}
+  IsIce: 1
+  isSlide: 0
 --- !u!1 &1871412779
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +628,7 @@ GameObject:
   - component: {fileID: 1871412780}
   m_Layer: 0
   m_Name: Stage
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -732,7 +740,7 @@ GameObject:
   - component: {fileID: 1986490612}
   m_Layer: 0
   m_Name: slope
-  m_TagString: Untagged
+  m_TagString: Slope
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -824,8 +832,8 @@ Transform:
   m_GameObject: {fileID: 1986490611}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.3420201, w: 0.9396927}
-  m_LocalPosition: {x: -1, y: 3, z: -4}
-  m_LocalScale: {x: 10, y: 0.4, z: 1}
+  m_LocalPosition: {x: 1.47, y: 4.38, z: -4}
+  m_LocalScale: {x: 9.965131, y: 0.563988, z: 0.97879}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -938,10 +946,11 @@ Transform:
   m_GameObject: {fileID: 2077741261}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 3, z: -4}
+  m_LocalPosition: {x: -5.76, y: 3, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 158787606}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2077741266
@@ -987,7 +996,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &2138526835
 GameObject:
@@ -1142,7 +1151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff688e2021b0bf54e9951cef3c740136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::breakblook
-  breakRockSpeed: 0
+  breakRockSpeed: 1
   playerMove: {fileID: 1664422515}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1154,5 +1163,4 @@ SceneRoots:
   - {fileID: 1664422513}
   - {fileID: 2138526840}
   - {fileID: 2077741265}
-  - {fileID: 158787606}
   - {fileID: 1986490615}
