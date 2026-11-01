@@ -687,7 +687,7 @@ Transform:
   m_GameObject: {fileID: 1566134856}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 899.9043, y: 201.59479, z: -48.03607}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -702,16 +702,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1566134856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a180bafa3c557864bb2baf4badd387b0, type: 3}
+  m_Script: {fileID: 11500000, guid: efd850a92b48ef048a16c1e10b711352, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TitleMenu
+  m_EditorClassIdentifier: Assembly-CSharp::MenuSelector
+  titleSceneName: TitleScene
+  stageSelectSceneName: StageSelectScene
   menuItems:
   - {fileID: 354079875}
   - {fileID: 524836779}
+  destinationScenes:
+  - Stage1
+  - StageSelectScene
   selectionFrame: {fileID: 1977652693}
   framePadding: {x: 20, y: 10}
-  newGameSceneName: Stage1
-  stageSelectSceneName: StageSelectScene
 --- !u!1 &1977652692
 GameObject:
   m_ObjectHideFlags: 0
