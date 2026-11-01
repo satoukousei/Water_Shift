@@ -598,6 +598,34 @@ PrefabInstance:
       propertyPath: MoveSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4223318775200690639, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
+      propertyPath: moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223318775200690639, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
+      propertyPath: stopSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223318775200690639, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
+      propertyPath: slideSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223318775200690639, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
+      propertyPath: rotateSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223318775200690639, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
+      propertyPath: rayDirection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223318775200690639, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
+      propertyPath: afterSlideSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223318775200690639, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
+      propertyPath: slideAcceleration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4286245160582457285, guid: 4731ad626f6aa5c43ba8339936ec7bad, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
