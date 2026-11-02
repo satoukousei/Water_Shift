@@ -588,6 +588,19 @@ MonoBehaviour:
   fadeoutTime: 1
   beforeFadeinTime: 3
   beforeFadeoutTime: 1
+--- !u!114 &1896258520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896258507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00a1243f8d2843140a338f358c3f8ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReloadScene
+  Retry: {fileID: 4417693682891155287, guid: c1155dbf292224a4a9040464b3723b96, type: 3}
 --- !u!1 &2147367896
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,7 +773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2852414251909518121, guid: 22d9097ff5e26b44a8779c01accdedaa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.824
+      value: 2.22
       objectReference: {fileID: 0}
     - target: {fileID: 2852414251909518121, guid: 22d9097ff5e26b44a8779c01accdedaa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -944,6 +957,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4893467797179136533, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1896258519}
+    - targetCorrespondingSourceObject: {fileID: 4893467797179136533, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1896258520}
   m_SourcePrefab: {fileID: 100100000, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
