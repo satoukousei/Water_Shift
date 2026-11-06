@@ -2527,10 +2527,10 @@ MonoBehaviour:
     onDemolition: 1
     onActivation: 0
     byOffset: 0
-    fadeType: 2
-    fadeTime: 3
+    fadeType: 3
+    fadeTime: 1
     lifeType: 4
-    lifeTime: 1
+    lifeTime: 0.5
     lifeVariation: 1
     sizeFilter: 0
     shardAmount: 5
@@ -29719,7 +29719,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4206085702290208826, guid: 11d63dbd42def524a814e1f99c4ec64b, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4206085702290208826, guid: 11d63dbd42def524a814e1f99c4ec64b, type: 3}
       propertyPath: m_IsActive
@@ -29727,7 +29727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4206085702290208826, guid: 11d63dbd42def524a814e1f99c4ec64b, type: 3}
       propertyPath: m_TagString
-      value: Ground
+      value: Block
       objectReference: {fileID: 0}
     - target: {fileID: 7171469873362179484, guid: 11d63dbd42def524a814e1f99c4ec64b, type: 3}
       propertyPath: m_LocalScale.x
@@ -32600,11 +32600,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8637389668883898520, guid: dfe02513d87c9c347bc584b9b3004c22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8
+      value: 2.07
       objectReference: {fileID: 0}
     - target: {fileID: 8637389668883898520, guid: dfe02513d87c9c347bc584b9b3004c22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 6.76
       objectReference: {fileID: 0}
     - target: {fileID: 8637389668883898520, guid: dfe02513d87c9c347bc584b9b3004c22, type: 3}
       propertyPath: m_LocalPosition.z
