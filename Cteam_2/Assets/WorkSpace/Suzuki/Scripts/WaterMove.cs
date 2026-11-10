@@ -1,51 +1,104 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// 【使い方】
+/// ・水状態のプレイヤーオブジェクトにアタッチして使用します。
+/// ・インスペクターから移動速度、ジャンプ力、レイの長さ、地面レイヤー、Rigidbody等を設定してください。
+/// 
+/// 【目的】
+/// ・水状態のプレイヤーの移動、接地判定に基づくジャンプ、空中での移動制限、およびジャンプ中の慣性移動を制御するためにあります。
+/// </summary>
 public class WaterMove : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float upJumpPower;
-    [SerializeField] private float rayLength;
-    [SerializeField] private LayerMask groundLayer;// 地面(すり抜けない床)のレイヤー
-    [SerializeField] private Rigidbody rb;
+    [Header("移動・ジャンプ設定")]
+    [SerializeField] private float moveSpeed = 5.0f;
+    [SerializeField] private float upJumpPower = 7.0f;
+    [SerializeField] private float rayLength = 1.1f;
+    [SerializeField] private LayerMask groundLayer = 0; //地面(すり抜けない床)のレイヤー
 
-    [SerializeField] private new Vector3 jumpDirection;
+    [Header("コンポーネント設定")]
+    [SerializeField] private Rigidbody rb = null;
 
-    private bool isGrounded;
+    [Header("判定設定")]
+    [SerializeField] private Vector3 jumpDirection = Vector3.zero;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private bool isGrounded = false;
+
+    private void Start()
     {
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody>();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        isGrounded = Physics.Raycast(transform.parent.position + jumpDirection, Vector3.down, rayLength, groundLayer);
-
-        if (Keyboard.current.dKey.isPressed && isGrounded)
+        if (Keyboard.current == null)
         {
-            transform.parent.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
-        }
-        if (Keyboard.current.aKey.isPressed && isGrounded)
-        {
-            transform.parent.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+            return;
         }
 
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded) //スペースキーが押されたとき＆接地してる時
-        {
-            //ジャンプの方向を上向きのベクトルに設定
-            Vector3 jump_vector = Vector3.up;
-            //ジャンプの速度を計算
-            Vector3 jump_velocity = jump_vector * upJumpPower;
+        Vector3 rayOrigin = transform.parent != null ? transform.parent.position : transform.position;
 
-            //上向きの速度を設定
-            rb.linearVelocity = jump_velocity;
+        isGrounded = Physics.Raycast(rayOrigin + jumpDirection, Vector3.down, rayLength, groundLayer);
+
+        Movement();
+        Jump();
+    }
+
+    private void Movement()
+    {
+        // 空中（接地していない）の時は移動入力を受け付けない
+        if (!isGrounded || rb == null)
+        {
+            return;
+        }
+
+        float horizontalVelocity = 0.0f;
+
+        // 右移動
+        if (Keyboard.current.dKey.isPressed)
+        {
+            horizontalVelocity = moveSpeed;
+        }
+        // 左移動
+        else if (Keyboard.current.aKey.isPressed)
+        {
+            horizontalVelocity = -moveSpeed;
+        }
+
+        Vector3 currentVelocity = rb.linearVelocity;
+        currentVelocity.x = horizontalVelocity;
+        rb.linearVelocity = currentVelocity;
+    }
+
+    private void Jump()
+    {
+        if (rb == null)
+        {
+            return;
+        }
+
+        // スペースキーが押されたとき＆接地している時
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded)
+        {
+            Vector3 jumpVector = Vector3.up;
+            Vector3 jumpVelocity = jumpVector * upJumpPower;
+
+            // 現在のX軸方向の慣性（速度）を保持したまま、上向きの速度を設定する
+            Vector3 currentVelocity = rb.linearVelocity;
+            currentVelocity.y = jumpVelocity.y;
+            rb.linearVelocity = currentVelocity;
         }
     }
 
     public void WaterRbSwitch()
     {
-        rb.useGravity = true;
+        if (rb != null)
+        {
+            rb.useGravity = true;
+        }
     }
 }
