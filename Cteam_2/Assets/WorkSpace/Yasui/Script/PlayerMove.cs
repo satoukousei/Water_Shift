@@ -5,6 +5,22 @@ using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// 【目的】
+///  プレイヤーの行動をまとまています。
+/// 【使い方】
+///  プレイヤーの移動速度をmoveSpeedで変更することができます。
+///  状態変化をさせることができます(仮)。
+///  水状態でSpaceを押すことでジャンプできるようにしています(仮)。
+///  坂を下ることができます。
+///  〇坂の説明
+///  ・slideSpeedでプレイヤーが当たったときの坂を下る初速です。
+///  ・slideAccelerationでプレイヤーが坂にいる間毎秒その値だけ加速します。
+///  ・rotateSpeedで坂から地面に着地したときに毎秒ゆっくり角度を変えられます(数値が少ないほどゆっくり)。
+///  ・afterSlideSpeedで地面に着地したときに完成のようなものをつけられます。
+///  ・stopSpeedでafterSlideSpeedから毎秒減速します。
+/// </summary>
+
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] public Rigidbody rb;
@@ -22,16 +38,16 @@ public class PlayerMove : MonoBehaviour
     public bool IsWater = false;     //水状態かどうか
     public bool IsIce = true;        // 氷状態かどうか
     public bool IsSteam = false;     //蒸気状態かどうか
+    private bool hitOther = false;   //坂と床以外にぶつかっているかどうか
 
-    public bool isSlide = false;
+    public  bool isSlide = false;
+    private bool isSlope = false;
     //public bool isIce => stateHolder.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
 
     private Vector3 moveDirection;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-
         // 前後左右の回転を防ぐ
         rb.constraints |= RigidbodyConstraints.FreezeRotationX;
         rb.constraints |= RigidbodyConstraints.FreezeRotationZ;
@@ -57,24 +73,24 @@ public class PlayerMove : MonoBehaviour
 
         if (Keyboard.current.dKey.isPressed) // 右
         {
-            moveDirection.x += 1f;
+            moveDirection.x += moveSpeed;
         }
 
         if (Keyboard.current.aKey.isPressed) // 左
         {
             //transform.parent.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
-            moveDirection.x -= 1f;
+            moveDirection.x -= moveSpeed;
         }
 
         if (Keyboard.current.wKey.isPressed) // 前
         {
             //transform.parent.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
-            moveDirection.y += 1f;
+            moveDirection.z += moveSpeed;
         }
 
         if (Keyboard.current.sKey.isPressed) //後ろ
         {
-            moveDirection.y -= 1f;
+            moveDirection.z -= moveSpeed;
         }
 
         //状態変化(仮)
@@ -104,22 +120,35 @@ public class PlayerMove : MonoBehaviour
         }
 
 
+        if (IsWater)
+        {
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+            }
+        }
+
 
         //プレイヤーから下方向に線をとばす
         Ray ray = new Ray(transform.position, Vector3.down);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, rayDirection))     //坂を下る
+        bool hasHit = Physics.Raycast(ray, out RaycastHit Hit, rayDirection);
+
+        
+
+        if (Physics.Raycast(ray, out RaycastHit hit, rayDirection) && hasHit)     //坂を下る
         {
-
-            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
-
+            
             //坂の向き法線ベクトル
             Vector3 groundNormal = hit.normal;
 
             float n = Mathf.Abs(Mathf.Acos(Vector3.Dot(groundNormal, Vector3.up)) * Mathf.Rad2Deg);
             Debug.Log(n);
 
-            if (n > slideAngle && !isSlide)     //一定の角度以上で滑るようにする
+            
+
+            //一定の角度以上かつ滑っている状態でないかつ坂以外にぶつかっていない場合坂を滑る
+            if (hit.collider.CompareTag("Slope") && n > slideAngle && !isSlide && !hitOther)     //一定の角度以上で滑るようにする
             {
                 Vector3 forward = transform.forward;
 
@@ -150,15 +179,38 @@ public class PlayerMove : MonoBehaviour
                 transform.position += slideDirection * slideSpeed * Time.deltaTime;
 
             }
-            else if (hit.collider.CompareTag("Floor") && !isSlide)
+            //一定の角度以上かつ滑っている状態のときRayがあったっている物体に角度をあわせる
+            else if (n <= slideAngle && isSlide)
             {
+
+                Vector3 forward = transform.forward;
+
+                //線をとばした方向にプレイヤーの向きを合わせる
+                Vector3 slopeForward = Vector3.ProjectOnPlane(forward, groundNormal).normalized;
+
+                //坂の角度に合わせてプレイヤーを回転
+                if (slopeForward.sqrMagnitude > 0.001f)
+                {
+                    transform.rotation = Quaternion.LookRotation(
+                        slopeForward,
+                        groundNormal
+                        );
+                }
+            }
+            //Rayが床に当たっているかつ滑っていない状態かつ坂を下っていない場合
+            else if (hit.collider.CompareTag("Floor") && !isSlide && !isSlope && !hitOther)
+            {
+                //滑るようにする
                 isSlide = true;
-                afterSlideSpeed = 6f;     //初期数値を入れる
-                slideSpeed = 8f;     //初期数値を入れる
+                isSlope = true;
+                hitOther = true;
+                afterSlideSpeed = 6f;
+                slideSpeed = 8f;
             }
         }
 
-        if (isSlide)
+        //滑り終わった後に坂にいない場合
+        if (isSlide && isSlope && hitOther)
         {
 
             Debug.Log("床に当たりました");
@@ -182,12 +234,27 @@ public class PlayerMove : MonoBehaviour
                 0.0f,
                 stopSpeed * Time.deltaTime);
 
-            if (afterSlideSpeed <= 0 && n > slideAngle)
+            //Rayがあったっているとき
+            if (hasHit)
             {
-                isSlide = false;
+                //坂にあたったら
+                if (hit.collider.CompareTag("Slope"))
+                {
+                    //坂を下れるようにする
+                    isSlide = false;
+                    isSlope = false;
+                    hitOther = false;
+                }
+                //坂以外に当たった場合
+                else
+                {
+                    //滑れないようにする
+                    isSlide = true;
+                    isSlope = true;
+                    hitOther = true;
+                }
             }
         }
-
     }
 
 
@@ -200,5 +267,24 @@ public class PlayerMove : MonoBehaviour
 
         // Y方向の速度は維持し、重力による落下を妨げない
         rb.linearVelocity = velocity;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //坂に当たったときにしか戻らないようにする
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            isSlide = true;
+            isSlope = true;
+            hitOther = true;
+            Debug.Log("床に当たりました");
+        }
+        else if (collision.gameObject.CompareTag("Slope"))
+        {
+            isSlide = false;
+            isSlope = false;
+            hitOther = false;
+            Debug.Log("坂に当たりました");
+        }
     }
 }

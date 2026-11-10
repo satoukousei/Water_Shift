@@ -2,14 +2,21 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// 【目的】
+/// プレイヤーが水状態または水蒸気状態のときに鍵を通りにけるようにするためのスクリプトです。
+/// 【使い方】
+/// なし
+/// </summary>
+
 public class KeyAction : MonoBehaviour
 {
     [SerializeField] private PlayerMove playerMove;
     [SerializeField] private Collider playerCollider;
     [SerializeField] private Collider keyCollider;
-    bool hasKey = false;
-    bool ishit = false;
-    bool isKeyHold = false;
+
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,47 +26,14 @@ public class KeyAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //水状態のときは重なるようにする
-        //このコライダーだけ動かないようにする
+        //ここで作っておくと便利
+        bool ignore = playerMove.IsWater || playerMove.IsSteam;
+        //水状態、水蒸気状態のときは重なるようにする
         Physics.IgnoreCollision
         //レイヤー取得
-        (playerCollider,     
+        (playerCollider,
         keyCollider,
-        playerMove.IsWater
+        ignore
         );
-        
-
-        //水状態のときに氷状態(仮で下キーを押したときに)にすると鍵を内包(子オブ)にする
-        if (hasKey && playerMove.IsWater && !isKeyHold &&
-            Keyboard.current != null &&     //キーボード入力チェック
-            Keyboard.current.downArrowKey.wasPressedThisFrame)
-        {
-            Debug.Log("子オブジェクトになりました");
-            //transform.SetParentで親オブジェクトを設定、playerMove.transformで親オブジェクト元を指定
-            transform.SetParent(playerMove.transform);
-            transform.position = playerMove.transform.position;
-
-            isKeyHold = true;
-        }
-    }
-
-    void OnTriggerEnter(Collider collision)
-    {
-        //プレイヤーにあったっているかつ水状態かつ鍵を持っていない時
-        if (collision.gameObject.CompareTag("Player") && playerMove.IsWater && !isKeyHold)
-        {
-            //鍵を取得できるようにする
-            Debug.Log("鍵を取得できます");
-            hasKey = true;
-        }
-    }
-
-    void OnTriggerExit(Collider collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && !isKeyHold)
-        {
-            Debug.Log("鍵を離しました");
-            hasKey = false;
-        }
     }
 }

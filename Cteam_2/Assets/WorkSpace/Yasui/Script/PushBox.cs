@@ -1,5 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// 【目的】
+/// プレイヤーが氷状態の時、箱を壊すためのスクリプトです。
+/// 【使い方】
+/// 箱を壊すことでcanMoveをtrueにし位置の解除をします。
+/// </summary>
+
 public class PushBox : MonoBehaviour
 {
     [SerializeField] private float breakBoxSpeed;
@@ -8,7 +15,7 @@ public class PushBox : MonoBehaviour
 
     public bool isPush = false; //箱を押したかどうか
     [SerializeField] private GameObject normalBox;
-    [SerializeField] private GameObject pressedBox;
+    public bool canMove = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,29 +31,44 @@ public class PushBox : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //箱自体のスケールを小さくするやり方
-        //if (collision.gameObject.CompareTag("Player") && !isPush && collision.relativeVelocity.magnitude < breakBoxSpeed)
-        //{
-        //    Transform boxTransform = transform;
 
-        //    Vector3 scale = boxTransform.localScale;
-        //    scale.y *= changeScale;
-        //    boxTransform.localScale = scale;
-        //    isPush = true;
-        //}
+    }
 
-        //親オブジェクトを消して子オブジェクトに画像を変更する
-        if (collision.gameObject.CompareTag("Player") &&
-           !isPush &&
-           collision.relativeVelocity.magnitude < breakBoxSpeed)
+    private void OnTriggerEnter(Collider other)
+    {
+        var playerVelocity = GetComponent<Rigidbody>();
+        if(playerVelocity == null)
         {
-            // 普通の箱を非表示にする
-            normalBox.SetActive(false);
+            return;
+        }
+        //親オブジェクトを消して子オブジェクトに画像を変更する
+        if (other.gameObject.CompareTag("Player") &&
+           !isPush &&
+           Mathf.Abs(playerVelocity.linearVelocity.y) < breakBoxSpeed
+           && playerMove.IsIce)
+        {
+            
+            Destroy(normalBox);
+            canMove = true;
+            ////箱自体のスケールを小さくするやり方
 
-            // 押された箱を表示する
-            pressedBox.SetActive(true);
+            //Transform boxTransform = transform;
 
-            isPush = true;
+            //Vector3 scale = boxTransform.localScale;
+            //scale.y *= changeScale;
+            //boxTransform.localScale = scale;
+            //normalBoxCollider.size = scale;
+            //isPush = true;
+
+            //// 普通の箱を非表示にする
+            //normalBox.SetActive(false);
+            //normalBoxCollider.SetActive(false);
+
+            //// 押された箱を表示する
+            //pressedBox.SetActive(true);
+
+            //isPush = true;
+            //boxPosition.ChangeBox();     //★
         }
     }
 }
