@@ -7,6 +7,8 @@ public class Events : MonoBehaviour
 
     public UnityEvent EndFadein;
 
-    public UnityEvent Goal; 
+    public UnityEvent PlayerGoal; 
+
+    public UnityEvent PlayerDeath;
 
 }

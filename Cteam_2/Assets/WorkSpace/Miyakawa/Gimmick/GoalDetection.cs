@@ -20,7 +20,7 @@ public class GoalDetection : MonoBehaviour
     {
         if (other.gameObject.name == PlayerParentName)
         {
-            events.Goal.Invoke();
+            events.PlayerGoal.Invoke();
             Debug.Log("ÉSÅ[Éã");
         }
     }
