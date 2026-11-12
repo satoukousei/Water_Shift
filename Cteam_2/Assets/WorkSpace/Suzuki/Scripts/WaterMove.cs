@@ -15,7 +15,8 @@ public class WaterMove : MonoBehaviour
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float upJumpPower = 7.0f;
     [SerializeField] private float rayLength = 1.1f;
-    [SerializeField] private LayerMask groundLayer = 0; //地面(すり抜けない床)のレイヤー
+    [SerializeField] private LayerMask[] groundLayer; //地面(すり抜けない床)のレイヤー
+
 
     [Header("コンポーネント設定")]
     [SerializeField] private Rigidbody rb = null;
@@ -41,8 +42,15 @@ public class WaterMove : MonoBehaviour
         }
 
         Vector3 rayOrigin = transform.parent != null ? transform.parent.position : transform.position;
-
-        isGrounded = Physics.Raycast(rayOrigin + jumpDirection, Vector3.down, rayLength, groundLayer);
+        for (int LayerCount = 0; LayerCount < groundLayer.Length; LayerCount++)
+        {
+            isGrounded = Physics.Raycast(rayOrigin + jumpDirection, Vector3.down, rayLength, groundLayer[LayerCount]);
+            if (isGrounded)
+            {
+                break;
+            }
+        }
+        Debug.DrawRay(rayOrigin, Vector3.down, Color.blue, rayLength);
 
         Movement();
         Jump();
