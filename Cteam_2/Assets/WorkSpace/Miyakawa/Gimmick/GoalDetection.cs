@@ -10,18 +10,24 @@ public class GoalDetection : MonoBehaviour
     [Tooltip("フェード用イメージを指定")]
     [SerializeField]
     FadeEffect fadeEffect;
+    [Tooltip("ステージ番号を記入(1始まり)")]
+    [SerializeField]
+    private int stageNumber = 1;
+    [SerializeField]
+    DoNotDestroy doNotDestroy;
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.name == PlayerParentName)
         {
-            events.Goal.Invoke();
+            events.PlayerGoal.Invoke();
             Debug.Log("ゴール");
         }
     }
 
     public void GoalEvent()
     {
+        doNotDestroy.isStageClear[stageNumber] = true;
         fadeEffect.StartFadeOut();
     }
 }

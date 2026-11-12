@@ -10,6 +10,8 @@ public class DeathDetection : MonoBehaviour
     private PlayerState playerState = PlayerState.Water; 
     [Header("EnumList‚ğw’è")]
     [SerializeField] private EnumList_Player changeStatePlayer;
+    [Header("Events‚ğw’è")]
+    [SerializeField] private Events events;
 
     void Start()
     {
@@ -27,6 +29,8 @@ public class DeathDetection : MonoBehaviour
         {
             if(changeStatePlayer.CurrentPlayerState == playerState)
             {
+                events.PlayerDeath.Invoke();
+
                 Debug.Log("€–S”»’è");
                 //‚±‚±‚É€–S‚Ìˆ—‚ğ’Ç‰Á
             }

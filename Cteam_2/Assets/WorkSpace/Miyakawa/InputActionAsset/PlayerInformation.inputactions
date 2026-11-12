@@ -15,6 +15,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "QuickRetry",
+                    "type": "Button",
+                    "id": "206f5ac5-0c07-4a5a-9299-bfc55d67c364",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold(duration=2)",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -39,6 +49,39 @@
                     "action": "BaseManual",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "9b173fa9-c924-42a5-8b87-772820fa1e92",
+                    "path": "OneModifier",
+                    "interactions": "Hold(duration=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QuickRetry",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "03977de5-283b-413b-b5bd-abaf57edb166",
+                    "path": "<XInputController>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QuickRetry",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "a8a42149-2cd2-4452-bef9-eda2099db62d",
+                    "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QuickRetry",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
