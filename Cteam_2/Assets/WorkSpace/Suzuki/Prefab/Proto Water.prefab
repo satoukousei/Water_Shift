@@ -127,7 +127,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaterMove
   moveSpeed: 5
   upJumpPower: 5
-  rayLength: 0.5
+  rayLength: 0.55
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  rb: {fileID: 0}
+  jumpDirection: {x: 0, y: 0, z: 0}
