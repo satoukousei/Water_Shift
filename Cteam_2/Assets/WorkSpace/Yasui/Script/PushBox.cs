@@ -11,7 +11,7 @@ public class PushBox : MonoBehaviour
 {
     [SerializeField] private float breakBoxSpeed;
     [SerializeField] private float changeScale;
-    [SerializeField] private PlayerMove playerMove;
+    [SerializeField] private EnumList_Player enumList_Player;
 
     public bool isPush = false; //箱を押したかどうか
     [SerializeField] private GameObject normalBox;
@@ -45,7 +45,7 @@ public class PushBox : MonoBehaviour
         if (other.gameObject.CompareTag("Player") &&
            !isPush &&
            Mathf.Abs(playerVelocity.linearVelocity.y) < breakBoxSpeed
-           && playerMove.IsIce)
+           && enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)
         {
             
             Destroy(normalBox);

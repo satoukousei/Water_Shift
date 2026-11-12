@@ -11,29 +11,23 @@ using UnityEngine.InputSystem;
 
 public class KeyAction : MonoBehaviour
 {
-    [SerializeField] private PlayerMove playerMove;
+    [SerializeField] private EnumList_Player enumList_Player;
     [SerializeField] private Collider playerCollider;
     [SerializeField] private Collider keyCollider;
-
-    
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
         //ここで作っておくと便利
-        bool ignore = playerMove.IsWater || playerMove.IsSteam;
+        bool ignore = enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Water ||
+                                 enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Steam;
+
+
         //水状態、水蒸気状態のときは重なるようにする
         Physics.IgnoreCollision
-        //レイヤー取得
-        (playerCollider,
-        keyCollider,
-        ignore
-        );
+            //レイヤー取得
+            (playerCollider,
+            keyCollider,
+            ignore
+            );
     }
 }

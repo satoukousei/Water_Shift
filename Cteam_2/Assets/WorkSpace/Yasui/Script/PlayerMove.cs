@@ -1,9 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// 【目的】
@@ -17,7 +13,7 @@ using UnityEngine.UIElements;
 ///  ・slideSpeedでプレイヤーが当たったときの坂を下る初速です。
 ///  ・slideAccelerationでプレイヤーが坂にいる間毎秒その値だけ加速します。
 ///  ・rotateSpeedで坂から地面に着地したときに毎秒ゆっくり角度を変えられます(数値が少ないほどゆっくり)。
-///  ・afterSlideSpeedで地面に着地したときに完成のようなものをつけられます。
+///  ・afterSlideSpeedで地面に着地したときに慣性をつけられます。
 ///  ・stopSpeedでafterSlideSpeedから毎秒減速します。
 /// </summary>
 
@@ -33,34 +29,33 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float rotateSpeed;
     [SerializeField] private float stopSpeed;
     [SerializeField] private float slideAngle;
-    public Rigidbody Rb;
 
-    public bool IsWater = false;     //水状態かどうか
-    public bool IsIce = true;        // 氷状態かどうか
-    public bool IsSteam = false;     //蒸気状態かどうか
+
+    //public bool IsWater = false;     //水状態かどうか
+    //public bool IsIce = true;        // 氷状態かどうか
+    //public bool IsSteam = false;     //蒸気状態かどうか
     private bool hitOther = false;   //坂と床以外にぶつかっているかどうか
-
     public  bool isSlide = false;
     private bool isSlope = false;
-    //public bool isIce => stateHolder.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
+    public bool isIce => stateHolder.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
 
     private Vector3 moveDirection;
+
+
 
     void Awake()
     {
         // 前後左右の回転を防ぐ
-        rb.constraints |= RigidbodyConstraints.FreezeRotationX;
-        rb.constraints |= RigidbodyConstraints.FreezeRotationZ;
+        //rb.constraints |= RigidbodyConstraints.FreezeRotationX;
+        //rb.constraints |= RigidbodyConstraints.FreezeRotationZ;
     }
 
     // 氷状態に切り替える
     public void IceRbSwitch()
     {
-        IsIce = true;
-
         if (rb != null)
         {
-            rb.isKinematic = false;
+            rb.useGravity = true;
         }
     }
 
@@ -73,12 +68,14 @@ public class PlayerMove : MonoBehaviour
 
         if (Keyboard.current.dKey.isPressed) // 右
         {
+            transform.parent.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
+
             moveDirection.x += moveSpeed;
         }
 
         if (Keyboard.current.aKey.isPressed) // 左
         {
-            //transform.parent.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
+            transform.parent.position -= new Vector3(moveSpeed * Time.deltaTime, 0, 0);
             moveDirection.x -= moveSpeed;
         }
 
@@ -94,46 +91,41 @@ public class PlayerMove : MonoBehaviour
         }
 
         //状態変化(仮)
-        if(Keyboard.current.downArrowKey.wasPressedThisFrame)
-        {
-            IsWater = true;
-            IsIce = false;
-            IsSteam = false;
-        }
-        else if (Keyboard.current.upArrowKey.wasPressedThisFrame)
-        {
-            IsWater = false;
-            IsIce = true;
-            IsSteam = false;
-        }
-        else if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
-        {
-            IsWater = false;
-            IsIce = true;
-            IsSteam = false;
-        }
-        else if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
-        {
-            IsWater = false;
-            IsIce = false;
-            IsSteam = true;
-        }
+        //if(Keyboard.current.downArrowKey.wasPressedThisFrame)
+        //{
+        //    IsWater = true;
+        //    IsIce = false;
+        //    IsSteam = false;
+        //}
+        //else if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
+        //{
+        //    IsWater = false;
+        //    IsIce = true;
+        //    IsSteam = false;
+        //}
+        //else if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+        //{
+        //    IsWater = false;
+        //    IsIce = false;
+        //    IsSteam = true;
+        //}
 
 
-        if (IsWater)
-        {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
-            }
-        }
+        //if (IsWater)
+        //{
+        //    if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        //    {
+        //        rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        //    }
+        //}
 
 
         //プレイヤーから下方向に線をとばす
-        Ray ray = new Ray(transform.position, Vector3.down);
+        Ray ray = new Ray(transform.parent.position, Vector3.down);
 
         bool hasHit = Physics.Raycast(ray, out RaycastHit Hit, rayDirection);
 
+        Debug.DrawRay(transform.parent.position, Vector3.down, Color.red, rayDirection);
         
 
         if (Physics.Raycast(ray, out RaycastHit hit, rayDirection) && hasHit)     //坂を下る
@@ -147,10 +139,10 @@ public class PlayerMove : MonoBehaviour
 
             
 
-            //一定の角度以上かつ滑っている状態でないかつ坂以外にぶつかっていない場合坂を滑る
-            if (hit.collider.CompareTag("Slope") && n > slideAngle && !isSlide && !hitOther)     //一定の角度以上で滑るようにする
+            //一定の角度以上かつ滑ってない状態かつ坂以外にぶつかっていない場合に坂を滑る
+            if (hit.collider.CompareTag("Slope") && n >= slideAngle && !isSlide && !hitOther)     //一定の角度以上で滑るようにする
             {
-                Vector3 forward = transform.forward;
+                Vector3 forward = transform.parent.forward;
 
                 //線をとばした方向にプレイヤーの向きを合わせる
                 Vector3 slopeForward = Vector3.ProjectOnPlane(forward, groundNormal).normalized;
@@ -158,7 +150,7 @@ public class PlayerMove : MonoBehaviour
                 //坂の角度に合わせてプレイヤーを回転
                 if (slopeForward.sqrMagnitude > 0.001f)
                 {
-                    transform.rotation = Quaternion.LookRotation(
+                    transform.parent.rotation = Quaternion.LookRotation(
                         slopeForward,
                         groundNormal
                         );
@@ -176,14 +168,14 @@ public class PlayerMove : MonoBehaviour
                     20f,
                     slideAcceleration * Time.deltaTime);
 
-                transform.position += slideDirection * slideSpeed * Time.deltaTime;
+                transform.parent.position += slideDirection * slideSpeed * Time.deltaTime;
 
             }
             //一定の角度以上かつ滑っている状態のときRayがあったっている物体に角度をあわせる
             else if (n <= slideAngle && isSlide)
             {
 
-                Vector3 forward = transform.forward;
+                Vector3 forward = transform.parent.forward;
 
                 //線をとばした方向にプレイヤーの向きを合わせる
                 Vector3 slopeForward = Vector3.ProjectOnPlane(forward, groundNormal).normalized;
@@ -191,14 +183,14 @@ public class PlayerMove : MonoBehaviour
                 //坂の角度に合わせてプレイヤーを回転
                 if (slopeForward.sqrMagnitude > 0.001f)
                 {
-                    transform.rotation = Quaternion.LookRotation(
+                    transform.parent.rotation = Quaternion.LookRotation(
                         slopeForward,
                         groundNormal
                         );
                 }
             }
-            //Rayが床に当たっているかつ滑っていない状態かつ坂を下っていない場合
-            else if (hit.collider.CompareTag("Floor") && !isSlide && !isSlope && !hitOther)
+            //Rayが床に当たっているかつ坂を下っていない場合
+            else if (hit.collider.CompareTag("Ground") && !isSlide && !isSlope && !hitOther)
             {
                 //滑るようにする
                 isSlide = true;
@@ -221,13 +213,13 @@ public class PlayerMove : MonoBehaviour
             float n = Mathf.Abs(Mathf.Acos(Vector3.Dot(groundNormal, Vector3.up)) * Mathf.Rad2Deg);
             Debug.Log(n);
 
-            transform.rotation = Quaternion.Slerp(
-            transform.rotation,
+            transform.parent.rotation = Quaternion.Slerp(
+            transform.parent.rotation,
             Quaternion.identity,
             rotateSpeed * Time.deltaTime
             );
 
-            transform.position -= Vector3.right * afterSlideSpeed * Time.deltaTime;
+            transform.parent.position -= Vector3.right * afterSlideSpeed * Time.deltaTime;
 
             afterSlideSpeed = Mathf.MoveTowards(     
                 afterSlideSpeed,
@@ -272,7 +264,7 @@ public class PlayerMove : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //坂に当たったときにしか戻らないようにする
-        if (collision.gameObject.CompareTag("Floor"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isSlide = true;
             isSlope = true;
