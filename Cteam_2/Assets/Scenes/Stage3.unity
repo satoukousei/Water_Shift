@@ -17130,17 +17130,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfe02513d87c9c347bc584b9b3004c22, type: 3}
---- !u!114 &616626446 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3698640232676892128, guid: dfe02513d87c9c347bc584b9b3004c22, type: 3}
-  m_PrefabInstance: {fileID: 616626445}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 616626451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 425f4c5222369c2408d3f15d7f133df0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
 --- !u!1 &616626447 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6141281026279727604, guid: dfe02513d87c9c347bc584b9b3004c22, type: 3}
@@ -17173,11 +17162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e41bb26b9538f41803b4b937bbc278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Steam_Playe_Move
---- !u!1 &616626451 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4215907051150645699, guid: dfe02513d87c9c347bc584b9b3004c22, type: 3}
-  m_PrefabInstance: {fileID: 616626445}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &617884745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26724,7 +26708,7 @@ PrefabInstance:
     - target: {fileID: 2505396965240379742, guid: f1ac6bf1747c63f49b56692ed0b37553, type: 3}
       propertyPath: ice
       value: 
-      objectReference: {fileID: 616626446}
+      objectReference: {fileID: 0}
     - target: {fileID: 2505396965240379742, guid: f1ac6bf1747c63f49b56692ed0b37553, type: 3}
       propertyPath: steam
       value: 
@@ -26736,7 +26720,7 @@ PrefabInstance:
     - target: {fileID: 2505396965240379742, guid: f1ac6bf1747c63f49b56692ed0b37553, type: 3}
       propertyPath: model1_ice
       value: 
-      objectReference: {fileID: 616626451}
+      objectReference: {fileID: 0}
     - target: {fileID: 2505396965240379742, guid: f1ac6bf1747c63f49b56692ed0b37553, type: 3}
       propertyPath: model2_water
       value: 
@@ -44354,6 +44338,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ca5ff71f3204a6f498fdf9d96a946c5c, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 30c389e0437b70e4a9f20f726311760c, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -1750125985355865389, guid: 30c389e0437b70e4a9f20f726311760c, type: 3}
     - target: {fileID: 919132149155446097, guid: 30c389e0437b70e4a9f20f726311760c, type: 3}
       propertyPath: m_Name
       value: green_block (2)

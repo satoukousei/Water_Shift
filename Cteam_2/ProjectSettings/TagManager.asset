@@ -11,6 +11,8 @@ TagManager:
   - Water
   - Block
   - Floor
+  - box
+  - Slope
   layers:
   - Default
   - TransparentFX
@@ -20,8 +22,8 @@ TagManager:
   - UI
   - Ground
   - Player
-  - 
-  - 
+  - Box
+  - Fragment
   - 
   - 
   - 
