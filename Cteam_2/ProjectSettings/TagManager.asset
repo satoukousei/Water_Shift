@@ -10,6 +10,7 @@ TagManager:
   - Ice
   - Water
   - Block
+  - Floor
   layers:
   - Default
   - TransparentFX
