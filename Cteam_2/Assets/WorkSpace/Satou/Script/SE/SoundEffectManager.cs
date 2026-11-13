@@ -16,8 +16,13 @@ public class SoundEffectManager : MonoBehaviour
     /// </summary>
     public enum SoundEffectName
     {
-        Player_Jump,
-        Player_Move
+        StageClear,
+        BreaklRock,
+        BreakWoodBox,
+        IceFalling,
+        IceSlip,
+        WaterFalling,
+        CloudsTatchCeiling
     }
 
     private AudioSource[] audioSources = System.Array.Empty<AudioSource>();

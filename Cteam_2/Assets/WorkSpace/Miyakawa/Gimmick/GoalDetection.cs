@@ -31,7 +31,8 @@ public class GoalDetection : MonoBehaviour
 
     public void GoalEvent()
     {
-        doNotDestroy.isStageClear[stageNumber] = true;
+      //ステージ選択等決定したときにコメントアウトを外す
+      //  doNotDestroy.isStageClear[stageNumber] = true;
         fadeEffect.StartFadeOut();
     }
 }
