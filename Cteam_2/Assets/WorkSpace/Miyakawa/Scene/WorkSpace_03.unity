@@ -203,11 +203,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7115755718234617502, guid: 22d9097ff5e26b44a8779c01accdedaa, type: 3}
   m_PrefabInstance: {fileID: 6877107324067308526}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &240811527 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4027763836621758028, guid: 22d9097ff5e26b44a8779c01accdedaa, type: 3}
-  m_PrefabInstance: {fileID: 6877107324067308526}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &497104894
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,8 +238,9 @@ MonoBehaviour:
   PlayerParentName: PlayerParent
   events: {fileID: 1896258508}
   fadeEffect: {fileID: 1896258519}
+  controllStop: {fileID: 1896258522}
+  doNotDestroy: {fileID: 1896258533}
   stageNumber: 1
-  doNotDestroy: {fileID: 0}
 --- !u!65 &497104896
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -548,6 +544,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6095526316475433694, guid: 61eb577c349b46d4d853e387146ff180, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7636004790813196359, guid: 61eb577c349b46d4d853e387146ff180, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -635,6 +635,32 @@ MonoBehaviour:
   deathHeight: -10
   groundTag: Ground
   deathZoneTag: DeathZone
+--- !u!114 &1896258522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896258507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e28f64bbb4d02a4fabeacc1f4f7c948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControllStop
+  player: {fileID: 896964193}
+--- !u!114 &1896258533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896258507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf75c121579c66e44800c417e7afe17d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoNotDestroy
+  isStageClear: 
 --- !u!1 &2147367896
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,6 +868,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8873728371247006586, guid: 22d9097ff5e26b44a8779c01accdedaa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -861,7 +891,7 @@ PrefabInstance:
     - target: {fileID: 1228033948537080090, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: model1_ice
       value: 
-      objectReference: {fileID: 240811527}
+      objectReference: {fileID: 0}
     - target: {fileID: 1228033948537080090, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: model2_water
       value: 
@@ -915,6 +945,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: Goal.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -931,15 +965,63 @@ PrefabInstance:
       value: GoalEvent
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: EndFadein.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1896258522}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 497104895}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DisableMovement
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: GoalEvent
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: Goal.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: GoalDetection, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControllStop, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GoalDetection, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: Goal.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8065018090643025290, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
@@ -1001,6 +1083,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4893467797179136533, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1896258521}
+    - targetCorrespondingSourceObject: {fileID: 4893467797179136533, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1896258522}
+    - targetCorrespondingSourceObject: {fileID: 4893467797179136533, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1896258533}
   m_SourcePrefab: {fileID: 100100000, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
