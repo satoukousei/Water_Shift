@@ -96,6 +96,8 @@ public class FadeEffect : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        if (!isFadeOut) events.EndFadein.Invoke();
+            events.EndFadein.Invoke();
+            Debug.Log("フェードイン終了");
+
     }
 }

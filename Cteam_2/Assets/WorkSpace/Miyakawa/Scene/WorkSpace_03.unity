@@ -754,6 +754,18 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+--- !u!114 &1896258545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896258507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f677df95d1270a42b7bd3205d17d780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NextStage
 --- !u!1 &2147367896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1016,7 @@ PrefabInstance:
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: EndFadein.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1896258545}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1013,6 +1025,10 @@ PrefabInstance:
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 497104895}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: EndFadein.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadNextScene
+      objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1032,6 +1048,10 @@ PrefabInstance:
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: Goal.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: GoalDetection, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: EndFadein.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneTransitionManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1103,6 +1123,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4893467797179136533, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      insertIndex: 10
+      addedObject: {fileID: 1896258545}
     - targetCorrespondingSourceObject: {fileID: 4893467797179136533, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1896258544}
