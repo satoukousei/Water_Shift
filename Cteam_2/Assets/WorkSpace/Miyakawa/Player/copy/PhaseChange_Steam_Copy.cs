@@ -68,6 +68,7 @@ public class PhaseChange_Steam_Copy : MonoBehaviour
 
     public void RbSwitch()
     {
-        rb.useGravity = true;
+        rb.useGravity = false;
+        rb.freezeRotation = true;
     }
 }

@@ -1,10 +1,19 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Move_Steam : MonoBehaviour
 {
+    [Header("InputActionを割り当て")]
+    public InputActionReference playerActionRef;
+
+    [Header("上昇スピード")]
     [SerializeField] private float upperMoveSpeed = 5f;
 
-    [SerializeField] private Rigidbody rigidBodyParent;
+    [Header("EnumListを割り当て")]
+    [SerializeField] private EnumList_Player playerState;
+
+    [Header("Playerを割り当て")]
+    [SerializeField] private GameObject playerModel;
 
     void FixedUpdate()
     {
@@ -14,12 +23,6 @@ public class Move_Steam : MonoBehaviour
     private void UpperMove()
     {
         // 物理演算を通して上に移動
-        rigidBodyParent.MovePosition(rigidBodyParent.position + Vector3.up * upperMoveSpeed * Time.fixedDeltaTime);
-    }
-
-    void FixidRigidbody()
-    {
-        rigidBodyParent.useGravity = false;
-        rigidBodyParent.freezeRotation = true;
+        playerModel.transform.position += new Vector3(0f, upperMoveSpeed * Time.deltaTime, 0f);
     }
 }
