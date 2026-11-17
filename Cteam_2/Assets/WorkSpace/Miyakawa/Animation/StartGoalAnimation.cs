@@ -1,14 +1,26 @@
-using UnityEngine;
 
+//現在animatorがないため、関連処理はコメントアウトしています。
+
+using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
-    [Header("プレイヤーのアニメーションを割り当て")]
-    [SerializeField] private Animator animator;
+    [Header("seManagerを指定")]
+    [SerializeField] private SoundEffectManager soundEffectManager; 
 
-    [Header("イベント管理用スクリプトを割り当て")]
+    //[Header("プレイヤーのアニメーションを指定")]
+    //[SerializeField] private Animator animator;
+
+    [Header("イベント管理用スクリプトを指定")]
     [SerializeField] private Events events;
 
     private bool isCheckingGoalAnimation = false;
+
+    private SoundEffectManager.SoundEffectName StageClear = SoundEffectManager.SoundEffectName.StageClear;
+
+    private void Start()
+    {
+        events.PlayerGoal.AddListener(StartAnimation);
+    }
 
     private void Update()
     {
@@ -16,7 +28,7 @@ public class PlayerAnimation : MonoBehaviour
         {
             if (IsGoalAnimationEnd())
             {
-                isCheckingGoalAnimation = false;
+                isCheckingGoalAnimation = true;
 
                 events.EndGoalAnimation.Invoke();
                 Debug.Log("ゴールアニメーション終了");
@@ -27,20 +39,29 @@ public class PlayerAnimation : MonoBehaviour
 
     public bool IsGoalAnimationEnd()
     {
-        AnimatorStateInfo stateInfo =
-            animator.GetCurrentAnimatorStateInfo(0);
+        //アニメーションが現在ないため、すぐにtrueに。
+        return true;
 
-        if (stateInfo.IsName("Goal") &&
-            stateInfo.normalizedTime >= 1.0f)
-        {
-            return true;
-        }
+        //AnimatorStateInfo stateInfo =
+        //    animator.GetCurrentAnimatorStateInfo(0);
 
-        return false;
+        //if (stateInfo.IsName("Goal") &&
+        //    stateInfo.normalizedTime >= 1.0f)
+        //{
+        //    return false;
+        //}
+
+        //return true;
     }
 
-    private void isCheckingGoalAnimationStart()
+    private void StartAnimation()
     {
-               isCheckingGoalAnimation = true;
+        isCheckingGoalAnimation = true;
+        soundEffectManager.OnPlayOneShot(StageClear);
+
+        //if (animator != null)
+        //{
+        //    animator.SetTrigger("Goal");
+        //}
     }
 }

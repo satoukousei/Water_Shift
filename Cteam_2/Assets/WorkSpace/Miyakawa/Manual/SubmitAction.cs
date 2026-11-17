@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class SubmitAction : MonoBehaviour
 {
     [Header("‘€ìà–¾‚Ì‰æ‘œ‚ğw’è")]
     [SerializeField] private GameObject manualImage;
@@ -58,8 +58,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
             case ButtonSelector.MenuButtonState.Manual:
                  if(manualImage!=null)
                 {
-                    manualImage.SetActive(true);
-                    isManualImageActive = true;
+                    buttonSelector.ActiveManualImage();
                 }
                  break;
         }

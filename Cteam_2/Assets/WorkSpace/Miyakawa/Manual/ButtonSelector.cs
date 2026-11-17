@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonSelector : MonoBehaviour
 {
@@ -6,6 +7,10 @@ public class ButtonSelector : MonoBehaviour
     [SerializeField] private GameObject RetryButton;
     [SerializeField] private GameObject SelectStageButton;
     [SerializeField] private GameObject ManualButton;
+    [Header("ëÄçÏê‡ñæÇÃImageÇéwíË")]
+    [SerializeField] private Image manualImage;
+
+    public bool isManualImageActive = false;
 
     public enum MenuButtonState
     {
@@ -19,6 +24,7 @@ public class ButtonSelector : MonoBehaviour
     void Start()
     {
         ScaleUpSelectedButton();
+        isManualImageActive = false;
     }
 
     public void CurrentUp()
@@ -52,6 +58,15 @@ public class ButtonSelector : MonoBehaviour
                 SelectStageButton.transform.localScale = Vector3.one;
                 ManualButton.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
                 break;
+        }
+    }
+
+    public void ActiveManualImage()
+    {
+        if(manualImage != null)
+        {
+            manualImage.color = new Color(0f, 0f, 0f, 1f);
+            isManualImageActive = true;
         }
     }
 }
