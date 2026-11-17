@@ -8,18 +8,18 @@ public class MoveSelectionDown: MonoBehaviour
     [SerializeField] private ButtonSelector buttonSelector;
 
     [Header("InputActionÇäÑÇËìñÇƒ")]
-    public InputActionReference playerActionRef;
+    public InputActionReference menuActionRef;
     private void OnEnable()
     {
         if (!Application.isPlaying) return;
 
-        if (playerActionRef == null)
+        if (menuActionRef == null)
         {
             Debug.LogWarning("playerActionRefÇ™ñ¢ê›íËÇ≈Ç∑ÅB");
             return;
         }
 
-        var action = playerActionRef.action;
+        var action = menuActionRef.action;
         action.started += OnMoveStarted;
         action.Enable();
 
@@ -28,9 +28,9 @@ public class MoveSelectionDown: MonoBehaviour
 
     private void OnDisable()
     {
-        if (playerActionRef == null) return;
+        if (menuActionRef == null) return;
 
-        var action = playerActionRef.action;
+        var action = menuActionRef.action;
         action.started -= OnMoveStarted;
         action.Disable();
 

@@ -14,7 +14,7 @@ public class ButtonSelector : MonoBehaviour
         Manual
     }
 
-    private MenuButtonState currentState = MenuButtonState.Retry;
+    public MenuButtonState menucurrentState = MenuButtonState.Retry;
 
     void Start()
     {
@@ -23,19 +23,19 @@ public class ButtonSelector : MonoBehaviour
 
     public void CurrentUp()
     {
-        currentState = (MenuButtonState)(((int)currentState + 2) % 3);
+        menucurrentState = (MenuButtonState)(((int)menucurrentState + 2) % 3);
         ScaleUpSelectedButton();
     }
 
     public void CurrentDown()
     {
-        currentState = (MenuButtonState)(((int)currentState + 1) % 3);
+        menucurrentState = (MenuButtonState)(((int)menucurrentState + 1) % 3);
         ScaleUpSelectedButton();
     }
 
     private void ScaleUpSelectedButton()
     {
-        switch (currentState)
+        switch (menucurrentState)
         {
             case MenuButtonState.Retry:
                 RetryButton.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
