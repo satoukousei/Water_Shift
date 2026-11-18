@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// ・インスペクターから移動速度、ジャンプ力、レイの長さ、地面レイヤー、Rigidbody等を設定してください。
 /// 
 /// 【目的】
-/// ・水状態のプレイヤーの移動、接地判定に基づくジャンプ、空中での移動制限、およびジャンプ中の慣性移動を制御するためにあります。
+/// ・水状態のプレイヤーの移動、接地判定に基づくジャンプ、および移動停止時の滑り（慣性）を防止する制御を行うためにあります。
 /// </summary>
 public class WaterMove : MonoBehaviour
 {
@@ -15,8 +15,7 @@ public class WaterMove : MonoBehaviour
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float upJumpPower = 7.0f;
     [SerializeField] private float rayLength = 1.1f;
-    [SerializeField] private LayerMask[] groundLayer; //地面(すり抜けない床)のレイヤー
-
+    [SerializeField] private LayerMask[] groundLayer = null; // 地面(すり抜けない床)のレイヤー
 
     [Header("コンポーネント設定")]
     [SerializeField] private Rigidbody rb = null;
@@ -26,6 +25,9 @@ public class WaterMove : MonoBehaviour
 
     private bool isGrounded = false;
 
+    /// <summary>
+    /// コンポーネントの初期参照取得を行います
+    /// </summary>
     private void Start()
     {
         if (rb == null)
@@ -34,6 +36,9 @@ public class WaterMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 毎フレームの接地判定および移動・ジャンプ処理を呼び出します
+    /// </summary>
     private void Update()
     {
         if (Keyboard.current == null)
@@ -42,46 +47,69 @@ public class WaterMove : MonoBehaviour
         }
 
         Vector3 rayOrigin = transform.parent != null ? transform.parent.position : transform.position;
-        for (int LayerCount = 0; LayerCount < groundLayer.Length; LayerCount++)
+
+        isGrounded = false;
+        for (int layerCount = 0; layerCount < groundLayer.Length; layerCount++)
         {
-            isGrounded = Physics.Raycast(rayOrigin + jumpDirection, Vector3.down, rayLength, groundLayer[LayerCount]);
-            if (isGrounded)
+            if (Physics.Raycast(rayOrigin + jumpDirection, Vector3.down, rayLength, groundLayer[layerCount]))
             {
+                isGrounded = true;
                 break;
             }
         }
-        Debug.DrawRay(rayOrigin, Vector3.down, Color.blue, rayLength);
+
+        Debug.DrawRay(rayOrigin, Vector3.down * rayLength, Color.blue);
 
         Movement();
         Jump();
     }
 
+    /// <summary>
+    /// プレイヤーの移動処理を行います
+    /// </summary>
     private void Movement()
     {
-        // 空中（接地していない）の時は移動入力を受け付けない
-        if (!isGrounded || rb == null)
-        {
-            return;
-        }
+        Transform targetTransform = transform.parent != null ? transform.parent : transform;
 
-        float horizontalVelocity = 0.0f;
+        float horizontalInput = 0.0f;
 
-        // 右移動
+        // 右移動の入力
         if (Keyboard.current.dKey.isPressed)
         {
-            horizontalVelocity = moveSpeed;
+            horizontalInput = moveSpeed;
         }
-        // 左移動
+        // 左移動の入力
         else if (Keyboard.current.aKey.isPressed)
         {
-            horizontalVelocity = -moveSpeed;
+            horizontalInput = -moveSpeed;
         }
 
-        Vector3 currentVelocity = rb.linearVelocity;
-        currentVelocity.x = horizontalVelocity;
-        rb.linearVelocity = currentVelocity;
+        // キー入力がある場合：位置を動かす
+        if (horizontalInput != 0.0f)
+        {
+            targetTransform.position += new Vector3(horizontalInput * Time.deltaTime, 0.0f, 0.0f);
+
+            if (rb != null)
+            {
+                Vector3 currentVelocity = rb.linearVelocity;
+                currentVelocity.x = 0.0f;
+                rb.linearVelocity = currentVelocity;
+            }
+        }
+        else
+        {
+            if (rb != null)
+            {
+                Vector3 currentVelocity = rb.linearVelocity;
+                currentVelocity.x = 0.0f;
+                rb.linearVelocity = currentVelocity;
+            }
+        }
     }
 
+    /// <summary>
+    /// ジャンプ処理を行います
+    /// </summary>
     private void Jump()
     {
         if (rb == null)
@@ -95,13 +123,16 @@ public class WaterMove : MonoBehaviour
             Vector3 jumpVector = Vector3.up;
             Vector3 jumpVelocity = jumpVector * upJumpPower;
 
-            // 現在のX軸方向の慣性（速度）を保持したまま、上向きの速度を設定する
+            // Y軸方向のみ上向きの速度を設定する
             Vector3 currentVelocity = rb.linearVelocity;
             currentVelocity.y = jumpVelocity.y;
             rb.linearVelocity = currentVelocity;
         }
     }
 
+    /// <summary>
+    /// 重みを有効化するスイッチ関数
+    /// </summary>
     public void WaterRbSwitch()
     {
         if (rb != null)
