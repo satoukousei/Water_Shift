@@ -22,7 +22,9 @@ public class SoundEffectManager : MonoBehaviour
         IceFalling,
         IceSlip,
         WaterFalling,
-        CloudsTatchCeiling
+        CloudsTatchCeiling,
+        ButtonSelecting,
+        ButtonDecide
     }
 
     private AudioSource[] audioSources = System.Array.Empty<AudioSource>();

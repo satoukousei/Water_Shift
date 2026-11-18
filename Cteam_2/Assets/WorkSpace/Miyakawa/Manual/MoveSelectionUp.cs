@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public class MoveSelectionUp : MonoBehaviour
 
 {
+    [Header("OpenTheMenu‚ðŽw’è")]
+    [SerializeField] private OpenTheMenu openTheMenu;
 
     [Header("ButtonSelecter‚ðŽw’è")]
     [SerializeField] private ButtonSelector buttonSelector;
@@ -41,6 +43,9 @@ public class MoveSelectionUp : MonoBehaviour
 
     private void OnMoveStarted (InputAction.CallbackContext context)
     {
-        buttonSelector.CurrentUp();
+        if (openTheMenu.isMenuImageOpen == true)
+        {
+            buttonSelector.CurrentUp();
+        }
     }
 }

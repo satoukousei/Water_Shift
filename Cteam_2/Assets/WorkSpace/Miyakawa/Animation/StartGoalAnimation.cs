@@ -2,7 +2,7 @@
 //現在animatorがないため、関連処理はコメントアウトしています。
 
 using UnityEngine;
-public class PlayerAnimation : MonoBehaviour
+public class StartGoalAnimation : MonoBehaviour
 {
     [Header("seManagerを指定")]
     [SerializeField] private SoundEffectManager soundEffectManager; 

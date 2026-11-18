@@ -83,6 +83,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5afd5db2-a378-4371-a01e-b4027b96a606",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bdc8ce3a-7e10-4c80-89de-2183cfea1179",
                     "path": "<Keyboard>/b",
                     "interactions": "",
@@ -106,7 +117,7 @@
                 {
                     "name": "",
                     "id": "2977835e-8b58-4a0e-a421-bc43d336870f",
-                    "path": "<Keyboard>/b",
+                    "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -117,7 +128,7 @@
                 {
                     "name": "",
                     "id": "84fcab72-6d68-440c-acf1-72cd36e524f4",
-                    "path": "<XInputController>/{Menu}",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class SubmitAction : MonoBehaviour
 {
+    [Header("メニューのBG画像を指定")]
+    [SerializeField] private GameObject menuBGImage;
+
     [Header("操作説明の画像を指定")]
     [SerializeField] private GameObject manualImage;
 
@@ -45,22 +48,24 @@ public class SubmitAction : MonoBehaviour
 
     private void OnMoveStarted(InputAction.CallbackContext context)
     {
-        switch (buttonSelector.menucurrentState)
+        if (menuBGImage != null && menuBGImage.activeSelf)
         {
-            case ButtonSelector.MenuButtonState.Retry:
-
-                 Debug.Log("リトライボタンが押されました。");
-                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                 break;
-            case ButtonSelector.MenuButtonState.SelectStage:
-                SceneManager.LoadScene("StageSelectScene");
-                break;
-            case ButtonSelector.MenuButtonState.Manual:
-                 if(manualImage!=null)
-                {
-                    buttonSelector.ActiveManualImage();
-                }
-                 break;
+            switch (buttonSelector.menucurrentState)
+            {
+                case ButtonSelector.MenuButtonState.Retry:
+                    Debug.Log("リトライボタンが押されました。");
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    break;
+                case ButtonSelector.MenuButtonState.SelectStage:
+                    SceneManager.LoadScene("StageSelectScene");
+                    break;
+                case ButtonSelector.MenuButtonState.Manual:
+                    if (manualImage != null)
+                    {
+                        buttonSelector.ActiveManualImage();
+                    }
+                    break;
+            }
         }
     }
 }

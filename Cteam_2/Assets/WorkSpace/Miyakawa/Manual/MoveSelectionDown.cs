@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class MoveSelectionDown: MonoBehaviour
 {
+    [Header("OpenTheMenu‚ðŽw’è")]
+    [SerializeField] private OpenTheMenu openTheMenu;
 
     [Header("ButtonSelecter‚ðŽw’è")]
     [SerializeField] private ButtonSelector buttonSelector;
@@ -39,6 +41,9 @@ public class MoveSelectionDown: MonoBehaviour
 
     private void OnMoveStarted(InputAction.CallbackContext context)
     {
-        buttonSelector.CurrentDown();
+        if (openTheMenu.isMenuImageOpen == true)
+        {
+            buttonSelector.CurrentDown();
+        }
     }
 }

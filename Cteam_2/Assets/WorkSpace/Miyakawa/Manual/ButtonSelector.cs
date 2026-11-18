@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class ButtonSelector : MonoBehaviour
 {
+    [Header("SoundEffectManagerを指定")]
+    [SerializeField] private SoundEffectManager seManager;
+
     [Header("ボタンのImageを指定")]
     [SerializeField] private GameObject RetryButton;
     [SerializeField] private GameObject SelectStageButton;
@@ -21,22 +24,26 @@ public class ButtonSelector : MonoBehaviour
 
     public MenuButtonState menucurrentState = MenuButtonState.Retry;
 
-    void Start()
+    private void Start()
     {
         ScaleUpSelectedButton();
-        isManualImageActive = false;
+        HideManualImage();
     }
 
     public void CurrentUp()
     {
         menucurrentState = (MenuButtonState)(((int)menucurrentState + 2) % 3);
+        seManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonSelecting);
         ScaleUpSelectedButton();
+        Debug.Log("現在の数値" + menucurrentState);
     }
 
     public void CurrentDown()
     {
         menucurrentState = (MenuButtonState)(((int)menucurrentState + 1) % 3);
+        seManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonSelecting);
         ScaleUpSelectedButton();
+        Debug.Log("現在の数値" + menucurrentState);
     }
 
     private void ScaleUpSelectedButton()
@@ -63,10 +70,25 @@ public class ButtonSelector : MonoBehaviour
 
     public void ActiveManualImage()
     {
-        if(manualImage != null)
+        if (manualImage == null)
         {
-            manualImage.color = new Color(0f, 0f, 0f, 1f);
-            isManualImageActive = true;
+            return;
         }
+
+        manualImage.gameObject.SetActive(true);
+        isManualImageActive = true;
+    }
+
+    public void HideManualImage()
+    {
+        isManualImageActive = false;
+
+        manualImage.gameObject.SetActive(false);
+    }
+
+    public void ResetSelection()
+    {
+        menucurrentState = MenuButtonState.Retry;
+        ScaleUpSelectedButton();
     }
 }
