@@ -17,7 +17,6 @@ public class ModelChanger : MonoBehaviour
         model1_ice.SetActive(false);
         model2_water.SetActive(true);
         model3_steam.SetActive(false);
-        
     }
 
  public void ChangeModel_ice()

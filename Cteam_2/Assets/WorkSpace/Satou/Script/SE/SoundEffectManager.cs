@@ -17,7 +17,8 @@ public class SoundEffectManager : MonoBehaviour
     public enum SoundEffectName
     {
         Player_Jump,
-        Player_Move
+        Player_Move,
+        StageClear
     }
 
     private AudioSource[] audioSources = System.Array.Empty<AudioSource>();

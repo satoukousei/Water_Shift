@@ -11,4 +11,6 @@ public class Events : MonoBehaviour
 
     public UnityEvent PlayerDeath;
 
+    public UnityEvent EndGoalAnimation = new UnityEvent();
+
 }
