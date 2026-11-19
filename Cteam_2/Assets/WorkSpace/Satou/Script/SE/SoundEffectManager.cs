@@ -17,7 +17,7 @@ public class SoundEffectManager : MonoBehaviour
     public enum SoundEffectName
     {
         StageClear,
-        BreaklRock,
+        BreakRock,
         BreakWoodBox,
         IceFalling,
         IceSlip,

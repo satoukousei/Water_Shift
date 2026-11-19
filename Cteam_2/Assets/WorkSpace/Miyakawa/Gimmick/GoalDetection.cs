@@ -20,6 +20,11 @@ public class GoalDetection : MonoBehaviour
     [Header("ステージ番号を記入(1始まり)")]
     [SerializeField] private int stageNumber = 1;
 
+    private void Start()
+    {
+      events.PlayerGoal.AddListener(GoalEvent);
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.name == PlayerParentName)

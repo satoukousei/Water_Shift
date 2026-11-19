@@ -44,15 +44,6 @@ public class FadeEffect : MonoBehaviour
 
     void Update()
     {
-        //デバッグ用
-        if (Input.GetKeyUp(KeyCode.F))
-        {
-            StartFadeIn();
-        }
-        if (Input.GetKeyUp(KeyCode.G))
-        {
-            StartFadeOut();
-        }
 
     }
 
@@ -96,7 +87,14 @@ public class FadeEffect : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
+        if (isFadeOut)
+        {
             events.EndFadein.Invoke();
+        }
+        else
+        {
+            events.EndFadeout.Invoke();
+        }
             Debug.Log("フェードイン終了");
 
     }

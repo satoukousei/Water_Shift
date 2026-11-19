@@ -8,7 +8,11 @@ public class Events : MonoBehaviour
 
     public UnityEvent EndFadein;
 
+    public UnityEvent EndFadeout;
+
     public UnityEvent EndGoalAnimation;
+
+    public UnityEvent LastStage;
 
     public UnityEvent PlayerGoal; 
 

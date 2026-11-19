@@ -6,6 +6,9 @@ public class ControllStop : MonoBehaviour
     [Header("ƒvƒŒƒCƒ„[‚ğŠ„‚è“–‚Ä")]
     [SerializeField] GameObject player;
 
+    [Header("Events‚ğŠ„‚è“–‚Ä")]
+    [SerializeField] Events events;
+
     private bool isPlayerStop = false;
     private Vector3 stopPosition;
     private Rigidbody rb;
@@ -14,6 +17,7 @@ public class ControllStop : MonoBehaviour
     private void Start()
     {
         rb = player.GetComponent<Rigidbody>();
+        events.PlayerGoal.AddListener(DisableMovement);
     }
 
     private void Update()
