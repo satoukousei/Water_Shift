@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 /// <summary>
@@ -5,38 +6,47 @@ using UnityEngine;
 /// </summary>
 public class SteamPlayerMove : MonoBehaviour
 {
-    [SerializeField] private float upperMoveSpeed = 5.0f;
-
+    [SerializeField] private float startUpMoveSpeed = 3.0f;
+    [SerializeField] private float maxSpeed = 7.0f;
+    [SerializeField] private float upAcceleration = 1.0f;
     [SerializeField] private Rigidbody rigidBodyParent = null;
-
+    private float currentSpeed = 0f;
     /// <summary>
     /// 重力と回転を無効にする
     /// </summary>
     private void Awake()
     {
+        VelocityReset();
         rigidBodyParent.useGravity = false;
         rigidBodyParent.freezeRotation = true;
     }
-
-    /// <summary>
-    /// 物理演算の更新ごとに上へ移動する
-    /// </summary>
-    private void FixedUpdate()
+    private void Update()
     {
         UpperMove();
     }
 
-    /// <summary>
-    /// 物理演算を通して上に移動する
-    /// </summary>
     private void UpperMove()
     {
-        rigidBodyParent.MovePosition(rigidBodyParent.position + Vector3.up * upperMoveSpeed * Time.fixedDeltaTime);
+        rigidBodyParent.linearVelocity = Vector3.up * currentSpeed;
+        currentSpeed += upAcceleration * Time.deltaTime;
+
+        if(currentSpeed >= maxSpeed)
+        {
+            currentSpeed = maxSpeed;
+        }
+
     }
 
-    /// <summary>
-    /// 蒸気状態用に重力を無効にする
-    /// </summary>
+
+
+    public void VelocityReset()
+    {
+        currentSpeed = startUpMoveSpeed;
+        rigidBodyParent.linearVelocity = Vector3.zero;
+    }
+
+
+
     public void SteamRbSwitch()
     {
         rigidBodyParent.useGravity = false;
