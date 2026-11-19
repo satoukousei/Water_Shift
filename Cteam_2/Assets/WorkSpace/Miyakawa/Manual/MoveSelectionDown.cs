@@ -10,7 +10,7 @@ public class MoveSelectionDown: MonoBehaviour
     [SerializeField] private ButtonSelector buttonSelector;
 
     [Header("InputAction‚ðŠ„‚è“–‚Ä")]
-    private InputActionReference menuActionRef;
+    [SerializeField]private InputActionReference menuActionRef;
     private void OnEnable()
     {
         if (!Application.isPlaying) return;

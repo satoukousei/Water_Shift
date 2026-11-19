@@ -1,9 +1,14 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using static SoundEffectManager;
 
 public class SubmitAction : MonoBehaviour
 {
+    [Header("FadeEffectを指定")]
+    [SerializeField] private FadeEffect fadeEffect;
+
     [Header("soundEffectManagerを指定")]
     [SerializeField] private SoundEffectManager soundEffectManager;
 
@@ -17,9 +22,10 @@ public class SubmitAction : MonoBehaviour
     [SerializeField] private ButtonSelector buttonSelector;
 
     [Header("InputActionを割り当て")]
-    public InputActionReference menuActionRef;
+    [SerializeField] private InputActionReference menuActionRef;
 
     private bool isManualImageActive = false;
+    private float waitSETime = 1f; 
 
     private void OnEnable()
     {
@@ -56,22 +62,36 @@ public class SubmitAction : MonoBehaviour
             switch (buttonSelector.menucurrentState)
             {
                 case ButtonSelector.MenuButtonState.Retry:
-                    Debug.Log("リトライボタンが押されました。");
-                    soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonDecide);
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                    break;
+                     StartCoroutine(StartSceneTransition());
+                //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                     break;
                 case ButtonSelector.MenuButtonState.SelectStage:
-                    soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonDecide);
-                    SceneManager.LoadScene("StageSelectScene");
-                    break;
+                     StartCoroutine(StartSceneTransition());
+                //     SceneManager.LoadScene("StageSelectScene");
+                     break;
                 case ButtonSelector.MenuButtonState.Manual:
-                    soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonDecide);
-                    if (manualImage != null)
-                    {
-                        buttonSelector.ActiveManualImage();
-                    }
-                    break;
+                     soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonDecide);
+                     buttonSelector.ActiveManualImage();
+                     break;
             }
         }
+    }
+    
+    private IEnumerator StartSceneTransition()
+    {
+        soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonDecide);
+        yield return new WaitForSeconds(waitSETime);
+        fadeEffect.StartFadeOut();
+        yield return new WaitForSeconds(waitSETime);
+        switch (buttonSelector.menucurrentState)
+        {
+            case ButtonSelector.MenuButtonState.Retry:
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                break;
+            case ButtonSelector.MenuButtonState.SelectStage:
+                SceneManager.LoadScene("StageSelectScene");
+                break;
+        }
+                yield return null;
     }
 }

@@ -540,6 +540,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 556664613821348274, guid: 6b6cdbc51866aa2499025c80a5d94291, type: 3}
+      propertyPath: fadeEffect
+      value: 
+      objectReference: {fileID: 1869070053}
+    - target: {fileID: 556664613821348274, guid: 6b6cdbc51866aa2499025c80a5d94291, type: 3}
       propertyPath: manualImage
       value: 
       objectReference: {fileID: 2143410152}
@@ -626,7 +630,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7008972177487012044, guid: 6b6cdbc51866aa2499025c80a5d94291, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1869070053}
   m_SourcePrefab: {fileID: 100100000, guid: 6b6cdbc51866aa2499025c80a5d94291, type: 3}
 --- !u!1001 &1417836139
 PrefabInstance:
@@ -733,6 +740,29 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd25677d3afed04bae514093298df90, type: 3}
+--- !u!1 &1869070043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7008972177487012044, guid: 6b6cdbc51866aa2499025c80a5d94291, type: 3}
+  m_PrefabInstance: {fileID: 1364750402}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1869070053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869070043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0160cf77251cd4e8d15a885be6fc07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FadeEffect
+  events: {fileID: 1896258508}
+  fadeImage: {fileID: 1142917612}
+  fadeinTime: 0
+  fadeoutTime: 0.5
+  beforeFadeinTime: 0
+  beforeFadeoutTime: 0.5
 --- !u!1 &1896258507 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4893467797179136533, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
@@ -761,6 +791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a0160cf77251cd4e8d15a885be6fc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeEffect
+  events: {fileID: 1896258508}
   fadeImage: {fileID: 1142917612}
   fadeinTime: 3
   fadeoutTime: 1

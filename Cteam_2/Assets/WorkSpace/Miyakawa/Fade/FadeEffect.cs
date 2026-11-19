@@ -21,16 +21,10 @@ public class FadeEffect : MonoBehaviour
     [SerializeField] private float beforeFadeinTime = 1.0f;
     
     [Header("フェードアウト前の待ち時間")]
-    [SerializeField] private float beforeFadeoutTime = 1.0f;
-
-    
+    [SerializeField] private float beforeFadeoutTime = 1.0f; 
 
     private float fadeDuration = 1.0f;
     private float beforeWaitTime = 1.0f;
-
-    void Start()
-    {
-    }
 
     public void StartFadeIn()
     {
@@ -55,9 +49,9 @@ public class FadeEffect : MonoBehaviour
 
     private IEnumerator fade(bool isFadeOut)
     {
-        float startAlphaColor = fadeImage.color.a;
-        float targetAlphaColor = 0;
-        float elapsedTime = 0f;
+    float startAlphaColor = fadeImage.color.a;
+    float targetAlphaColor = 0;
+    float elapsedTime = 0f;
 
         if (isFadeOut)
         {
