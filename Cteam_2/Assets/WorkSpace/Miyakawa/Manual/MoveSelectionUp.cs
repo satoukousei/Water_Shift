@@ -11,7 +11,7 @@ public class MoveSelectionUp : MonoBehaviour
     [SerializeField] private ButtonSelector buttonSelector;
 
     [Header("InputAction‚ðŠ„‚è“–‚Ä")]
-    public InputActionReference menuActionRef;
+    [SerializeField] private InputActionReference menuActionRef;
 
     private void OnEnable()
     {

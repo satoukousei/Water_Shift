@@ -21,7 +21,7 @@ public class OpenTheMenu : MonoBehaviour
     [Header("InputActionReferenceController‚ðŽw’è")]
     [SerializeField] private InputActionReferenceController inputActionReferenceController;
 
-    public bool isMenuImageOpen = false;
+    public bool isMenuImageOpen { get; set; } = false;
 
     private void OnEnable()
     {

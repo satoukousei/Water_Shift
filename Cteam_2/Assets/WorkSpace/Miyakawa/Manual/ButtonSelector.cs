@@ -13,7 +13,7 @@ public class ButtonSelector : MonoBehaviour
     [Header("‘€ìà–¾‚ÌImage‚ğw’è")]
     [SerializeField] private Image manualImage;
 
-    public bool isManualImageActive = false;
+    private bool isManualImageActive = false;
 
     public enum MenuButtonState
     {

@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class SubmitAction : MonoBehaviour
 {
+    [Header("soundEffectManagerを指定")]
+    [SerializeField] private SoundEffectManager soundEffectManager;
+
     [Header("メニューのBG画像を指定")]
     [SerializeField] private GameObject menuBGImage;
 
@@ -54,12 +57,15 @@ public class SubmitAction : MonoBehaviour
             {
                 case ButtonSelector.MenuButtonState.Retry:
                     Debug.Log("リトライボタンが押されました。");
+                    soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonDecide);
                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                     break;
                 case ButtonSelector.MenuButtonState.SelectStage:
+                    soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonDecide);
                     SceneManager.LoadScene("StageSelectScene");
                     break;
                 case ButtonSelector.MenuButtonState.Manual:
+                    soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonDecide);
                     if (manualImage != null)
                     {
                         buttonSelector.ActiveManualImage();

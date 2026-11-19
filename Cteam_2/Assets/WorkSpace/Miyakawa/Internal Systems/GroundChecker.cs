@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
 {
-    [Header("ƒŒƒC‚Ìİ’è")]
+    [Header("ƒŒƒC‚Ì’·‚³")]
     [SerializeField] private float rayDistance = 2f;
 
     [Header("—‰º”»’è")]
@@ -49,11 +49,7 @@ public class GroundChecker : MonoBehaviour
                 transform.position.z);
         }
 
-        if (Physics.Raycast(
-            rayOrigin,
-            Vector3.down,
-            out RaycastHit hit,
-            rayDistance))
+        if (Physics.Raycast(rayOrigin,Vector3.down,out RaycastHit hit,rayDistance))
         {
             if (hit.collider.CompareTag(groundTag))
             {

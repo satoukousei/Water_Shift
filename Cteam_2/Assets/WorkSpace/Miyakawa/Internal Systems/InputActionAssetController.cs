@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class InputActionAssetController : MonoBehaviour
 {
-
+    [Header("~‚ß‚½‚¢InputActionAsset‚ğ‘S‚Äİ’è")]
     [SerializeField]
     private List<InputActionAsset> inputAsset;
 

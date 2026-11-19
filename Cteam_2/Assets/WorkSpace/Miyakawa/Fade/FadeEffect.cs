@@ -1,30 +1,35 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 
 public class FadeEffect : MonoBehaviour
 {
-    [SerializeField]
-    private Image fadeImage;
-    [Tooltip("フェードイン時間")]
+    [Header("Eventsを指定")]
+    [SerializeField] private Events events;
+
+    [Header("フェード用イメージを指定")]
+    [SerializeField]　private Image fadeImage;
+  
+    [Header("フェードイン時間")]
     [SerializeField] private float fadeinTime = 1.0f;
-    [Tooltip("フェードアウト時間")]
+    
+    [Header("フェードアウト時間")]
     [SerializeField] private float fadeoutTime = 1.0f;
-    [Tooltip("フェードイン前の待ち時間")]
+    
+    [Header("フェードイン前の待ち時間")]
     [SerializeField] private float beforeFadeinTime = 1.0f;
-    [Tooltip("フェードアウト前の待ち時間")]
+    
+    [Header("フェードアウト前の待ち時間")]
     [SerializeField] private float beforeFadeoutTime = 1.0f;
 
-    Events events;
+    
 
-    float fadeDuration = 1.0f;
-    float beforeWaitTime = 1.0f;
+    private float fadeDuration = 1.0f;
+    private float beforeWaitTime = 1.0f;
 
     void Start()
     {
-        events = GetComponent<Events>();
     }
 
     public void StartFadeIn()

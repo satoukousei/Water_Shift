@@ -4,10 +4,10 @@ using UnityEngine;
 public class ControllStop : MonoBehaviour
 {
     [Header("ƒvƒŒƒCƒ„[‚ğŠ„‚è“–‚Ä")]
-    [SerializeField] GameObject player;
+    [SerializeField] private GameObject player;
 
     [Header("Events‚ğŠ„‚è“–‚Ä")]
-    [SerializeField] Events events;
+    [SerializeField] private Events events;
 
     private bool isPlayerStop = false;
     private Vector3 stopPosition;

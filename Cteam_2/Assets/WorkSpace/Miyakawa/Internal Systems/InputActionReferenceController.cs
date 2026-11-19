@@ -6,10 +6,8 @@ using UnityEngine.InputSystem;
 public class InputActionReferenceController : MonoBehaviour
 {
 
-    [Header("’âŽ~‚·‚éInputAction")]
-    [SerializeField]
-
-    private List<InputActionReference> inputActions;
+    [Header("’âŽ~‚·‚éInputActionReference‚ð‘S‚ÄŽw’è")]
+    [SerializeField] private List<InputActionReference> inputActions;
 
     public void DisableActionReference()
     {
