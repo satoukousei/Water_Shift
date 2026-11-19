@@ -8,23 +8,12 @@ using UnityEngine;
 
 public class KeyBoxDelite : MonoBehaviour
 {
-    [SerializeField] private Collider KeyCollider;
-    [SerializeField] private GameObject KeyBox;
-    [SerializeField] private GameObject Key;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    [SerializeField] private Collider KeyCollider;     //鍵のコライダーをとる
+    [SerializeField] private GameObject KeyBox;        //鍵箱をとる
+    [SerializeField] private GameObject Key;           //鍵をとる
     private void OnCollisionEnter(Collision collision)
     {
+        //鍵と鍵箱がぶつかったら互いを壊す
         if (collision.collider == KeyCollider)
         {
             Destroy(Key);

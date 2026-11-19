@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class ControllStop : MonoBehaviour
 {
     [SerializeField] private InputActionReference targetAction;
-    [SerializeField] public bool inputEnabled = true;
+    [SerializeField] private bool inputEnabled = true;
 
     private void OnEnable()
     {
@@ -17,7 +17,7 @@ public class ControllStop : MonoBehaviour
             targetAction.action.Disable();
     }
 
-    public void SetInputEnabled(bool enabled)
+    private void SetInputEnabled(bool enabled)
     {
         inputEnabled = enabled;
         ApplyInputState();
@@ -26,11 +26,17 @@ public class ControllStop : MonoBehaviour
     private void ApplyInputState()
     {
         if (targetAction == null)
+        {
             return;
+        }
 
         if (inputEnabled)
+        {
             targetAction.action.Enable();
+        }
         else
+        {
             targetAction.action.Disable();
+        }
     }
 }
