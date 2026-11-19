@@ -25,6 +25,7 @@ public class FadeEffect : MonoBehaviour
 
     private float fadeDuration = 1.0f;
     private float beforeWaitTime = 1.0f;
+    private float waitEventTime = 3.0f; 
 
     public void StartFadeIn()
     {
@@ -84,7 +85,7 @@ public class FadeEffect : MonoBehaviour
         // 最終的なアルファ値を設定
         fadeImage.color = new Color(0f, 0f, 0f, targetAlphaColor);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(waitEventTime);
 
         if (isFadeOut)
         {

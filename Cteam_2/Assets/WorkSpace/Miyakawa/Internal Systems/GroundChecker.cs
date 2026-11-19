@@ -22,7 +22,6 @@ public class GroundChecker : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
 
-        // Groundブロックが見つかる前の初期復帰地点
         returnPosition = transform.position;
         returnRotation = transform.rotation;
     }

@@ -63,11 +63,9 @@ public class SubmitAction : MonoBehaviour
             {
                 case ButtonSelector.MenuButtonState.Retry:
                      StartCoroutine(StartSceneTransition());
-                //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                      break;
                 case ButtonSelector.MenuButtonState.SelectStage:
                      StartCoroutine(StartSceneTransition());
-                //     SceneManager.LoadScene("StageSelectScene");
                      break;
                 case ButtonSelector.MenuButtonState.Manual:
                      soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonDecide);

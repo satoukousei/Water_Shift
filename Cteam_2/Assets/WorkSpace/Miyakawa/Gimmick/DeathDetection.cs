@@ -22,9 +22,6 @@ public class DeathDetection : MonoBehaviour
             if(changeStatePlayer.CurrentPlayerState == playerState)
             {
                 events.PlayerDeath.Invoke();
-
-                Debug.Log("€–S”»’è");
-                //‚±‚±‚É€–S‚Ìˆ—‚ğ’Ç‰Á
             }
         }
     }
