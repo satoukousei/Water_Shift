@@ -66,23 +66,6 @@ public class PushBox : MonoBehaviour
             isPush = false;
             canBreak = false;
         }
-
-        //if (canBreak && enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)
-        //{
-        //    isPush = true;
-        //    canMove = true;
-        //    CrateBox.SetActive(false);
-        //}
-        //else
-        //{
-        //    if(enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)
-        //    {
-        //        isPush = true;
-        //        canMove = true;
-        //    }
-
-        //    canBreak = false;
-        //}
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -98,19 +81,6 @@ public class PushBox : MonoBehaviour
 
             isPush = true;
             canMove = true;
-
-            //if (canBreak)
-            //{
-            //    isPush = true;
-            //    canMove = true;
-            //    CrateBox.SetActive(false);
-            //}
-            //else
-            //{
-            //    isPush = true;
-            //    canMove = true;
-            //}
-
         }
         else
         {
