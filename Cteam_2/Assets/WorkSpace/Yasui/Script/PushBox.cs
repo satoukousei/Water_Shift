@@ -13,6 +13,7 @@ public class PushBox : MonoBehaviour
     [SerializeField] private GameObject CrateBox;      //壊す箱をとる
     [SerializeField] private Collider PlayerIceCollider;      //壊す箱をとる
     [SerializeField] private Collider CrateCollider;
+    [SerializeField] private SoundEffectManager soundEffectManager;
     //～●privateに変更しました●～
     private bool isPush = false;                         //箱を押したかどうか
     private bool canMove = false;                        //くっついて動かせない時に壊して動かせるようにするためのトリガー
@@ -38,6 +39,10 @@ public class PushBox : MonoBehaviour
         {
             isPush = true;
             canMove = true;
+            if (soundEffectManager != null)
+            {
+                soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.BreakWoodBox);
+            }
             CrateBox.SetActive(false);
         }
         else canBreak = false;

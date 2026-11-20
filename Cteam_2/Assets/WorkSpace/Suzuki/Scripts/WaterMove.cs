@@ -24,6 +24,8 @@ public class WaterMove : MonoBehaviour
     [SerializeField] private Vector3 jumpDirection = Vector3.zero;
 
     private bool isGrounded = false;
+    [SerializeField] private SoundEffectManager soundEffectManager;
+    private bool wasGrounded;
 
     /// <summary>
     /// コンポーネントの初期参照取得を行います
@@ -54,6 +56,12 @@ public class WaterMove : MonoBehaviour
                 break;
             }
         }
+
+        if (isGrounded && !wasGrounded && soundEffectManager != null)
+        {
+            soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.WaterFalling);
+        }
+        wasGrounded = isGrounded;
 
         Debug.DrawRay(rayOrigin, Vector3.down * rayLength, Color.blue);
 

@@ -34,8 +34,14 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float maxAngle = 90.0f;//マジックナンバーだったので直しました。
     [Header("InputActionAssetControllerを指定")]
     [SerializeField] private InputActionAssetController inputActionAssetController;
+    [Header("SE")]
+    [SerializeField] private SoundEffectManager soundEffectManager;
+    [SerializeField] private float slideSeInterval = 1.4f;
+    private float slideSeTimer;
+    private bool isSliding;
+    private bool isGrounded;
 
-    public bool  isSlide = false;
+    public bool isSlide = false;
     public bool isIce => enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
 
     private Vector3 moveDirection;
@@ -52,7 +58,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        inputActionAssetController.EnableActionAsset();
+        //inputActionAssetController.EnableActionAsset();
 
         //移動
         moveDirection = Vector3.zero;
@@ -90,18 +96,27 @@ public class PlayerMove : MonoBehaviour
 
         bool hasHit = Physics.Raycast(ray, out RaycastHit Hit, rayDirection);     //Rayが当たっているかどうか判定するためのhasHitトリガー
 
+        bool isGrounded = hasHit && Hit.collider.CompareTag("Ground");
+        if (enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice &&
+            isGrounded && !this.isGrounded && soundEffectManager != null)
+        {
+            soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.IceFalling);
+        }
+        this.isGrounded = isGrounded;
+
         if (Physics.Raycast(ray, out RaycastHit hit, rayDirection) && hasHit)     //坂を下る
         {
             //坂の向き法線ベクトル
             Vector3 groundNormal = hit.normal;
             //Rayがあったった物体の角度をとる
-            float currentAngle = Mathf.Abs(Mathf.Acos(Vector3.Dot(groundNormal, Vector3.up)) * Mathf.Rad2Deg);　
+            float currentAngle = Mathf.Abs(Mathf.Acos(Vector3.Dot(groundNormal, Vector3.up)) * Mathf.Rad2Deg);
             //～●nという名前が分かりづらかったのでcurrentAngleに変更しました●～
 
             //一定の角度以上かつ滑ってない状態かつ坂以外にぶつかっていない場合に坂を滑る
-            if (hit.collider.CompareTag("Slope") && currentAngle >= slideAngle && 
+            if (hit.collider.CompareTag("Slope") && currentAngle >= slideAngle &&
                 enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)     //一定の角度以上で滑るようにする
             {
+                UpdateSlide();
                 Vector3 forward = transform.parent.forward;
 
                 //線をとばした方向にプレイヤーの向きを合わせる
@@ -166,6 +181,8 @@ public class PlayerMove : MonoBehaviour
             }
             else if (hit.collider.CompareTag("Ground"))
             {
+                isSlide = false;
+                isSliding = false;
                 transform.parent.rotation = Quaternion.Slerp(
                 transform.parent.rotation,
                 Quaternion.identity,
@@ -179,8 +196,46 @@ public class PlayerMove : MonoBehaviour
 
                 }
             }
+            else
+            {
+                isSlide = false;
+                isSliding = false;
+            }
+        }
+        else
+        {
+            isSlide = false;
+            isSliding = false;
+            this.isGrounded = false;
         }
     }
+
+    /// <summary>
+    /// 氷状態で坂を滑っている間、一定間隔で滑走SEを再生します。
+    /// </summary>
+    private void UpdateSlide()
+    {
+        isSlide = true;
+
+        if (!isSliding)
+        {
+            slideSeTimer = 0f;
+        }
+
+        slideSeTimer -= Time.deltaTime;
+        if (slideSeTimer <= 0f)
+        {
+            if (soundEffectManager != null)
+            {
+                soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.IceSlip);
+            }
+
+            slideSeTimer = slideSeInterval;
+        }
+
+        isSliding = true;
+    }
+
     void FixedUpdate()
     {
         Vector3 velocity = rb.linearVelocity;

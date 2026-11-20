@@ -25,6 +25,7 @@ public class IceFallEffectController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer = 0;
     [SerializeField] private bool showFallingOnlyWhileFalling = true;
     [SerializeField] private float fallingVelocityThreshold = -0.05f;
+    [SerializeField] private SoundEffectManager soundEffectManager;
 
     [Header("落下エフェクト調整")]
     [SerializeField] private Vector3 fallingEffectScale = new Vector3(1.0f, 0.35f, 1.0f);
@@ -77,6 +78,10 @@ public class IceFallEffectController : MonoBehaviour
             if (wasFallingActive && isGrounded && !wasGrounded)
             {
                 SpawnLandingEffect();
+                if (soundEffectManager != null)
+                {
+                    soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.IceFalling);
+                }
             }
 
             wasFallingActive = false;
