@@ -32,6 +32,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float slideAngle;
     [SerializeField] private Transform playerRoot;
     [SerializeField] private float maxAngle = 90.0f;//マジックナンバーだったので直しました。
+    [Header("InputActionAssetControllerを指定")]
+    [SerializeField] private InputActionAssetController inputActionAssetController;
 
     public bool  isSlide = false;
     public bool isIce => enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
@@ -50,6 +52,8 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        inputActionAssetController.EnableActionAsset();
+
         //移動
         moveDirection = Vector3.zero;
         if (Keyboard.current == null)
@@ -110,6 +114,10 @@ public class PlayerMove : MonoBehaviour
                         groundNormal
                         );
                 }
+
+                //状態変化を止める
+                inputActionAssetController.DisableActionAsset();
+
                 //～▲変えました▲～
                 if (currentAngle <= maxAngle) //現在の角度が
                 {
@@ -152,6 +160,9 @@ public class PlayerMove : MonoBehaviour
                         groundNormal
                         );
                 }
+
+                //状態変化を止める
+                inputActionAssetController.DisableActionAsset();
             }
             else if (hit.collider.CompareTag("Ground"))
             {
@@ -160,6 +171,13 @@ public class PlayerMove : MonoBehaviour
                 Quaternion.identity,
                 rotateSpeed * Time.deltaTime
                 );
+
+                Vector3 velocity = rb.linearVelocity;
+                velocity.x += slideAcceleration;
+                if (velocity.x <= 0)
+                {
+
+                }
             }
         }
     }
