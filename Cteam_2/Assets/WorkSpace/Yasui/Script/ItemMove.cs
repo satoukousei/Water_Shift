@@ -10,10 +10,15 @@ using UnityEngine;
 /// </summary>
 public class ItemMove : MonoBehaviour
 {
-    private bool positionLocked;                  //互いにぶつかったときに位置を固定させるためのトリガー
+    //private bool positionLocked;                  //互いにぶつかったときに位置を固定させるためのトリガー
     private Vector3 fixedPosition;                //ぶつかったときの位置を記録する
 
     [SerializeField] private PushBox pushBox;     //位置を固定させる物体(基本はつけている物体を入れる)
+
+    private void Start()
+    {
+        fixedPosition = transform.position;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -27,23 +32,36 @@ public class ItemMove : MonoBehaviour
             return;
         }
 
-        //位置記録、固定
-        fixedPosition = transform.position;
-        positionLocked = true;
-        pushBox.CanMove = false;
+
+        if(other.CompareTag("box"))
+        {
+            //位置記録、固定
+            fixedPosition = transform.position;
+            //positionLocked = true;
+            pushBox.CanMove = false;
+        }
     }
 
     private void LateUpdate()
     {
-        //位置を固定する
-        if (positionLocked)
+        ////位置を固定する
+        //if (positionLocked)
+        //{
+        //    transform.position = fixedPosition;
+        //}
+        ////壊すと動かせるようになる
+        //if (pushBox.CanMove)
+        //{
+        //    positionLocked = false;
+        //}
+
+        if (!pushBox.CanMove)
         {
             transform.position = fixedPosition;
         }
-        //壊すと動かせるようになる
-        if (pushBox.CanMove)
+        else
         {
-            positionLocked = false;
+            fixedPosition = transform.position;
         }
     }
 }

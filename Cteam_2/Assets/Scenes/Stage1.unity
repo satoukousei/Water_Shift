@@ -40263,6 +40263,14 @@ PrefabInstance:
       value: PlayerParent
       objectReference: {fileID: 0}
     - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: inertiaMove
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: enumList_Player
       value: 
       objectReference: {fileID: 1295313250}

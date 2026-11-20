@@ -25,8 +25,6 @@ public class PlayerMove : MonoBehaviour
     private const float SlopeContactDistance = 0.4f;
     [SerializeField] public Rigidbody rb;
     [SerializeField] private EnumList_Player enumList_Player;
-    [SerializeField] private PushBox PushBox;
-    //[SerializeField] private ControllStop ControllStop;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float inertiaMove;
     [SerializeField] private float rayDirection;
