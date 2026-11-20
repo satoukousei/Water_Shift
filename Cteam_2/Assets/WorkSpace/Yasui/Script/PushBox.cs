@@ -8,67 +8,38 @@ using UnityEngine;
 /// </summary>
 
 public class PushBox : MonoBehaviour
-{
-    [SerializeField] private float breakBoxSpeed;
-    [SerializeField] private float changeScale;
+{ 
     [SerializeField] private EnumList_Player enumList_Player;
-
-    public bool isPush = false; //箱を押したかどうか
-    [SerializeField] private GameObject normalBox;
-    public bool canMove = false;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    [SerializeField] private GameObject CrateBox;      //壊す箱をとる
+    [SerializeField] private Collider PlayerIceCollider;      //壊す箱をとる
+    [SerializeField] private Collider CrateCollider;
+    //～●privateに変更しました●～
+    private bool isPush = false;                         //箱を押したかどうか
+    private bool canMove = false;                        //くっついて動かせない時に壊して動かせるようにするためのトリガー
+    private bool canBreak = false;
+    //～●ここまで●～
+    public bool CanMove { get; set; }
     void Update()
     {
-        
+        // 箱の上面からプレイヤーの底面までの高さを測る
+        float height = PlayerIceCollider.bounds.min.y - CrateCollider.bounds.max.y;
+
+        // 2m以上の高さから落下していて、氷状態なら箱を壊す
+        if (height >= 1.5f &&
+            enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)
+        {
+            canBreak = true;
+        }
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-
-    }
-
+   
     private void OnTriggerEnter(Collider other)
     {
-        var playerVelocity = GetComponent<Rigidbody>();
-        if(playerVelocity == null)
+        if (canBreak && enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)
         {
-            return;
-        }
-        //親オブジェクトを消して子オブジェクトに画像を変更する
-        if (other.gameObject.CompareTag("Player") &&
-           !isPush &&
-           Mathf.Abs(playerVelocity.linearVelocity.y) < breakBoxSpeed
-           && enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)
-        {
-            
-            Destroy(normalBox);
+            isPush = true;
             canMove = true;
-            ////箱自体のスケールを小さくするやり方
-
-            //Transform boxTransform = transform;
-
-            //Vector3 scale = boxTransform.localScale;
-            //scale.y *= changeScale;
-            //boxTransform.localScale = scale;
-            //normalBoxCollider.size = scale;
-            //isPush = true;
-
-            //// 普通の箱を非表示にする
-            //normalBox.SetActive(false);
-            //normalBoxCollider.SetActive(false);
-
-            //// 押された箱を表示する
-            //pressedBox.SetActive(true);
-
-            //isPush = true;
-            //boxPosition.ChangeBox();     //★
+            CrateBox.SetActive(false);
         }
+        else canBreak = false;
     }
 }
