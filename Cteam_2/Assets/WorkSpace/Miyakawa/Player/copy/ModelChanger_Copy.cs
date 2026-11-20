@@ -7,6 +7,7 @@ public class ModelChanger_Copy : MonoBehaviour
     [SerializeField] private GameObject model1_ice;
     [SerializeField] private GameObject model2_water;
     [SerializeField] private GameObject model3_steam;
+    [SerializeField] private SteamPlayerMove steam;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,5 +35,6 @@ public class ModelChanger_Copy : MonoBehaviour
         model1_ice.SetActive(false);
         model2_water.SetActive(false);
         model3_steam.SetActive(true);
+        steam.VelocityReset();
     }
 }
