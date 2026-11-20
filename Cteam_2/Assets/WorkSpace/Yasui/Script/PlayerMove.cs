@@ -21,8 +21,6 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] public Rigidbody rb;
     [SerializeField] private EnumList_Player enumList_Player;
-    [SerializeField] private PushBox PushBox;
-    //[SerializeField] private ControllStop ControllStop;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float inertiaMove;
     [SerializeField] private float rayDirection;

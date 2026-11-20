@@ -70,7 +70,7 @@ public class PushBox : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Finish"))
+        if(collision.gameObject.CompareTag("Player"))
         {
             if (enumList_Player.CurrentPlayerState != EnumList_Player.PlayerState.Ice)
             {

@@ -12715,7 +12715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5466974147833826433, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: m_TagString
-      value: Finish
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: PushBox
