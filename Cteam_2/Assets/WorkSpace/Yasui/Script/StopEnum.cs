@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ControllStop : MonoBehaviour
+public class StopEnum : MonoBehaviour
 {
     [SerializeField] private InputActionReference targetAction;
     [SerializeField] private bool inputEnabled = true;
