@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2937395558594284409}
   - component: {fileID: 8096324519425085397}
+  - component: {fileID: 6574294840297849220}
   m_Layer: 0
   m_Name: GoalManager
   m_TagString: Untagged
@@ -46,3 +47,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
   soundEffectManager: {fileID: 0}
   events: {fileID: 0}
+--- !u!114 &6574294840297849220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80078515937072705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e28f64bbb4d02a4fabeacc1f4f7c948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControllStop
+  player: {fileID: 0}
+  events: {fileID: 0}
+  inputActionAssetController: {fileID: 0}
