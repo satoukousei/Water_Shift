@@ -19,6 +19,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
+    private const float SlideAngleTolerance = 1f;
+    private const float SlopeHitTieTolerance = 0.05f;
+    private const float GroundRayStartOffset = 0.25f;
+    private const float SlopeContactDistance = 0.4f;
     [SerializeField] public Rigidbody rb;
     [SerializeField] private EnumList_Player enumList_Player;
     [SerializeField] private PushBox PushBox;
@@ -27,19 +31,27 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float inertiaMove;
     [SerializeField] private float rayDirection;
     [SerializeField] private float slideMaxSpeed;
-    [SerializeField] private float slideAcceleration;
+    [SerializeField, Min(0f)] private float slideAcceleration = 4f;
     [SerializeField] private float rotateSpeed;
-    [SerializeField] private float slideAngle;
+    [SerializeField, Range(0f, 89f)] private float slideAngle = 15f;
     [SerializeField] private Transform playerRoot;
+    [SerializeField] private Transform visualRoot;
     [SerializeField] private float maxAngle = 90.0f;//マジックナンバーだったので直しました。
     [Header("InputActionAssetControllerを指定")]
     [SerializeField] private InputActionAssetController inputActionAssetController;
     [Header("SE")]
     [SerializeField] private SoundEffectManager soundEffectManager;
     [SerializeField] private float slideSeInterval = 1.4f;
+    // Block transitions and brief raycast misses should not cancel sliding immediately.
+    [SerializeField, Min(0f)] private float slideDetectionGracePeriod = 0.35f;
     private float slideSeTimer;
-    private bool isSliding;
-    private bool isGrounded;
+    private float slideGraceTimer;
+    private float slideVelocityLogTimer;
+    private bool wasSliding;
+    private bool wasGrounded;
+    private Vector3 slideDirection;
+    private Vector3 slideSurfaceNormal = Vector3.up;
+    private Quaternion initialVisualRotation;
 
     public bool isSlide = false;
     public bool isIce => enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
@@ -56,17 +68,104 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        //inputActionAssetController.EnableActionAsset();
+    private RaycastHit currentGroundHit;
+    private bool hasGroundHit;
+    private Collider[] playerColliders;
+    private bool previousSlideState;
+    private bool hasLoggedSlideState;
+    private Collider previousHitCollider;
+    private bool hasLoggedMissingReference;
 
-        //移動
-        moveDirection = Vector3.zero;
-        if (Keyboard.current == null)
+    private void Awake()
+    {
+        if (rb == null) rb = GetComponentInParent<Rigidbody>();
+        if (enumList_Player == null) enumList_Player = GetComponentInParent<EnumList_Player>();
+        // Ground checks should stay centered on the physics body, not the tilting visual child.
+        if (playerRoot == null) playerRoot = rb != null ? rb.transform : transform;
+        if (visualRoot == null) visualRoot = transform.Find("model_ice");
+        if (visualRoot == null) visualRoot = transform;
+        initialVisualRotation = visualRoot.rotation;
+        // PlayerMove が Rigidbody の子に付いている構成では、Collider は兄弟や別の子にある。
+        // ルート配下すべてを自分のColliderとしてRaycast対象から外す。
+        Transform playerHierarchyRoot = rb != null ? rb.transform : transform.root;
+        playerColliders = playerHierarchyRoot.GetComponentsInChildren<Collider>(true);
+    }
+
+    private void Update()
+    {
+        if (inputActionAssetController != null)
         {
+            inputActionAssetController.EnableActionAsset();
+        }
+
+        moveDirection = Vector3.zero;
+        if (rb == null || playerRoot == null || enumList_Player == null)
+        {
+            isSlide = false;
+            wasSliding = false;
+            if (!hasLoggedMissingReference)
+            {
+                Debug.LogError($"[PlayerMove] Sliding check skipped: Rigidbody={(rb == null ? "missing" : "ok")}, playerRoot={(playerRoot == null ? "missing" : "ok")}, EnumList_Player={(enumList_Player == null ? "missing" : "ok")}.", this);
+                hasLoggedMissingReference = true;
+            }
             return;
         }
-        if (Keyboard.current.dKey.isPressed) // 右
+        hasGroundHit = TryGetGroundHit(out currentGroundHit);
+        Vector3 groundRayOrigin = playerRoot.position + Vector3.up * GroundRayStartOffset;
+        Debug.DrawRay(groundRayOrigin, Vector3.down * (rayDirection + GroundRayStartOffset), hasGroundHit ? Color.green : Color.red);
+        bool isGrounded = hasGroundHit && currentGroundHit.collider.CompareTag("Ground");
+        if (enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice && isGrounded && !wasGrounded && soundEffectManager != null)
+            soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.IceFalling);
+        wasGrounded = isGrounded;
+        bool detectedSlope = hasGroundHit && currentGroundHit.distance <= SlopeContactDistance &&
+                             currentGroundHit.collider.CompareTag("Slope") &&
+                             Vector3.Angle(currentGroundHit.normal, Vector3.up) >= Mathf.Max(0f, slideAngle - SlideAngleTolerance) &&
+                             enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
+        if (detectedSlope)
+        {
+            slideSurfaceNormal = currentGroundHit.normal;
+            slideGraceTimer = slideDetectionGracePeriod;
+            isSlide = true;
+        }
+        else if (!hasGroundHit && wasSliding && enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice && slideGraceTimer > 0f)
+        {
+            slideGraceTimer -= Time.deltaTime;
+            isSlide = true;
+        }
+        else
+        {
+            isSlide = false;
+            slideGraceTimer = 0f;
+        }
+        Collider hitCollider = hasGroundHit ? currentGroundHit.collider : null;
+        if (!hasLoggedSlideState || isSlide != previousSlideState || hitCollider != previousHitCollider)
+        {
+            string hitName = hasGroundHit ? currentGroundHit.collider.name : "<no hit>";
+            string hitTag = hasGroundHit ? currentGroundHit.collider.tag : "<none>";
+            float hitAngle = hasGroundHit ? Vector3.Angle(currentGroundHit.normal, Vector3.up) : -1f;
+            float hitDistance = hasGroundHit ? currentGroundHit.distance : -1f;
+            Debug.Log($"[PlayerMove] isSlide={isSlide}; hit={hitName}; tag={hitTag}; angle={hitAngle:F1}; distance={hitDistance:F2}; threshold={slideAngle:F1}; state={enumList_Player.CurrentPlayerState}; ray={rayDirection + GroundRayStartOffset:F2}; velocity={rb.linearVelocity}", this);
+            previousSlideState = isSlide;
+            previousHitCollider = hitCollider;
+            hasLoggedSlideState = true;
+        }
+        if (isSlide)
+        {
+            UpdateSlideSe();
+            if (inputActionAssetController != null) inputActionAssetController.DisableActionAsset();
+            RotateVisualToSurface(slideSurfaceNormal);
+        }
+        else
+        {
+            wasSliding = false;
+            if (hasGroundHit && currentGroundHit.collider.CompareTag("Slope"))
+                RotateVisualToSurface(currentGroundHit.normal);
+            else
+                visualRoot.rotation = Quaternion.Slerp(visualRoot.rotation, initialVisualRotation, rotateSpeed * Time.deltaTime);
+        }
+
+        if (isSlide) return;
+        if (Keyboard.current != null && Keyboard.current.dKey.isPressed) // 右
         {
             Vector3 velocity = rb.linearVelocity;
             velocity.x += inertiaMove;
@@ -78,7 +177,7 @@ public class PlayerMove : MonoBehaviour
 
             rb.linearVelocity = velocity;
         }
-        if (Keyboard.current.aKey.isPressed) // 左
+        if (Keyboard.current != null && Keyboard.current.aKey.isPressed) // 左
         {
             Vector3 velocity = rb.linearVelocity;
             velocity.x -= inertiaMove;
@@ -90,134 +189,88 @@ public class PlayerMove : MonoBehaviour
 
             rb.linearVelocity = velocity;
         }
+    }
 
-        //プレイヤーから下方向に線をとばす
-        Ray ray = new Ray(playerRoot.position, Vector3.down);
+    /// <summary>
+    /// Rigidbody本体を回さず、PlayerMoveが付いた見た目側だけを接地面に合わせます。
+    /// </summary>
+    private void RotateVisualToSurface(Vector3 surfaceNormal)
+    {
+        if (surfaceNormal.sqrMagnitude < 0.001f) return;
+        Quaternion slopeTilt = Quaternion.FromToRotation(Vector3.up, surfaceNormal.normalized);
+        visualRoot.rotation = slopeTilt * initialVisualRotation;
+    }
 
-        bool hasHit = Physics.Raycast(ray, out RaycastHit Hit, rayDirection);     //Rayが当たっているかどうか判定するためのhasHitトリガー
+    private bool TryGetGroundHit(out RaycastHit groundHit)
+    {
+        groundHit = default;
+        if (rayDirection <= 0f) return false;
 
-        bool isGrounded = hasHit && Hit.collider.CompareTag("Ground");
-        if (enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice &&
-            isGrounded && !this.isGrounded && soundEffectManager != null)
+        Vector3 rayOrigin = playerRoot.position + Vector3.up * GroundRayStartOffset;
+        RaycastHit[] hits = Physics.RaycastAll(
+            rayOrigin,
+            Vector3.down,
+            rayDirection + GroundRayStartOffset,
+            ~0,
+            QueryTriggerInteraction.Ignore);
+
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+        RaycastHit nearestNonPlayerHit = default;
+        RaycastHit nearestSlopeHit = default;
+        bool foundNonPlayerHit = false;
+        bool foundSlopeHit = false;
+        foreach (RaycastHit hit in hits)
         {
-            soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.IceFalling);
-        }
-        this.isGrounded = isGrounded;
-
-        if (Physics.Raycast(ray, out RaycastHit hit, rayDirection) && hasHit)     //坂を下る
-        {
-            //坂の向き法線ベクトル
-            Vector3 groundNormal = hit.normal;
-            //Rayがあったった物体の角度をとる
-            float currentAngle = Mathf.Abs(Mathf.Acos(Vector3.Dot(groundNormal, Vector3.up)) * Mathf.Rad2Deg);
-            //～●nという名前が分かりづらかったのでcurrentAngleに変更しました●～
-
-            //一定の角度以上かつ滑ってない状態かつ坂以外にぶつかっていない場合に坂を滑る
-            if (hit.collider.CompareTag("Slope") && currentAngle >= slideAngle &&
-                enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)     //一定の角度以上で滑るようにする
+            bool isPlayerCollider = false;
+            if (playerColliders != null)
             {
-                UpdateSlide();
-                Vector3 forward = transform.parent.forward;
-
-                //線をとばした方向にプレイヤーの向きを合わせる
-                Vector3 slopeForward = Vector3.ProjectOnPlane(forward, groundNormal).normalized;
-                //坂の角度に合わせてプレイヤーを回転
-                if (slopeForward.sqrMagnitude > 0.001f)
+                foreach (Collider playerCollider in playerColliders)
                 {
-                    transform.parent.rotation = Quaternion.LookRotation(
-                        slopeForward,
-                        groundNormal
-                        );
-                }
-
-                //状態変化を止める
-                inputActionAssetController.DisableActionAsset();
-
-                //～▲変えました▲～
-                if (currentAngle <= maxAngle) //現在の角度が
-                {
-                    Vector3 velocity = rb.linearVelocity;
-                    velocity.x -= slideAcceleration;
-
-                    if (velocity.x <= -slideMaxSpeed)
+                    if (playerCollider == hit.collider)
                     {
-                        velocity.x = -slideMaxSpeed;
+                        isPlayerCollider = true;
+                        break;
                     }
-                    rb.linearVelocity = velocity;
-                }
-                else if (currentAngle >= maxAngle)
-                {
-                    Vector3 velocity = rb.linearVelocity;
-                    velocity.x += slideAcceleration;
-
-                    if (velocity.x >= slideMaxSpeed)
-                    {
-                        velocity.x = slideMaxSpeed;
-                    }
-                    rb.linearVelocity = velocity;
                 }
             }
-            //～▲ここまで▲～
 
-            //一定角度以上のときプレイヤーの角度だけ変更する
-            else if (hit.collider.CompareTag("Slope") && currentAngle <= slideAngle)
+            if (isPlayerCollider) continue;
+
+            if (hit.collider.CompareTag("Slope"))
             {
-
-                Vector3 forward = transform.parent.forward;
-
-                //線をとばした方向にプレイヤーの向きを合わせる
-                Vector3 slopeForward = Vector3.ProjectOnPlane(forward, groundNormal).normalized;
-                //坂の角度に合わせてプレイヤーを回転
-                if (slopeForward.sqrMagnitude > 0.001f)
+                if (!foundSlopeHit)
                 {
-                    transform.parent.rotation = Quaternion.LookRotation(
-                        slopeForward,
-                        groundNormal
-                        );
+                    nearestSlopeHit = hit;
+                    foundSlopeHit = true;
                 }
-
-                //状態変化を止める
-                inputActionAssetController.DisableActionAsset();
+                continue;
             }
-            else if (hit.collider.CompareTag("Ground"))
-            {
-                isSlide = false;
-                isSliding = false;
-                transform.parent.rotation = Quaternion.Slerp(
-                transform.parent.rotation,
-                Quaternion.identity,
-                rotateSpeed * Time.deltaTime
-                );
 
-                Vector3 velocity = rb.linearVelocity;
-                velocity.x += slideAcceleration;
-                if (velocity.x <= 0)
-                {
-
-                }
-            }
-            else
+            if (!foundNonPlayerHit)
             {
-                isSlide = false;
-                isSliding = false;
+                nearestNonPlayerHit = hit;
+                foundNonPlayerHit = true;
             }
         }
-        else
+
+        if (foundSlopeHit && (!foundNonPlayerHit || nearestSlopeHit.distance <= nearestNonPlayerHit.distance + SlopeHitTieTolerance))
         {
-            isSlide = false;
-            isSliding = false;
-            this.isGrounded = false;
+            groundHit = nearestSlopeHit;
+            return true;
         }
+        if (!foundNonPlayerHit) return false;
+        groundHit = nearestNonPlayerHit;
+        return true;
     }
 
     /// <summary>
     /// 氷状態で坂を滑っている間、一定間隔で滑走SEを再生します。
     /// </summary>
-    private void UpdateSlide()
+    private void UpdateSlideSe()
     {
         isSlide = true;
 
-        if (!isSliding)
+        if (!wasSliding)
         {
             slideSeTimer = 0f;
         }
@@ -233,17 +286,55 @@ public class PlayerMove : MonoBehaviour
             slideSeTimer = slideSeInterval;
         }
 
-        isSliding = true;
+        wasSliding = true;
     }
 
-    void FixedUpdate()
+    /// <summary>
+    /// 坂の下方向へ加速し、滑走速度を上限内に保ちます。
+    /// </summary>
+    private void FixedUpdate()
     {
+        if (rb == null || playerRoot == null || enumList_Player == null) return;
+        if (!isSlide) return;
+
+        // Update and FixedUpdate can run at different rates. Recheck the slope here
+        // so a stale Update hit cannot keep projecting velocity after leaving the slope.
+        bool hasFixedGroundHit = TryGetGroundHit(out RaycastHit fixedGroundHit);
+        bool isOnDetectedSlope = hasFixedGroundHit &&
+                                 fixedGroundHit.collider.CompareTag("Slope") &&
+                                 fixedGroundHit.distance <= SlopeContactDistance &&
+                                 Vector3.Angle(fixedGroundHit.normal, Vector3.up) >= Mathf.Max(0f, slideAngle - SlideAngleTolerance) &&
+                                 enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
         Vector3 velocity = rb.linearVelocity;
+        // Keep the grace period for brief ray misses, but do not apply slope forces in midair.
+        if (!isOnDetectedSlope)
+        {
+            Vector3 lastSlideDirection = Vector3.ProjectOnPlane(Vector3.down, slideSurfaceNormal).normalized;
+            float airborneSpeed = lastSlideDirection.sqrMagnitude > 0.001f ? Vector3.Dot(velocity, lastSlideDirection) : 0f;
+            LogSlideVelocity(false, airborneSpeed, hasFixedGroundHit ? fixedGroundHit.distance : -1f);
+            return;
+        }
 
-        velocity.x = moveDirection.x * moveSpeed;
-        velocity.z = moveDirection.z * moveSpeed;
+        slideSurfaceNormal = fixedGroundHit.normal;
+        Vector3 slideDirection = Vector3.ProjectOnPlane(Vector3.down, slideSurfaceNormal).normalized;
+        if (slideDirection.sqrMagnitude < 0.001f) return;
 
-        // Y方向の速度は維持し、重力による落下を妨げない
-        //rb.linearVelocity = velocity;
+        velocity = Vector3.ProjectOnPlane(velocity, fixedGroundHit.normal);
+        velocity += slideDirection * slideAcceleration * Time.fixedDeltaTime;
+        float speed = Vector3.Dot(velocity, slideDirection);
+        if (slideMaxSpeed > 0f && speed > slideMaxSpeed) velocity -= slideDirection * (speed - slideMaxSpeed);
+        rb.linearVelocity = velocity;
+
+        LogSlideVelocity(true, speed, fixedGroundHit.distance);
+    }
+
+    private void LogSlideVelocity(bool isOnDetectedSlope, float speed, float groundDistance)
+    {
+        slideVelocityLogTimer -= Time.fixedDeltaTime;
+        if (slideVelocityLogTimer <= 0f)
+        {
+            Debug.Log($"[PlayerMove] sliding speed={speed:F2}; onSlope={isOnDetectedSlope}; groundDistance={groundDistance:F2}; gravity={rb.useGravity}; velocity={rb.linearVelocity}; acceleration={slideAcceleration:F2}; maxSpeed={slideMaxSpeed:F2}", this);
+            slideVelocityLogTimer = 0.25f;
+        }
     }
 }
