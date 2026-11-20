@@ -1230,7 +1230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 978112612391900422, guid: 28ebe4754cf68de45906e27b7d5691f1, type: 3}
       propertyPath: m_Name
-      value: Cube
+      value: GoalDemoCube
       objectReference: {fileID: 0}
     - target: {fileID: 3845277988969925196, guid: 28ebe4754cf68de45906e27b7d5691f1, type: 3}
       propertyPath: events
@@ -1240,10 +1240,6 @@ PrefabInstance:
       propertyPath: fadeEffect
       value: 
       objectReference: {fileID: 1896258519}
-    - target: {fileID: 3845277988969925196, guid: 28ebe4754cf68de45906e27b7d5691f1, type: 3}
-      propertyPath: controllStop
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

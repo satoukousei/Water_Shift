@@ -6,19 +6,18 @@ public class GoalDetection : MonoBehaviour
     [SerializeField] private string PlayerParentName;
 
     [Header("Eventsがコンポーネントされているオブジェクトを指定")]
-    [SerializeField] Events events;
+    [SerializeField] private Events events;
 
     [Header("フェード用スクリプトを指定")]
-    [SerializeField] FadeEffect fadeEffect;
+    [SerializeField] private FadeEffect fadeEffect;
 
-    [Header("プレイヤー停止用スクリプトを指定")]
-    [SerializeField] ControllStop controllStop;
+    //ステージ選択等結滞したときにコメントアウトを外す
 
-    [Header("Don'tDestroy用のスクリプトを指定")]
-    [SerializeField] DoNotDestroy doNotDestroy;
+    //[Header("Don'tDestroy用のスクリプトを指定")]
+    //[SerializeField] private DoNotDestroy doNotDestroy;
 
-    [Header("ステージ番号を記入(1始まり)")]
-    [SerializeField] private int stageNumber = 1;
+    //[Header("ステージ番号を記入(1始まり)")]
+    //[SerializeField] private int stageNumber = 1;
 
     private void Start()
     {

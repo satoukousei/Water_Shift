@@ -128,6 +128,3 @@ MonoBehaviour:
   PlayerParentName: PlayerParent2
   events: {fileID: 0}
   fadeEffect: {fileID: 0}
-  controllStop: {fileID: 0}
-  doNotDestroy: {fileID: 0}
-  stageNumber: 1
