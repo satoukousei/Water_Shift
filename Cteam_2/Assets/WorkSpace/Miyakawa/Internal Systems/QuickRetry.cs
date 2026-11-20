@@ -4,9 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class QuickRetry : MonoBehaviour
 {
-    [Tooltip("InputSystemのRetryを入れてね")]
-    [SerializeField] 
-    private InputActionReference Retry;
+    [Header("InputSystemのRetryを指定")]
+    [SerializeField] private InputActionReference Retry;
 
     private void Awake()
     {
@@ -25,12 +24,4 @@ public class QuickRetry : MonoBehaviour
         Debug.Log("Retryが開始されました。");
     }
 
-    void Update()
-    {
-        // デバッグ用
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-    }
 }

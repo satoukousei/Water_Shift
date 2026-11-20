@@ -5,7 +5,7 @@ public class EnumList_Player : MonoBehaviour
 {
     [Header("プレイヤーの初期状態")]// プレイヤーの状態を文字列で保持
     [SerializeField]
-    private PlayerState playerState = PlayerState.Water; 
+    private PlayerState playerState = PlayerState.Water;
 
     public enum PlayerState { Water, Ice, Steam }
 
@@ -21,8 +21,8 @@ public class EnumList_Player : MonoBehaviour
         OnStateChanged?.Invoke(playerState);
     }
 
-    private void Awake()
+    private void Start()
     {
-        Debug.Log("初期状態:" + playerState);
+        playerState = PlayerState.Water;
     }
 }

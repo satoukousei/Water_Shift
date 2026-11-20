@@ -26,9 +26,24 @@ public class ViewTheManual : MonoBehaviour
         if (isFirstStage)
         {
             isOpen = true;
-            manualImage.color = Color.white;
+
+            if (manualImage != null)
+            {
+                manualImage.gameObject.SetActive(true);
+            }
+
             isFirstStage = false;
         }
+    }
+
+    private void Awake()
+    {
+        if (manualImage != null)
+        {
+            manualImage.gameObject.SetActive(false);
+        }
+
+        isOpen = false;
     }
 
     private void OnEnable()
@@ -66,9 +81,10 @@ public class ViewTheManual : MonoBehaviour
     {
         isOpen = !isOpen;
 
-        manualImage.color = isOpen
-        ? Color.white
-            :new Color(1f, 1f, 1f, 0f);
+        if (manualImage != null)
+        {
+            manualImage.gameObject.SetActive(isOpen);
+        }
     }
 }
 

@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &851090492379009761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6426115198360894697}
+  - component: {fileID: 2504403630249050870}
+  - component: {fileID: 1952990781122998330}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6426115198360894697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851090492379009761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6087, y: -0.1883, z: 0.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2504403630249050870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851090492379009761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5d2dd9654775441a649a875bf3d144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BGMManager
+  bgmList:
+  - {fileID: 8300000, guid: 24cbad9889095aa4dbdcd66546de0814, type: 3}
+  - {fileID: 8300000, guid: 306e02be716706148946a5d90f4bf8db, type: 3}
+  - {fileID: 8300000, guid: e0cd04764f2d47a4d84481820c8d9cc9, type: 3}
+  audioSource: {fileID: 0}
+--- !u!114 &1952990781122998330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851090492379009761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece0255fb3cf76343b12c9f90fc4ee65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectManager
+  audioClips:
+  - {fileID: 8300000, guid: d1cccf2aa52f9b94698440ce86d49957, type: 3}
+  - {fileID: 8300000, guid: 89552ea6c9f2b5f4f8ccc99b9bacd0d5, type: 3}
+  - {fileID: 8300000, guid: 98055731f2e5500499c6f5e1aa88df40, type: 3}
+  - {fileID: 8300000, guid: 5134c68311bcd5249a8e71864badccea, type: 3}
+  - {fileID: 8300000, guid: e3d148e118b7a3d46b255fb12f389e70, type: 3}
+  - {fileID: 8300000, guid: 9059439eb21e14b4ba701bab702f4727, type: 3}
+  - {fileID: 8300000, guid: 7cb70b0d9d06ba445b1f40adf73aa9ec, type: 3}
+  - {fileID: 8300000, guid: 1abccc68261337a47af460ac88d5a55b, type: 3}
+  - {fileID: 8300000, guid: 4d961c5a2e34aa24babc938b86ee5c09, type: 3}
+  seVolumes:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1

@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7008972177487012044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3106131170269053111}
+  - component: {fileID: 7123797046635376892}
+  - component: {fileID: 5929754956737509425}
+  - component: {fileID: 5572719804578604069}
+  - component: {fileID: 556664613821348274}
+  - component: {fileID: 3083210329938745861}
+  - component: {fileID: 7601830363378303108}
+  - component: {fileID: 1677581945756092283}
+  - component: {fileID: 2741106023913147458}
+  m_Layer: 0
+  m_Name: MenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3106131170269053111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008972177487012044}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7123797046635376892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008972177487012044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d068f5ea86bd94c9a78b763242a231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSelector
+  seManager: {fileID: 0}
+  RetryButton: {fileID: 0}
+  SelectStageButton: {fileID: 0}
+  ManualButton: {fileID: 0}
+  manualImage: {fileID: 0}
+  isManualImageActive: 0
+  menucurrentState: 0
+--- !u!114 &5929754956737509425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008972177487012044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64aded90b27607841afa8c90e5cecb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveSelectionUp
+  openTheMenu: {fileID: 1677581945756092283}
+  buttonSelector: {fileID: 7123797046635376892}
+  menuActionRef: {fileID: 1807813727635214234, guid: 44bdc77be97d0644cb4479bf85fc9e33, type: 3}
+--- !u!114 &5572719804578604069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008972177487012044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879784f89dc00ce4db963019a3bb222c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveSelectionDown
+  openTheMenu: {fileID: 1677581945756092283}
+  buttonSelector: {fileID: 7123797046635376892}
+  menuActionRef: {fileID: 4417693682891155287, guid: 44bdc77be97d0644cb4479bf85fc9e33, type: 3}
+--- !u!114 &556664613821348274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008972177487012044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79eb77b593dbf445af4bd30c2ba66d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+  menuBGImage: {fileID: 0}
+  manualImage: {fileID: 0}
+  buttonSelector: {fileID: 7123797046635376892}
+  menuActionRef: {fileID: -85566426336506473, guid: 44bdc77be97d0644cb4479bf85fc9e33, type: 3}
+--- !u!114 &3083210329938745861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008972177487012044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af886c0eec4d4534eb88d6748fdb33f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputController
+  inputAsset:
+  - {fileID: -944628639613478452, guid: beb278614d079d14d86d7c1ec372dbe8, type: 3}
+  - {fileID: -944628639613478452, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  - {fileID: -944628639613478452, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+--- !u!114 &7601830363378303108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008972177487012044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45100c60492737149a8feb1530219e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputActionReferenceController
+  inputActions:
+  - {fileID: 4417693682891155287, guid: c1155dbf292224a4a9040464b3723b96, type: 3}
+--- !u!114 &1677581945756092283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008972177487012044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dfa9f5614161f4e90ae21455519f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenTheMenu
+  buttonSelector: {fileID: 7123797046635376892}
+  manualActionRef: {fileID: 2977451300871631666, guid: 44bdc77be97d0644cb4479bf85fc9e33, type: 3}
+  menuBackground: {fileID: 0}
+  inputActionAssetController: {fileID: 3083210329938745861}
+  inputActionReferenceController: {fileID: 7601830363378303108}
+  isMenuImageOpen: 0
+--- !u!114 &2741106023913147458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008972177487012044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5347a8a270fd245bf26eec90fd7416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OpenTheManual
+  buttonSelector: {fileID: 7123797046635376892}
+  openTheMenu: {fileID: 1677581945756092283}
+  menuActionRef: {fileID: -85566426336506473, guid: 44bdc77be97d0644cb4479bf85fc9e33, type: 3}
+  manualImage: {fileID: 0}

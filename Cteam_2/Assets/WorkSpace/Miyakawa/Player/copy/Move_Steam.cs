@@ -2,24 +2,31 @@ using UnityEngine;
 
 public class Move_Steam : MonoBehaviour
 {
+    [Header("上昇スピード")]
     [SerializeField] private float upperMoveSpeed = 5f;
 
-    [SerializeField] private Rigidbody rigidBodyParent;
+    [Header("EnumListを割り当て")]
+    [SerializeField] private EnumList_Player playerState;
 
-    void FixedUpdate()
+    [Header("Playerを割り当て")]
+    [SerializeField] private GameObject playerModel;
+
+    private void FixedUpdate()
     {
         UpperMove();
     }
 
     private void UpperMove()
     {
-        // 物理演算を通して上に移動
-        rigidBodyParent.MovePosition(rigidBodyParent.position + Vector3.up * upperMoveSpeed * Time.fixedDeltaTime);
-    }
+        if (playerState == null || playerModel == null)
+        {
+            return;
+        }
 
-    void FixidRigidbody()
-    {
-        rigidBodyParent.useGravity = false;
-        rigidBodyParent.freezeRotation = true;
+        if (playerState.CurrentPlayerState == EnumList_Player.PlayerState.Steam)
+        {
+            playerModel.transform.position +=
+                new Vector3(0f, upperMoveSpeed * Time.fixedDeltaTime, 0f);
+        }
     }
 }

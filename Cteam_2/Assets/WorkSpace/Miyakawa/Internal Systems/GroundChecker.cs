@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
 {
-    [Header("ÉåÉCÇÃê›íË")]
+    [Header("ÉåÉCÇÃí∑Ç≥")]
     [SerializeField] private float rayDistance = 2f;
 
     [Header("óéâ∫îªíË")]
@@ -12,42 +12,61 @@ public class GroundChecker : MonoBehaviour
     [SerializeField] private string groundTag = "Ground";
     [SerializeField] private string deathZoneTag = "DeathZone";
 
-    private Vector3 safePosition;
-    private Quaternion safeRotation;
+    private Vector3 returnPosition;
+    private Quaternion returnRotation;
     private Rigidbody playerRigidbody;
+    private Collider playerCollider;
 
     private void Start()
     {
-        safePosition = transform.position;
-        safeRotation = transform.rotation;
-
         playerRigidbody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<Collider>();
+
+        returnPosition = transform.position;
+        returnRotation = transform.rotation;
     }
 
     private void Update()
     {
-        SaveSafePositionIfGrounded();
+        SaveGroundCenter();
 
         if (transform.position.y < deathHeight)
         {
-            ReturnToSafePosition();
+            ReturnToGroundCenter();
         }
     }
 
-    private void SaveSafePositionIfGrounded()
+    private void SaveGroundCenter()
     {
-        Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
+        Vector3 rayOrigin = transform.position;
 
-        if (Physics.Raycast(
-            rayOrigin,
-            Vector3.down,
-            out RaycastHit hit,
-            rayDistance))
+        if (playerCollider != null)
+        {
+            rayOrigin = new Vector3(
+                transform.position.x,
+                playerCollider.bounds.min.y + 0.05f,
+                transform.position.z);
+        }
+
+        if (Physics.Raycast(rayOrigin,Vector3.down,out RaycastHit hit,rayDistance))
         {
             if (hit.collider.CompareTag(groundTag))
             {
-                safePosition = transform.position;
-                safeRotation = transform.rotation;
+                Vector3 blockCenter = hit.collider.bounds.center;
+
+                float playerHalfHeight = 0f;
+
+                if (playerCollider != null)
+                {
+                    playerHalfHeight = playerCollider.bounds.extents.y;
+                }
+
+                returnPosition = new Vector3(
+                    blockCenter.x,
+                    hit.collider.bounds.max.y + playerHalfHeight,
+                    transform.position.z);
+
+                returnRotation = transform.rotation;
             }
         }
     }
@@ -56,14 +75,14 @@ public class GroundChecker : MonoBehaviour
     {
         if (other.CompareTag(deathZoneTag))
         {
-            ReturnToSafePosition();
+            ReturnToGroundCenter();
         }
     }
 
-    private void ReturnToSafePosition()
+    private void ReturnToGroundCenter()
     {
-        transform.position = safePosition;
-        transform.rotation = safeRotation;
+        transform.position = returnPosition;
+        transform.rotation = returnRotation;
 
         if (playerRigidbody != null)
         {
@@ -76,7 +95,16 @@ public class GroundChecker : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
+        Vector3 rayOrigin = transform.position;
+
+        if (playerCollider != null)
+        {
+            rayOrigin = new Vector3(
+                transform.position.x,
+                playerCollider.bounds.min.y + 0.05f,
+                transform.position.z);
+        }
+
         Gizmos.DrawLine(
             rayOrigin,
             rayOrigin + Vector3.down * rayDistance);
