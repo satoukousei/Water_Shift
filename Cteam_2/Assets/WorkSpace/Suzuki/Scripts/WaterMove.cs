@@ -30,10 +30,7 @@ public class WaterMove : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        if (rb == null)
-        {
-            rb = GetComponent<Rigidbody>();
-        }
+        
     }
 
     /// <summary>
