@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Splines;
 
 /// <summary>
 /// 【目的】
@@ -33,9 +34,16 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Transform playerRoot;
     [SerializeField] private float maxAngle = 90.0f;//マジックナンバーだったので直しました。
 
+    private float slipSound = 1.4f;
+    private float soundTimer = 0.0f;
+
+    [Header("SEManagerを指定")]
+    [SerializeField] private SoundEffectManager seManager;
+
     public bool  isSlide = false;
     public bool isIce => enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice;
 
+    [SerializeField]
     private Vector3 moveDirection;
 
     // 氷状態に切り替える
@@ -50,8 +58,8 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        //移動
-        moveDirection = Vector3.zero;
+        CountSETimer();
+
         if (Keyboard.current == null)
         {
             return;
@@ -98,6 +106,7 @@ public class PlayerMove : MonoBehaviour
             if (hit.collider.CompareTag("Slope") && currentAngle >= slideAngle && 
                 enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)     //一定の角度以上で滑るようにする
             {
+                
                 Vector3 forward = transform.parent.forward;
 
                 //線をとばした方向にプレイヤーの向きを合わせる
@@ -139,7 +148,7 @@ public class PlayerMove : MonoBehaviour
             //一定角度以上のときプレイヤーの角度だけ変更する
             else if (hit.collider.CompareTag("Slope") && currentAngle <= slideAngle)
             {
-
+                isSlide = true;
                 Vector3 forward = transform.parent.forward;
 
                 //線をとばした方向にプレイヤーの向きを合わせる
@@ -161,8 +170,27 @@ public class PlayerMove : MonoBehaviour
                 rotateSpeed * Time.deltaTime
                 );
             }
+            else
+            {
+                isSlide = false;
+            }
         }
     }
+
+    private void CountSETimer()
+    {
+        if (!isSlide)
+        {
+            return;
+        }
+        soundTimer += Time.deltaTime;
+        if(soundTimer > slipSound)
+        {
+            seManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.IceSlip);
+            soundTimer = 0.0f;
+        }
+    }
+
     void FixedUpdate()
     {
         Vector3 velocity = rb.linearVelocity;

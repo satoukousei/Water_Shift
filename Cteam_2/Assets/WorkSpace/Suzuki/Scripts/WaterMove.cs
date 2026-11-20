@@ -20,11 +20,14 @@ public class WaterMove : MonoBehaviour
 
     [Header("コンポーネント設定")]
     [SerializeField] private Rigidbody rb = null;
+    [Header("SEManagerを指定")]
+    [SerializeField] private SoundEffectManager seManager;
 
     [Header("判定設定")]
     [SerializeField] private Vector3 jumpDirection = Vector3.zero;
 
     private bool isGrounded = false;
+    private bool isPlayFallSound = false;
 
     private void Start()
     {
@@ -45,6 +48,7 @@ public class WaterMove : MonoBehaviour
         for (int LayerCount = 0; LayerCount < groundLayer.Length; LayerCount++)
         {
             isGrounded = Physics.Raycast(rayOrigin + jumpDirection, Vector3.down, rayLength, groundLayer[LayerCount]);
+            FallSoundPlay();
             if (isGrounded)
             {
                 break;
@@ -55,6 +59,8 @@ public class WaterMove : MonoBehaviour
         Movement();
         Jump();
     }
+
+
 
     private void Movement()
     {
@@ -99,6 +105,22 @@ public class WaterMove : MonoBehaviour
             Vector3 currentVelocity = rb.linearVelocity;
             currentVelocity.y = jumpVelocity.y;
             rb.linearVelocity = currentVelocity;
+        }
+    }
+
+    /// <summary>
+    /// 落下時のサウンドを流すための条件監視とサウンド再生
+    /// </summary>
+    private void FallSoundPlay()
+    {
+        if(isGrounded && !isPlayFallSound)
+        {
+            seManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.WaterFalling);
+            isPlayFallSound = true;
+        }
+        else if(!isGrounded && isPlayFallSound)
+        {
+            isPlayFallSound = false;
         }
     }
 
