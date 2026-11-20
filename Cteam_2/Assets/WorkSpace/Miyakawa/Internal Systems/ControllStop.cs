@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class ControllStop : MonoBehaviour
 {
-    [Header("プレイヤーを割り当て")]
+    [Header("プレイヤーを指定")]
     [SerializeField] private GameObject player;
 
-    [Header("Eventsを割り当て")]
+    [Header("Eventsを指定")]
     [SerializeField] private Events events;
+
+    [Header("InputActionAssetを指定")]
+    [SerializeField] private InputActionAssetController inputActionAssetController;
 
     private bool isPlayerStop = false;
     private Vector3 stopPosition;
@@ -22,31 +25,25 @@ public class ControllStop : MonoBehaviour
 
     private void Update()
     {
-        PlayerStop();
+        DisableMovement();
     }
     private void LateUpdate()
     {
-        PlayerStop();
+        DisableMovement();
     }
 
-
-    private void PlayerStop()
-    {
-        if (isPlayerStop)
-        {
-            player.transform.position = stopPosition;
-            rb.isKinematic = false;
-        }
-    }
 
     public void EnableMovement()
     {
         isPlayerStop = false;
+        inputActionAssetController.EnableActionAsset();
     }
 
     public void DisableMovement()
     {
         isPlayerStop = true;
-        stopPosition = player.transform.position;
+        inputActionAssetController.DisableActionAsset();
+        player.transform.position = stopPosition;
+        rb.isKinematic = false;
     }
 }

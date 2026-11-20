@@ -824,6 +824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ControllStop
   player: {fileID: 830627531}
   events: {fileID: 1896258508}
+  inputActionAssetController: {fileID: 0}
 --- !u!114 &1896258545
 MonoBehaviour:
   m_ObjectHideFlags: 0
