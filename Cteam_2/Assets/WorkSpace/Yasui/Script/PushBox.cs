@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -19,9 +20,17 @@ public class PushBox : MonoBehaviour
     private bool canMove = false;                        //くっついて動かせない時に壊して動かせるようにするためのトリガー
     private bool canBreak = false;
     //～●ここまで●～
-    public bool CanMove { get; set; }
+    public bool CanMove { get => canMove; set => canMove = value; }
     void Update()
     {
+
+        if (enumList_Player.CurrentPlayerState != EnumList_Player.PlayerState.Ice)
+        {
+            isPush = false;
+            canMove = false;
+            canBreak = false;
+        }
+
         // 箱の上面からプレイヤーの底面までの高さを測る
         float height = PlayerIceCollider.bounds.min.y - CrateCollider.bounds.max.y;
 
@@ -35,16 +44,51 @@ public class PushBox : MonoBehaviour
    
     private void OnTriggerEnter(Collider other)
     {
-        if (canBreak && enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)
+        if (other.gameObject.CompareTag("Ice"))
         {
-            isPush = true;
-            canMove = true;
+            if (canBreak)
+            {
+                isPush = true;
+                canMove = true;
+                CrateBox.SetActive(false);
+            }
+            else
+            {
+                canMove = false;
+                isPush = false;
+            }
+            canBreak = false;
             if (soundEffectManager != null)
             {
                 soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.BreakWoodBox);
             }
             CrateBox.SetActive(false);
         }
-        else canBreak = false;
+        else
+        {
+            canMove = false;
+            isPush = false;
+            canBreak = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (enumList_Player.CurrentPlayerState != EnumList_Player.PlayerState.Ice)
+            {
+                isPush = false;
+                canMove = false;
+                return;
+            }
+
+            isPush = true;
+            canMove = true;
+        }
+        else
+        {
+            canBreak = false;
+        }
     }
 }

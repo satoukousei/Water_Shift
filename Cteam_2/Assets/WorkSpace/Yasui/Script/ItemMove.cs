@@ -44,16 +44,7 @@ public class ItemMove : MonoBehaviour
 
     private void LateUpdate()
     {
-        ////位置を固定する
-        //if (positionLocked)
-        //{
-        //    transform.position = fixedPosition;
-        //}
-        ////壊すと動かせるようになる
-        //if (pushBox.CanMove)
-        //{
-        //    positionLocked = false;
-        //}
+
 
         if (!pushBox.CanMove)
         {

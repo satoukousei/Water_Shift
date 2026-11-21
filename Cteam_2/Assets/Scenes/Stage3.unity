@@ -3790,6 +3790,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 30c389e0437b70e4a9f20f726311760c, type: 3}
   m_PrefabInstance: {fileID: 127501971}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &129762079 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5760421097953743590, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+  m_PrefabInstance: {fileID: 1823955520}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &129762080 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8607920743952856879, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+  m_PrefabInstance: {fileID: 1823955520}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &134457796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6593,11 +6603,15 @@ PrefabInstance:
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 482480802}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: PlayerIceCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 129762080}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     - target: {fileID: 8340019243698282169, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Name
       value: model_crate (2)
@@ -10521,11 +10535,15 @@ PrefabInstance:
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 482480802}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: PlayerIceCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 129762080}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     - target: {fileID: 8340019243698282169, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Name
       value: model_crate (6)
@@ -11644,11 +11662,15 @@ PrefabInstance:
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 482480802}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: PlayerIceCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 129762080}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     - target: {fileID: 8340019243698282169, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Name
       value: model_crate (7)
@@ -21496,11 +21518,15 @@ PrefabInstance:
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 482480802}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: PlayerIceCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 129762080}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     - target: {fileID: 8340019243698282169, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Name
       value: model_crate (9)
@@ -23905,11 +23931,15 @@ PrefabInstance:
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 482480802}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: PlayerIceCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 129762080}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     - target: {fileID: 8340019243698282169, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Name
       value: model_crate (1)
@@ -26144,11 +26174,15 @@ PrefabInstance:
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 482480802}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: PlayerIceCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 129762080}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     - target: {fileID: 8340019243698282169, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Name
       value: model_crate (4)
@@ -30506,11 +30540,15 @@ PrefabInstance:
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 482480802}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: PlayerIceCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 129762080}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     - target: {fileID: 8340019243698282169, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Name
       value: model_crate (5)
@@ -48130,11 +48168,15 @@ PrefabInstance:
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 482480802}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: PlayerIceCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 129762080}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     - target: {fileID: 8340019243698282169, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Name
       value: model_crate (3)
@@ -50080,6 +50122,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: visualRoot
+      value: 
+      objectReference: {fileID: 129762079}
+    - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: inertiaMove
       value: 3
       objectReference: {fileID: 0}
@@ -50096,9 +50142,17 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
+    - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: inputActionAssetController
       value: 
       objectReference: {fileID: 1868375584}
+    - target: {fileID: 7767606092966332577, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -60154,11 +60208,15 @@ PrefabInstance:
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 482480802}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: PlayerIceCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 129762080}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1669754845}
     - target: {fileID: 8340019243698282169, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Name
       value: model_crate (8)

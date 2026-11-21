@@ -22928,6 +22928,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1228033948537080090, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: steam
+      value: 
+      objectReference: {fileID: 8321898321328275502}
+    - target: {fileID: 1228033948537080090, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: model1_ice
       value: 
       objectReference: {fileID: 1593115068}
@@ -23000,6 +23004,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: StartFadein.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: Goal.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -23030,9 +23038,13 @@ PrefabInstance:
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1833313546}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: StartFadein.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
@@ -23049,11 +23061,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DisableMovement
+      value: GoalEvent
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: GoalEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
+      propertyPath: StartFadein.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: Goal.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -23065,7 +23081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ControllStop, Assembly-CSharp
+      value: GoalDetection, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8007741964947797512, guid: 5d0a756b330f71848a59522dacc797e6, type: 3}
       propertyPath: PlayerGoal.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -40267,6 +40283,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: visualRoot
+      value: 
+      objectReference: {fileID: 8321898321328275501}
+    - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: inertiaMove
       value: 3
       objectReference: {fileID: 0}
@@ -40275,14 +40295,38 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1295313250}
     - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1052099174}
+    - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: inputActionAssetController
       value: 
       objectReference: {fileID: 111863484}
+    - target: {fileID: 7767606092966332577, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1052099174}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+--- !u!4 &8321898321328275501 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5760421097953743590, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+  m_PrefabInstance: {fileID: 8321898321328275500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8321898321328275502 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8749768144256519832, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+  m_PrefabInstance: {fileID: 8321898321328275500}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981366133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e41bb26b9538f41803b4b937bbc278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Steam_Playe_Move
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

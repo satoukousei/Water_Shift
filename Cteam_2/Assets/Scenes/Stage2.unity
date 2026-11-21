@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeEffect
   events: {fileID: 2118068942}
-  fadeImage: {fileID: 0}
+  fadeImage: {fileID: 1232530540}
   fadeinTime: 0
   fadeoutTime: 0.5
   beforeFadeinTime: 0
@@ -12726,6 +12726,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: visualRoot
+      value: 
+      objectReference: {fileID: 982576848}
+    - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: inertiaMove
       value: 3
       objectReference: {fileID: 0}
@@ -12742,9 +12746,17 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 899964619}
+    - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: inputActionAssetController
       value: 
       objectReference: {fileID: 86517876}
+    - target: {fileID: 7767606092966332577, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 899964619}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12778,6 +12790,11 @@ GameObject:
 --- !u!1 &982576847 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5466974147833826433, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+  m_PrefabInstance: {fileID: 982576841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &982576848 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5760421097953743590, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
   m_PrefabInstance: {fileID: 982576841}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &982576849 stripped
@@ -14464,6 +14481,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd25677d3afed04bae514093298df90, type: 3}
+--- !u!114 &1232530540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4795864968985377096, guid: 8cd25677d3afed04bae514093298df90, type: 3}
+  m_PrefabInstance: {fileID: 1232530539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &1240284998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26098,6 +26126,10 @@ PrefabInstance:
       propertyPath: PlayerIceCollider
       value: 
       objectReference: {fileID: 982576842}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 899964619}
     - target: {fileID: 3207871254189588644, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: m_Enabled
       value: 1
