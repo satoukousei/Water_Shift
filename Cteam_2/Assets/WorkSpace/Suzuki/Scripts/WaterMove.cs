@@ -5,12 +5,15 @@ using UnityEngine.InputSystem;
 /// 【使い方】
 /// ・水状態のプレイヤーオブジェクトにアタッチして使用します。
 /// ・インスペクターから移動速度、ジャンプ力、レイの長さ、地面レイヤー、Rigidbody等を設定してください。
+/// ・Xboxコントローラーの左スティック／十字キーで左右移動、Aボタンでジャンプします（キーボードのA/D、Spaceにも対応）。
 /// 
 /// 【目的】
-/// ・水状態のプレイヤーの移動、接地判定に基づくジャンプ、および移動停止時の滑り（慣性）を防止する制御を行うためにあります。
+/// ・水状態のプレイヤーの移動および接地判定に基づくジャンプを制御し、移動停止時や段差落下時の不要な滑りを防ぐためにあります。
 /// </summary>
 public class WaterMove : MonoBehaviour
 {
+    private const float InputDeadzone = 0.2f;
+
     [Header("移動・ジャンプ設定")]
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float upJumpPower = 7.0f;
@@ -24,15 +27,13 @@ public class WaterMove : MonoBehaviour
     [SerializeField] private Vector3 jumpDirection = Vector3.zero;
 
     private bool isGrounded = false;
-    [SerializeField] private SoundEffectManager soundEffectManager;
-    private bool wasGrounded;
 
     /// <summary>
     /// コンポーネントの初期参照取得を行います
     /// </summary>
     private void Start()
     {
-        
+
     }
 
     /// <summary>
@@ -40,28 +41,20 @@ public class WaterMove : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (Keyboard.current == null)
-        {
-            return;
-        }
-
         Vector3 rayOrigin = transform.parent != null ? transform.parent.position : transform.position;
 
         isGrounded = false;
-        for (int layerCount = 0; layerCount < groundLayer.Length; layerCount++)
+        if (groundLayer != null)
         {
-            if (Physics.Raycast(rayOrigin + jumpDirection, Vector3.down, rayLength, groundLayer[layerCount]))
+            for (int layerCount = 0; layerCount < groundLayer.Length; layerCount++)
             {
-                isGrounded = true;
-                break;
+                if (Physics.Raycast(rayOrigin + jumpDirection, Vector3.down, rayLength, groundLayer[layerCount]))
+                {
+                    isGrounded = true;
+                    break;
+                }
             }
         }
-
-        if (isGrounded && !wasGrounded && soundEffectManager != null)
-        {
-            soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.WaterFalling);
-        }
-        wasGrounded = isGrounded;
 
         Debug.DrawRay(rayOrigin, Vector3.down * rayLength, Color.blue);
 
@@ -70,50 +63,68 @@ public class WaterMove : MonoBehaviour
     }
 
     /// <summary>
-    /// プレイヤーの移動処理を行います
+    /// 左右の移動処理を行います（左スティック・十字キー・A/Dキーに対応）
     /// </summary>
     private void Movement()
     {
         Transform targetTransform = transform.parent != null ? transform.parent : transform;
+        float horizontalAxis = GetHorizontalInput();
 
-        float horizontalInput = 0.0f;
-
-        // 右移動の入力
-        if (Keyboard.current.dKey.isPressed)
+        if (Mathf.Abs(horizontalAxis) > InputDeadzone)
         {
-            horizontalInput = moveSpeed;
-        }
-        // 左移動の入力
-        else if (Keyboard.current.aKey.isPressed)
-        {
-            horizontalInput = -moveSpeed;
+            float moveAmount = horizontalAxis * moveSpeed * Time.deltaTime;
+            targetTransform.position += new Vector3(moveAmount, 0.0f, 0.0f);
         }
 
-        // キー入力がある場合：位置を動かす
-        if (horizontalInput != 0.0f)
+        // 滑りを防ぐため、X軸のRigidbody速度をゼロに維持する
+        if (rb != null)
         {
-            targetTransform.position += new Vector3(horizontalInput * Time.deltaTime, 0.0f, 0.0f);
-
-            if (rb != null)
-            {
-                Vector3 currentVelocity = rb.linearVelocity;
-                currentVelocity.x = 0.0f;
-                rb.linearVelocity = currentVelocity;
-            }
-        }
-        else
-        {
-            if (rb != null)
-            {
-                Vector3 currentVelocity = rb.linearVelocity;
-                currentVelocity.x = 0.0f;
-                rb.linearVelocity = currentVelocity;
-            }
+            Vector3 currentVelocity = rb.linearVelocity;
+            currentVelocity.x = 0.0f;
+            rb.linearVelocity = currentVelocity;
         }
     }
 
     /// <summary>
-    /// ジャンプ処理を行います
+    /// コントローラーおよびキーボードから左右入力値を取得します
+    /// </summary>
+    /// <returns>-1.0f〜1.0fの左右入力値</returns>
+    private float GetHorizontalInput()
+    {
+        float horizontalInput = 0.0f;
+
+        if (Gamepad.current != null)
+        {
+            float stickX = Gamepad.current.leftStick.x.ReadValue();
+            float dpadX = Gamepad.current.dpad.x.ReadValue();
+
+            if (Mathf.Abs(stickX) > Mathf.Abs(dpadX))
+            {
+                horizontalInput = stickX;
+            }
+            else
+            {
+                horizontalInput = dpadX;
+            }
+        }
+
+        if (Mathf.Abs(horizontalInput) <= InputDeadzone && Keyboard.current != null)
+        {
+            if (Keyboard.current.dKey.isPressed)
+            {
+                horizontalInput = 1.0f;
+            }
+            else if (Keyboard.current.aKey.isPressed)
+            {
+                horizontalInput = -1.0f;
+            }
+        }
+
+        return Mathf.Clamp(horizontalInput, -1.0f, 1.0f);
+    }
+
+    /// <summary>
+    /// ジャンプ処理を行います（Aボタン・Spaceキーに対応）
     /// </summary>
     private void Jump()
     {
@@ -122,17 +133,24 @@ public class WaterMove : MonoBehaviour
             return;
         }
 
-        // スペースキーが押されたとき＆接地している時
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded)
+        if (IsJumpPressedThisFrame() && isGrounded)
         {
-            Vector3 jumpVector = Vector3.up;
-            Vector3 jumpVelocity = jumpVector * upJumpPower;
-
-            // Y軸方向のみ上向きの速度を設定する
             Vector3 currentVelocity = rb.linearVelocity;
-            currentVelocity.y = jumpVelocity.y;
+            currentVelocity.y = upJumpPower;
             rb.linearVelocity = currentVelocity;
         }
+    }
+
+    /// <summary>
+    /// ジャンプボタンが押された瞬間かを判定します
+    /// </summary>
+    /// <returns>押されたフレームならtrue</returns>
+    private bool IsJumpPressedThisFrame()
+    {
+        bool isGamepadJumpPressed = Gamepad.current != null && Gamepad.current.aButton.wasPressedThisFrame;
+        bool isKeyboardJumpPressed = Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame;
+
+        return isGamepadJumpPressed || isKeyboardJumpPressed;
     }
 
     /// <summary>

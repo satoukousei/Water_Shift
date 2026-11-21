@@ -7,9 +7,9 @@ using static EnumList_Player;
 /// ・インスペクターから「落下中エフェクトPrefab」「着地エフェクトPrefab」「足元位置」「地面レイヤー」「EnumList_Player」を設定してください。
 /// 
 /// 【目的】
-/// ・プレイヤーが氷状態（Ice）のときに落下中エフェクトを足元へ追従表示し、着地時に地面落下時エフェクトを発生させるためにあります。
+/// ・プレイヤーが氷状態（Ice）のときのみ、落下中エフェクトを広がった状態で一時停止・維持し、着地時に地面エフェクトを再生するためにあります。
 /// </summary>
-public class IceFallEffectController : MonoBehaviour
+public class IceFallEffect : MonoBehaviour
 {
     private const float HexColorMax = 255.0f;
 
@@ -25,11 +25,13 @@ public class IceFallEffectController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer = 0;
     [SerializeField] private bool showFallingOnlyWhileFalling = true;
     [SerializeField] private float fallingVelocityThreshold = -0.05f;
-    [SerializeField] private SoundEffectManager soundEffectManager;
+    [SerializeField] private bool keepUntilGrounded = true;
 
     [Header("落下エフェクト調整")]
     [SerializeField] private Vector3 fallingEffectScale = new Vector3(1.0f, 0.35f, 1.0f);
     [SerializeField] private Vector3 footOffset = Vector3.zero;
+    [Tooltip("エフェクトが広がりきって一時停止するまでの秒数")]
+    [SerializeField] private float expandDuration = 0.25f;
 
     [Header("エフェクト色設定")]
     [SerializeField] private Color fallingEffectColor = new Color(255.0f / HexColorMax, 216.0f / HexColorMax, 74.0f / HexColorMax, 1.0f);
@@ -37,17 +39,16 @@ public class IceFallEffectController : MonoBehaviour
 
     private GameObject activeFallingEffect = null;
     private bool wasGrounded = true;
-    private bool wasFallingActive = false;
+    private bool isLatchedFalling = false;
+    private float fallingEffectTimer = 0.0f;
+    private bool isFallingEffectPaused = false;
 
     /// <summary>
     /// 初期参照を取得します
     /// </summary>
     private void Awake()
     {
-        if (playerStateHolder == null)
-        {
-            playerStateHolder = GetComponentInParent<EnumList_Player>();
-        }
+        
     }
 
     /// <summary>
@@ -55,12 +56,11 @@ public class IceFallEffectController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        bool isIce = IsIceState();
         bool isGrounded = CheckGrounded();
 
-        if (!isIce)
+        if (!IsIceState())
         {
-            wasFallingActive = false;
+            ResetFallingState();
             DestroyFallingEffect();
             wasGrounded = isGrounded;
             return;
@@ -70,21 +70,15 @@ public class IceFallEffectController : MonoBehaviour
 
         if (isFalling)
         {
-            wasFallingActive = true;
             SpawnOrUpdateFallingEffect();
         }
         else
         {
-            if (wasFallingActive && isGrounded && !wasGrounded)
+            if (isGrounded && !wasGrounded)
             {
                 SpawnLandingEffect();
-                if (soundEffectManager != null)
-                {
-                    soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.IceFalling);
-                }
             }
 
-            wasFallingActive = false;
             DestroyFallingEffect();
         }
 
@@ -92,11 +86,11 @@ public class IceFallEffectController : MonoBehaviour
     }
 
     /// <summary>
-    /// オブジェクト無効化時に生成中の落下エフェクトを破棄します
+    /// オブジェクト無効化時に状態をリセットし、生成中の落下エフェクトを破棄します
     /// </summary>
     private void OnDisable()
     {
-        wasFallingActive = false;
+        ResetFallingState();
         DestroyFallingEffect();
     }
 
@@ -115,6 +109,16 @@ public class IceFallEffectController : MonoBehaviour
     }
 
     /// <summary>
+    /// 落下判定の内部状態をリセットします
+    /// </summary>
+    private void ResetFallingState()
+    {
+        isLatchedFalling = false;
+        fallingEffectTimer = 0.0f;
+        isFallingEffectPaused = false;
+    }
+
+    /// <summary>
     /// 地面に接しているかをRaycastで確認します
     /// </summary>
     /// <returns>接地していればtrue</returns>
@@ -126,32 +130,40 @@ public class IceFallEffectController : MonoBehaviour
     }
 
     /// <summary>
-    /// 落下中エフェクトを表示すべき状態かを判定します
+    /// 落下・空中判定を行います
     /// </summary>
     /// <param name="isGrounded">接地中かどうか</param>
-    /// <returns>落下中ならtrue</returns>
+    /// <returns>落下中エフェクトを表示する状態ならtrue</returns>
     private bool IsFalling(bool isGrounded)
     {
         if (isGrounded)
         {
+            isLatchedFalling = false;
             return false;
         }
 
         if (!showFallingOnlyWhileFalling)
         {
+            isLatchedFalling = true;
             return true;
         }
 
-        if (targetRigidbody != null)
+        bool meetsVelocity = targetRigidbody == null || targetRigidbody.linearVelocity.y < fallingVelocityThreshold;
+        if (meetsVelocity)
         {
-            return targetRigidbody.linearVelocity.y < fallingVelocityThreshold;
+            isLatchedFalling = true;
         }
 
-        return true;
+        if (keepUntilGrounded && isLatchedFalling)
+        {
+            return true;
+        }
+
+        return meetsVelocity;
     }
 
     /// <summary>
-    /// 落下中エフェクトを生成または足元位置・サイズへ更新します
+    /// 落下中エフェクトを生成し、広がりきったタイミングで一時停止して維持します
     /// </summary>
     private void SpawnOrUpdateFallingEffect()
     {
@@ -168,18 +180,32 @@ public class IceFallEffectController : MonoBehaviour
                 fallingEffectPrefab.transform.rotation
             );
             ApplyColor(activeFallingEffect, fallingEffectColor);
-            EnsureLooping(activeFallingEffect);
+            PlayFromStart(activeFallingEffect);
+
+            fallingEffectTimer = 0.0f;
+            isFallingEffectPaused = false;
         }
 
         activeFallingEffect.transform.position = footPoint.position + footOffset;
         activeFallingEffect.transform.localScale = fallingEffectScale;
+
+        // 指定秒数（広がりきった状態）になったら一時停止して着地まで維持
+        if (!isFallingEffectPaused)
+        {
+            fallingEffectTimer += Time.deltaTime;
+            if (fallingEffectTimer >= expandDuration)
+            {
+                PauseEffect(activeFallingEffect);
+                isFallingEffectPaused = true;
+            }
+        }
     }
 
     /// <summary>
-    /// 落下中に途中で消えないようパーティクルのLoopingを有効化します
+    /// ループを無効化して最初から再生します
     /// </summary>
     /// <param name="targetObject">対象のエフェクトオブジェクト</param>
-    private void EnsureLooping(GameObject targetObject)
+    private void PlayFromStart(GameObject targetObject)
     {
         if (targetObject == null)
         {
@@ -190,12 +216,32 @@ public class IceFallEffectController : MonoBehaviour
         foreach (ParticleSystem ps in particleSystems)
         {
             ParticleSystem.MainModule mainModule = ps.main;
-            mainModule.loop = true;
+            mainModule.loop = false;
+            ps.Clear(true);
+            ps.Play(true);
         }
     }
 
     /// <summary>
-    /// 落下中エフェクトを破棄します
+    /// エフェクトを現在の見た目（広がった状態）のまま一時停止します
+    /// </summary>
+    /// <param name="targetObject">対象のエフェクトオブジェクト</param>
+    private void PauseEffect(GameObject targetObject)
+    {
+        if (targetObject == null)
+        {
+            return;
+        }
+
+        ParticleSystem[] particleSystems = targetObject.GetComponentsInChildren<ParticleSystem>(true);
+        foreach (ParticleSystem ps in particleSystems)
+        {
+            ps.Pause(true);
+        }
+    }
+
+    /// <summary>
+    /// 落下中エフェクトを破棄し、関連タイマーを初期化します
     /// </summary>
     private void DestroyFallingEffect()
     {
@@ -204,6 +250,9 @@ public class IceFallEffectController : MonoBehaviour
             Destroy(activeFallingEffect);
             activeFallingEffect = null;
         }
+
+        fallingEffectTimer = 0.0f;
+        isFallingEffectPaused = false;
     }
 
     /// <summary>
