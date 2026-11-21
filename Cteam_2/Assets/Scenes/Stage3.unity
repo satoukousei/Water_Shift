@@ -50153,6 +50153,10 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1669754845}
+    - target: {fileID: 8607920743952856879, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 2608b61be7297d94c804bf900004daf4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
