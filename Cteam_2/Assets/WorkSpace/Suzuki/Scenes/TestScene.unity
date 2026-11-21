@@ -898,14 +898,16 @@ MonoBehaviour:
   playerStateHolder: {fileID: 0}
   footPoint: {fileID: 1672286190}
   targetRigidbody: {fileID: 2010342884}
-  groundCheckDistance: 0.25
+  groundCheckDistance: 0.05
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   showFallingOnlyWhileFalling: 1
   fallingVelocityThreshold: -0.05
-  fallingEffectScale: {x: 1, y: 0.35, z: 1}
+  keepUntilGrounded: 1
+  fallingEffectScale: {x: 0.25, y: 0.5, z: 0.25}
   footOffset: {x: 0, y: 0, z: 0}
+  expandDuration: 0.25
   fallingEffectColor: {r: 1, g: 0.84705883, b: 0.2901961, a: 1}
   landingEffectColor: {r: 1, g: 0.83137256, b: 0, a: 1}
 --- !u!1001 &2684703629281045955
