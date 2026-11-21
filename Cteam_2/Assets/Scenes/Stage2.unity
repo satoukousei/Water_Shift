@@ -10458,6 +10458,14 @@ PrefabInstance:
       propertyPath: pushBox
       value: 
       objectReference: {fileID: 1367266216}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: enumList_Player
+      value: 
+      objectReference: {fileID: 2118068943}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: PlayerRigidbody
+      value: 
+      objectReference: {fileID: 982576844}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
@@ -12439,6 +12447,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 86517876}
     - target: {fileID: 7767606092966332577, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: upJumpPower
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7767606092966332577, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 899964619}
@@ -12448,8 +12460,14 @@ PrefabInstance:
       objectReference: {fileID: 13400000, guid: 2608b61be7297d94c804bf900004daf4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5760421097953743590, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1727636175}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7779433602856533289, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 982576850}
   m_SourcePrefab: {fileID: 100100000, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
 --- !u!65 &982576842 stripped
 BoxCollider:
@@ -12491,6 +12509,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3753422023716311999, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
   m_PrefabInstance: {fileID: 982576841}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &982576850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982576846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d031d86c773a86e4d883a95d97389e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IceFallEffect
+  fallingEffectPrefab: {fileID: 1714681308540598, guid: 5cbc537826220e04592d5a41a0dd985f, type: 3}
+  landingEffectPrefab: {fileID: 3432958286849152088, guid: 87ee7299dd44ed747af24dbb91bcd33b, type: 3}
+  playerStateHolder: {fileID: 2118068943}
+  footPoint: {fileID: 1727636175}
+  targetRigidbody: {fileID: 982576844}
+  groundCheckDistance: 0.05
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  showFallingOnlyWhileFalling: 1
+  fallingVelocityThreshold: -0.05
+  keepUntilGrounded: 1
+  fallingEffectScale: {x: 1, y: 0.35, z: 1}
+  footOffset: {x: 0, y: 0, z: 0}
+  expandDuration: 0.25
+  fallingEffectColor: {r: 1, g: 0.84705883, b: 0.2901961, a: 1}
+  landingEffectColor: {r: 1, g: 0.83137256, b: 0, a: 1}
 --- !u!1001 &986612666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21624,6 +21671,14 @@ PrefabInstance:
       propertyPath: pushBox
       value: 
       objectReference: {fileID: 412322218}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: enumList_Player
+      value: 
+      objectReference: {fileID: 2118068943}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: PlayerRigidbody
+      value: 
+      objectReference: {fileID: 982576844}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
@@ -23332,6 +23387,37 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1727636174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1727636175}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1727636175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727636174}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.372, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 982576848}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1735639259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25720,6 +25806,14 @@ PrefabInstance:
       propertyPath: pushBox
       value: 
       objectReference: {fileID: 1861189547}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: enumList_Player
+      value: 
+      objectReference: {fileID: 2118068943}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: PlayerRigidbody
+      value: 
+      objectReference: {fileID: 982576844}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
@@ -25801,6 +25895,14 @@ PrefabInstance:
       propertyPath: pushBox
       value: 
       objectReference: {fileID: 1861189547}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: enumList_Player
+      value: 
+      objectReference: {fileID: 2118068943}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: PlayerRigidbody
+      value: 
+      objectReference: {fileID: 982576844}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
@@ -25992,6 +26094,18 @@ PrefabInstance:
       propertyPath: pushBox
       value: 
       objectReference: {fileID: 992396304}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: tekitou
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: enumList_Player
+      value: 
+      objectReference: {fileID: 2118068943}
+    - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: PlayerRigidbody
+      value: 
+      objectReference: {fileID: 982576844}
     - target: {fileID: 2835923392427920307, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: enumList_Player
       value: 
@@ -28836,7 +28950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeEffect
   events: {fileID: 2118068942}
-  fadeImage: {fileID: 0}
+  fadeImage: {fileID: 1232530540}
   fadeinTime: 3
   fadeoutTime: 1
   beforeFadeinTime: 3

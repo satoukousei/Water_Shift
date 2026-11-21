@@ -25283,6 +25283,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5001553, z: 0}
+--- !u!1 &1347063440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347063441}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1347063441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347063440}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.394, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8321898321328275501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1355870090
 Mesh:
   m_ObjectHideFlags: 0
@@ -40278,6 +40309,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerParent
       objectReference: {fileID: 0}
+    - target: {fileID: 5466974147833826433, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6778622526716655417, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: moveSpeed
       value: 3
@@ -40303,6 +40338,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 111863484}
     - target: {fileID: 7767606092966332577, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      propertyPath: upJumpPower
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7767606092966332577, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1052099174}
@@ -40312,8 +40351,14 @@ PrefabInstance:
       objectReference: {fileID: 13400000, guid: 2608b61be7297d94c804bf900004daf4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5760421097953743590, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1347063441}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7779433602856533289, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8321898321328275503}
   m_SourcePrefab: {fileID: 100100000, guid: 9072704bd68eed0498dc37145f4aa87e, type: 3}
 --- !u!4 &8321898321328275501 stripped
 Transform:
@@ -40331,6 +40376,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e41bb26b9538f41803b4b937bbc278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Steam_Playe_Move
+--- !u!114 &8321898321328275503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593115068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d031d86c773a86e4d883a95d97389e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IceFallEffect
+  fallingEffectPrefab: {fileID: 1714681308540598, guid: 5cbc537826220e04592d5a41a0dd985f, type: 3}
+  landingEffectPrefab: {fileID: 3432958286849152088, guid: 87ee7299dd44ed747af24dbb91bcd33b, type: 3}
+  playerStateHolder: {fileID: 1295313250}
+  footPoint: {fileID: 1347063441}
+  targetRigidbody: {fileID: 3696755383076187037}
+  groundCheckDistance: 0.05
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  showFallingOnlyWhileFalling: 1
+  fallingVelocityThreshold: -0.05
+  keepUntilGrounded: 1
+  fallingEffectScale: {x: 1, y: 0.35, z: 1}
+  footOffset: {x: 0, y: 0, z: 0}
+  expandDuration: 0.25
+  fallingEffectColor: {r: 1, g: 0.84705883, b: 0.2901961, a: 1}
+  landingEffectColor: {r: 1, g: 0.83137256, b: 0, a: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
