@@ -1,58 +1,132 @@
 using UnityEngine;
 
 /// <summary>
-/// 【目的】
-///  アイテム(箱や鍵)どうしが当たったときにそのアイテムの位置を固定するためにあります。
-///  
-/// 【使い方】
-/// プロト段階では木箱を壊すこと(canMoveをtrueにすること)で位置固定を解除します。
-/// 完成版ではbool追加で位置解除を増やし余計な位置固定を防いでください。
+/// 隣接物(上下左右)がある間は位置を固定し、
+/// 隣接物がない状態で「氷状態のプレイヤー」に横から押されたときだけ固定を解除する。
 /// </summary>
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
 public class ItemMove : MonoBehaviour
 {
-    //private bool positionLocked;                  //互いにぶつかったときに位置を固定させるためのトリガー
-    private Vector3 fixedPosition;                //ぶつかったときの位置を記録する
+    [SerializeField] private EnumList_Player enumList_Player;  // プレイヤーの状態
+    [SerializeField] private string neighborTag = "box";
+    [SerializeField] private string playerTag = "Player";
+    [SerializeField] private float checkMargin = 0.05f;
+    [SerializeField] private float pushNormalThreshold = 0.5f;
 
-    [SerializeField] private PushBox pushBox;     //位置を固定させる物体(基本はつけている物体を入れる)
+
+    private static readonly Vector3[] CheckDirs =
+    {
+        Vector3.left, Vector3.right, Vector3.up, Vector3.down
+    };
+
+    private Collider col;
+    private Vector3 fixedPosition;
+    private bool isLocked = true;
+
+    private void Awake()
+    {
+        col = GetComponent<Collider>();
+    }
 
     private void Start()
     {
         fixedPosition = transform.position;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void FixedUpdate()
     {
-        GameObject other = collision.gameObject;
+        if (HasNeighbor())
+        {
+            Lock();
+        }
+    }
 
-        //一定のタグでは位置を固定しない
-        if (other.CompareTag("Player") ||
-            other.CompareTag("Ground") ||
-            other.CompareTag("Slope"))
+    private void OnCollisionStay(Collision collision)
+    {
+        if (!isLocked) return;
+        if (!IsPlayer(collision)) return;
+
+        // 氷状態のプレイヤーだけが動かせる
+        if (enumList_Player == null ||
+            enumList_Player.CurrentPlayerState != EnumList_Player.PlayerState.Ice)
         {
             return;
         }
 
-
-        if(other.CompareTag("box"))
+        // 横方向(X/Z)から押されているか
+        bool pushedFromSide = false;
+        foreach (ContactPoint contact in collision.contacts)
         {
-            //位置記録、固定
-            fixedPosition = transform.position;
-            //positionLocked = true;
-            pushBox.CanMove = false;
+            if (Mathf.Abs(contact.normal.x) > pushNormalThreshold ||
+                Mathf.Abs(contact.normal.z) > pushNormalThreshold)
+            {
+                pushedFromSide = true;
+                break;
+            }
         }
+        if (!pushedFromSide) return;
+
+        // 隣に箱があれば固定のまま
+        if (HasNeighbor()) return;
+
+        isLocked = false;
+
     }
 
     private void LateUpdate()
     {
-
-
-        if (!pushBox.CanMove)
+        if (isLocked)
         {
             transform.position = fixedPosition;
         }
-        else
+    }
+
+    private void Lock()
+    {
+        if (!isLocked)
         {
+            isLocked = true;
             fixedPosition = transform.position;
+
         }
+    }
+
+    private bool IsPlayer(Collision collision)
+    {
+        if (collision.collider.CompareTag(playerTag)) return true;
+        if (collision.transform.CompareTag(playerTag)) return true;
+        if (collision.transform.root.CompareTag(playerTag)) return true;
+        return false;
+    }
+
+    private bool HasNeighbor()
+    {
+        Bounds b = col.bounds;
+
+        foreach (Vector3 dir in CheckDirs)
+        {
+            float extent = Mathf.Abs(Vector3.Dot(b.extents, dir));
+            float distance = extent + checkMargin;
+
+
+
+            RaycastHit[] hits = Physics.RaycastAll(
+                b.center, dir, distance,
+                ~0, QueryTriggerInteraction.Ignore);
+
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider == col) continue;
+                if (hit.collider.transform.IsChildOf(transform)) continue;
+
+                if (hit.collider.CompareTag(neighborTag))
+                {
+
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

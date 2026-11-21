@@ -2,6 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// 氷状態のプレイヤーが、上から箱に接触したとき箱を壊すスクリプト。
+/// (押して動かす処理は ItemMove が担当)
 /// </summary>
 public class PushBox : MonoBehaviour
 {
@@ -12,14 +13,7 @@ public class PushBox : MonoBehaviour
     [SerializeField] private Rigidbody PlayerRigidbody;
 
     private bool isPush = false;
-    private bool canMove = false;
     private bool canBreak = false;
-
-    public bool CanMove
-    {
-        get => canMove;
-        set => canMove = value;
-    }
 
     private void Update()
     {
@@ -76,7 +70,6 @@ public class PushBox : MonoBehaviour
             EnumList_Player.PlayerState.Ice)
         {
             isPush = true;
-            CanMove = true;
             canBreak = false;
 
             if (CrateBox != null)

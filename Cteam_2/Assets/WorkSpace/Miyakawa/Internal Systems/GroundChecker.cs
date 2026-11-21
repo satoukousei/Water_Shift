@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
 {
-    [Header("レイの長さ")]
-    [SerializeField] private float rayDistance = 2f;
+    [Header("レイ設定")]
+    [SerializeField] private float rayStartOffset = 0.5f;   // 足元から上にずらす量
+    [SerializeField] private float rayDistance = 2f;        // 下に飛ばす長さ
+    [SerializeField] private LayerMask groundLayer = ~0;    // 地面のレイヤー
+
+    [Header("復帰位置の補正")]
+    [SerializeField] private float footOffset = 0f;         // 地面の上面からのオフセット(Pivotが足元なら0)
 
     [Header("落下判定")]
     [SerializeField] private float deathHeight = -10f;
@@ -15,12 +20,10 @@ public class GroundChecker : MonoBehaviour
     private Vector3 returnPosition;
     private Quaternion returnRotation;
     private Rigidbody playerRigidbody;
-    private Collider playerCollider;
 
-    private void Start()
+    private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
-        playerCollider = GetComponent<Collider>();
 
         returnPosition = transform.position;
         returnRotation = transform.rotation;
@@ -38,37 +41,27 @@ public class GroundChecker : MonoBehaviour
 
     private void SaveGroundCenter()
     {
-        Vector3 rayOrigin = transform.position;
+        Vector3 rayOrigin = transform.position + Vector3.up * rayStartOffset;
+        float distance = rayStartOffset + rayDistance;
 
-        if (playerCollider != null)
-        {
-            rayOrigin = new Vector3(
-                transform.position.x,
-                playerCollider.bounds.min.y + 0.05f,
-                transform.position.z);
-        }
+        Debug.DrawRay(rayOrigin, Vector3.down * distance, Color.blue);
 
-        if (Physics.Raycast(rayOrigin,Vector3.down,out RaycastHit hit,rayDistance))
+        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, distance,
+                            groundLayer, QueryTriggerInteraction.Ignore))
         {
             if (hit.collider.CompareTag(groundTag))
             {
-                Vector3 blockCenter = hit.collider.bounds.center;
-
-                float playerHalfHeight = 0f;
-
-                if (playerCollider != null)
-                {
-                    playerHalfHeight = playerCollider.bounds.extents.y;
-                }
-
                 returnPosition = new Vector3(
-                    blockCenter.x,
-                    hit.collider.bounds.max.y + playerHalfHeight,
+                    hit.collider.bounds.center.x,
+                    hit.point.y + footOffset,
                     transform.position.z);
 
                 returnRotation = transform.rotation;
+
+                Debug.Log(returnPosition);
             }
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,24 +82,5 @@ public class GroundChecker : MonoBehaviour
             playerRigidbody.linearVelocity = Vector3.zero;
             playerRigidbody.angularVelocity = Vector3.zero;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-
-        Vector3 rayOrigin = transform.position;
-
-        if (playerCollider != null)
-        {
-            rayOrigin = new Vector3(
-                transform.position.x,
-                playerCollider.bounds.min.y + 0.05f,
-                transform.position.z);
-        }
-
-        Gizmos.DrawLine(
-            rayOrigin,
-            rayOrigin + Vector3.down * rayDistance);
     }
 }

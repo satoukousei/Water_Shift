@@ -56,7 +56,6 @@ public class WaterMove : MonoBehaviour
             }
         }
 
-        Debug.DrawRay(rayOrigin, Vector3.down * rayLength, Color.blue);
 
         Movement();
         Jump();

@@ -3,9 +3,10 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// 【目的】
-///  プレイヤーの行動をまとまています。
+///  プレイヤーの行動をまとめています。
 /// 【使い方】
 ///  プレイヤーの移動速度をmoveSpeedで変更することができます。
+///  キーボード(A/D)、ゲームパッド(左スティック/十字キー)で左右移動できます。
 ///  状態変化をさせることができます(仮)。
 ///  水状態でSpaceを押すことでジャンプできるようにしています(仮)。
 ///  坂を下ることができます。
@@ -45,6 +46,7 @@ public class PlayerMove : MonoBehaviour
     private float slideSeTimer;
     private float slideGraceTimer;
     private float slideVelocityLogTimer;
+    private const float InputDeadzone = 0.2f;
     private bool wasSliding;
     private bool wasGrounded;
     private Vector3 slideDirection;
@@ -163,30 +165,44 @@ public class PlayerMove : MonoBehaviour
         }
 
         if (isSlide) return;
-        if (Keyboard.current != null && Keyboard.current.dKey.isPressed) // 右
+
+        // キーボード(A/D)・ゲームパッド(左スティック/十字キー)の左右入力
+        float horizontal = GetHorizontalInput();
+        if (Mathf.Abs(horizontal) > 0f)
         {
             Vector3 velocity = rb.linearVelocity;
-            velocity.x += inertiaMove;
-
-            if (velocity.x >= moveSpeed)
-            {
-                velocity.x = moveSpeed;
-            }
-
+            velocity.x += inertiaMove * horizontal;
+            velocity.x = Mathf.Clamp(velocity.x, -moveSpeed, moveSpeed);
             rb.linearVelocity = velocity;
         }
-        if (Keyboard.current != null && Keyboard.current.aKey.isPressed) // 左
+    }
+
+    /// <summary>
+    /// キーボード(A/D)とゲームパッド(左スティック/十字キー)の横入力を -1〜1 で返します。
+    /// </summary>
+    private float GetHorizontalInput()
+    {
+        float horizontal = 0f;
+
+        // キーボード
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard != null)
         {
-            Vector3 velocity = rb.linearVelocity;
-            velocity.x -= inertiaMove;
-
-            if (velocity.x <= -moveSpeed)
-            {
-                velocity.x = -moveSpeed;
-            }
-
-            rb.linearVelocity = velocity;
+            if (keyboard.dKey.isPressed) horizontal += 1f;
+            if (keyboard.aKey.isPressed) horizontal -= 1f;
         }
+
+        // ゲームパッド
+        Gamepad gamepad = Gamepad.current;
+        if (gamepad != null)
+        {
+            float stick = gamepad.leftStick.x.ReadValue();
+            if (Mathf.Abs(stick) >= InputDeadzone) horizontal += stick;
+
+            horizontal += gamepad.dpad.x.ReadValue();
+        }
+
+        return Mathf.Clamp(horizontal, -1f, 1f);
     }
 
     /// <summary>
