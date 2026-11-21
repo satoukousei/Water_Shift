@@ -282,13 +282,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushBox
   enumList_Player: {fileID: 1126044665}
-  playerRb: {fileID: 923238398}
   CrateBox: {fileID: 106820361}
-  PlayerCollider: {fileID: 1291113047}
+  PlayerIceCollider: {fileID: 1291113047}
   CrateCollider: {fileID: 106820364}
-  isPush: 0
-  canMove: 0
-  canBreak: 0
 --- !u!114 &106820366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,17 +883,16 @@ MonoBehaviour:
   rb: {fileID: 923238398}
   enumList_Player: {fileID: 1126044665}
   PushBox: {fileID: 106820365}
-  StopEnum: {fileID: 1291113050}
   moveSpeed: 4
-  rayDirection: 1
-  slideSpeed: 4
-  slideAcceleration: 4
-  afterSlideSpeed: 2
-  rotateSpeed: 4
-  stopSpeed: 2
-  slideAngle: 0
   inertiaMove: 0.2
+  rayDirection: 1
+  slideMaxSpeed: 0
+  slideAcceleration: 4
+  rotateSpeed: 4
+  slideAngle: 0
   playerRoot: {fileID: 923238397}
+  maxAngle: 90
+  inputActionAssetController: {fileID: 1598496762}
   isSlide: 0
 --- !u!65 &1291113047 stripped
 BoxCollider:
@@ -1015,6 +1010,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1598496761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1598496763}
+  - component: {fileID: 1598496762}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1598496762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598496761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af886c0eec4d4534eb88d6748fdb33f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputActionAssetController
+  inputAsset:
+  - {fileID: -944628639613478452, guid: 81f35005be232974f835f0ecf40ca616, type: 3}
+  - {fileID: -944628639613478452, guid: beb278614d079d14d86d7c1ec372dbe8, type: 3}
+--- !u!4 &1598496763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598496761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.09939, y: 14.49898, z: 52.62841}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1858169481 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d1e8056f8aee8574fb233cd7f2ab85f0, type: 3}
@@ -1094,7 +1136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeyAction
   enumList_Player: {fileID: 1126044665}
-  playerCollider: {fileID: 1420884352}
+  playerWaterCollider: {fileID: 1420884352}
   keyCollider: {fileID: 1858169483}
 --- !u!1 &1871412779
 GameObject:
@@ -1298,3 +1340,4 @@ SceneRoots:
   - {fileID: 482026898}
   - {fileID: 106820360}
   - {fileID: 1274649860}
+  - {fileID: 1598496763}

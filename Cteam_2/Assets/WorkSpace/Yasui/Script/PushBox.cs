@@ -1,94 +1,109 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// 【目的】
-/// プレイヤーが氷状態の時、箱を壊すためのスクリプトです。
-/// 【使い方】
-/// 箱を壊すことでcanMoveをtrueにし位置の解除をします。
+/// 氷状態のプレイヤーが、上から箱に接触したとき箱を壊すスクリプト。
 /// </summary>
-
 public class PushBox : MonoBehaviour
-{ 
+{
     [SerializeField] private EnumList_Player enumList_Player;
-    [SerializeField] private GameObject CrateBox;      //壊す箱をとる
-    [SerializeField] private Collider PlayerIceCollider;      //壊す箱をとる
+    [SerializeField] private GameObject CrateBox;
+    [SerializeField] private Collider PlayerIceCollider;
     [SerializeField] private Collider CrateCollider;
-    [SerializeField] private SoundEffectManager soundEffectManager;
-    //～●privateに変更しました●～
-    private bool isPush = false;                         //箱を押したかどうか
-    private bool canMove = false;                        //くっついて動かせない時に壊して動かせるようにするためのトリガー
-    private bool canBreak = false;
-    //～●ここまで●～
-    public bool CanMove { get => canMove; set => canMove = value; }
-    void Update()
-    {
+    [SerializeField] private Rigidbody PlayerRigidbody;
 
-        if (enumList_Player.CurrentPlayerState != EnumList_Player.PlayerState.Ice)
+    private bool isPush = false;
+    private bool canMove = false;
+    private bool canBreak = false;
+
+    public bool CanMove
+    {
+        get => canMove;
+        set => canMove = value;
+    }
+
+    private void Update()
+    {
+        if (PlayerIceCollider == null ||
+            CrateCollider == null ||
+            PlayerRigidbody == null ||
+            enumList_Player == null)
         {
-            isPush = false;
-            canMove = false;
             canBreak = false;
+            return;
         }
 
-        // 箱の上面からプレイヤーの底面までの高さを測る
-        float height = PlayerIceCollider.bounds.min.y - CrateCollider.bounds.max.y;
+        // 箱の上面からプレイヤーの底面までの高さ
+        float height =
+            PlayerIceCollider.bounds.min.y - CrateCollider.bounds.max.y;
 
-        // 2m以上の高さから落下していて、氷状態なら箱を壊す
-        if (height >= 1.5f &&
-            enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Ice)
+        Vector3 rayOrigin = new Vector3(
+            PlayerIceCollider.bounds.center.x,
+            PlayerIceCollider.bounds.min.y + 0.05f,
+            PlayerIceCollider.bounds.center.z
+        );
+
+        bool isFirstCrateBelow =
+            Physics.Raycast(
+                rayOrigin,
+                Vector3.down,
+                out RaycastHit hit,
+                10f
+            ) &&
+            hit.collider.gameObject == CrateCollider.gameObject;
+
+        bool isIce =
+            enumList_Player.CurrentPlayerState ==
+            EnumList_Player.PlayerState.Ice;
+
+        if (!isPush &&
+            isFirstCrateBelow &&
+            height >= 1.5f &&
+            isIce)
         {
             canBreak = true;
         }
     }
-   
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Ice"))
+        if (!IsPlayerCollider(other))
+            return;
+
+        if (canBreak &&
+            !isPush &&
+            enumList_Player != null &&
+            enumList_Player.CurrentPlayerState ==
+            EnumList_Player.PlayerState.Ice)
         {
-            if (canBreak)
+            isPush = true;
+            CanMove = true;
+            canBreak = false;
+
+            if (CrateBox != null)
             {
-                isPush = true;
-                canMove = true;
                 CrateBox.SetActive(false);
             }
-            else
-            {
-                canMove = false;
-                isPush = false;
-            }
-            canBreak = false;
-            if (soundEffectManager != null)
-            {
-                soundEffectManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.BreakWoodBox);
-            }
-            CrateBox.SetActive(false);
         }
         else
         {
-            canMove = false;
-            isPush = false;
             canBreak = false;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (enumList_Player.CurrentPlayerState != EnumList_Player.PlayerState.Ice)
-            {
-                isPush = false;
-                canMove = false;
-                return;
-            }
-
-            isPush = true;
-            canMove = true;
-        }
-        else
+        if (IsPlayerCollider(other))
         {
             canBreak = false;
         }
+    }
+
+    private bool IsPlayerCollider(Collider other)
+    {
+        if (other == PlayerIceCollider)
+            return true;
+
+        return PlayerRigidbody != null &&
+               other.attachedRigidbody == PlayerRigidbody;
     }
 }

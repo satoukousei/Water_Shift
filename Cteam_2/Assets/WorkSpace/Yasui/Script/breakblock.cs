@@ -12,15 +12,14 @@ public class breakblock : MonoBehaviour
         {
             return;                                   // 氷のときだけ
         }
-
         if (!collision.gameObject.CompareTag("Block"))
         {
             return;           // Blockタグだけ
         }
-        if (collision.relativeVelocity.magnitude < breakRockSpeed)
+        if (collision.relativeVelocity.x < breakRockSpeed)
         {
             return;   // 速度が足りない
         }
-        Destroy(collision.gameObject);  
+        Destroy(collision.gameObject);
     }
 }
