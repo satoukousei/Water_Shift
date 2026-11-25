@@ -23,7 +23,6 @@ public class Move_Left : MonoBehaviour
 
         if (playerActionRef == null)
         {
-            Debug.LogWarning("playerActionRefが未設定です。");
             return;
         }
 
@@ -31,8 +30,6 @@ public class Move_Left : MonoBehaviour
         action.started += OnMoveStarted;
         action.canceled += OnMoveCanceled;
         action.Enable();
-
-        Debug.Log($"OnEnable 登録: {name} action={action.name}", this);
     }
 
     private void OnDisable()
@@ -43,14 +40,18 @@ public class Move_Left : MonoBehaviour
         action.started -= OnMoveStarted;
         action.canceled -= OnMoveCanceled;
         action.Disable();
-
-        Debug.Log($"OnDisable 解除: {name} action={action.name}", this);
     }
 
     private void Update()
     {
-        if (!isMoving) return;
-        if (playerModel == null) return;
+        if (!isMoving)
+        {
+            return;
+        }
+        if (playerModel == null)
+        {
+            return;
+        }
 
         var state = playerState.CurrentPlayerState;
         if (state == EnumList_Player.PlayerState.Water || state == EnumList_Player.PlayerState.Ice)

@@ -20,20 +20,18 @@ public class PhaseChange_Ice_Copy : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!Application.isPlaying) return;
-
+        if (!Application.isPlaying)
+        {
+            return;
+        }
         if (iceActionRef == null)
         {
-            Debug.LogWarning("iceActionRef Ç™ñ¢ê›íËÇ≈Ç∑ÅB", this);
             return;
         }
 
         var action = iceActionRef.action;
         action.performed += OnChangePerformed;
-     //   action.canceled += OnChangeCanceled;
         action.Enable();
-
-        Debug.Log($"OnEnable ìoò^: {name} action={action.name}", this);
     }
 
     private void OnDisable()
@@ -42,10 +40,8 @@ public class PhaseChange_Ice_Copy : MonoBehaviour
 
         var action = iceActionRef.action;
         action.performed -= OnChangePerformed;
- //       action.canceled -= OnChangeCanceled;
         action.Disable();
 
-        Debug.Log($"OnDisable âèú: {name} action={action.name}", this);
     }
 
     private void OnChangePerformed(InputAction.CallbackContext ctx)
@@ -53,7 +49,6 @@ public class PhaseChange_Ice_Copy : MonoBehaviour
         modelChanger_Copy.ChangeModel_ice();
         changeStatePlayer.SetState(EnumList_Player.PlayerState.Ice);
         RbSwitch();
-        Debug.Log("åªç›ÇÃèÛë‘:å≈ëÃ");
     }
 
     private void OnChangeCanceled(InputAction.CallbackContext ctx)
@@ -61,7 +56,6 @@ public class PhaseChange_Ice_Copy : MonoBehaviour
         modelChanger_Copy.ChangeModel_water();
         changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
         RbSwitch();
-        Debug.Log("åªç›ÇÃèÛë‘:âtëÃ");
     }
 
     public void RbSwitch()

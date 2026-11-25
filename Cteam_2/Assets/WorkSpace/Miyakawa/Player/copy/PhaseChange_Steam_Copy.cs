@@ -18,24 +18,17 @@ public class PhaseChange_Steam_Copy : MonoBehaviour
     [Tooltip("ModelChangerÇäÑÇËìñÇƒ")]
     [SerializeField] private ModelChanger_Copy modelChanger_Copy;
 
-    private void Start()
-    {
-    }
 
     private void OnEnable()
     {
-        if (!Application.isPlaying) return;
-
-        if(steamActionRef == null) 
+        if (!Application.isPlaying)
         {
-            Debug.LogWarning("iceActionRefÇ™ñ¢ê›íËÇ≈Ç∑ÅB");
+            return;
         }
 
         var action = steamActionRef.action;
         action.performed += OnChangePerformed;
         action.Enable();
-
-        Debug.Log($"OnEnable ìoò^: {name} action={action.name}", this);
     }
 
     private void OnDisable()
@@ -46,7 +39,6 @@ public class PhaseChange_Steam_Copy : MonoBehaviour
         action.performed -= OnChangePerformed;
         action.Disable();
 
-        Debug.Log($"OnDisable âèú: {name} action={action.name}", this);
     }
 
     private void OnChangePerformed(InputAction.CallbackContext ctx)
@@ -55,7 +47,6 @@ public class PhaseChange_Steam_Copy : MonoBehaviour
         modelChanger_Copy.ChangeModel_steam();
         changeStatePlayer.SetState(EnumList_Player.PlayerState.Steam);
         RbSwitch();
-        Debug.Log("åªç›ÇÃèÛë‘:ãCëÃ");
     }
 
     private void OnChangeCanceled(InputAction.CallbackContext ctx)
@@ -63,7 +54,6 @@ public class PhaseChange_Steam_Copy : MonoBehaviour
         modelChanger_Copy.ChangeModel_water();
         changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
         RbSwitch();
-        Debug.Log("åªç›ÇÃèÛë‘:âtëÃ");
     }
 
     public void RbSwitch()

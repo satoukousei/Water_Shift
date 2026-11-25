@@ -15,30 +15,30 @@ public class MoveSelectionUp : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!Application.isPlaying) return;
-
+        if (!Application.isPlaying)
+        {
+            return;
+        }
         if (menuActionRef == null)
         {
-            Debug.LogWarning("playerActionRefÇ™ñ¢ê›íËÇ≈Ç∑ÅB");
             return;
         }
 
         var action = menuActionRef.action;
         action.started += OnMoveStarted;
         action.Enable();
-
-        Debug.Log($"OnEnable ìoò^: {name} action={action.name}", this);
     }
 
     private void OnDisable()
     {
-        if (menuActionRef == null) return;
-
+        if (menuActionRef == null)
+        {
+            return;
+        }
         var action = menuActionRef.action;
         action.started -= OnMoveStarted;
         action.Disable();
 
-        Debug.Log($"OnDisable âèú: {name} action={action.name}", this);
     }
 
     private void OnMoveStarted (InputAction.CallbackContext context)

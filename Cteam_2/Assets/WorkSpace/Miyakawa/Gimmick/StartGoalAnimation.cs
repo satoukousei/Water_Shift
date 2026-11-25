@@ -31,7 +31,6 @@ public class StartGoalAnimation : MonoBehaviour
                 isCheckingGoalAnimation = true;
 
                 events.EndGoalAnimation.Invoke();
-                Debug.Log("ゴールアニメーション終了");
             }
         }
 

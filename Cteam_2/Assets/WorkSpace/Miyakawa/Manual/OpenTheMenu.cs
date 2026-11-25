@@ -25,11 +25,12 @@ public class OpenTheMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!Application.isPlaying) return;
-
+        if (!Application.isPlaying)
+        {
+            return;
+        }
         if (manualActionRef == null)
         {
-            Debug.LogWarning("iceActionRef Ç™ñ¢ê›íËÇ≈Ç∑ÅB", this);
             return;
         }
 
@@ -38,20 +39,19 @@ public class OpenTheMenu : MonoBehaviour
         action.performed += OnChangePerformed;
 
         action.Enable();
-
-        Debug.Log($"OnEnable ìoò^: {name} action={action.name}", this);
     }
 
     private void OnDisable()
     {
-        if (manualActionRef == null) return;
+        if (manualActionRef == null)
+        {
+            return;
+        }
         var action = manualActionRef.action;
 
         action.performed -= OnChangePerformed;
 
         action.Disable();
-
-        Debug.Log($"OnDisable âèú: {name} action={action.name}", this);
     }
 
     private void OnChangePerformed(InputAction.CallbackContext ctx)

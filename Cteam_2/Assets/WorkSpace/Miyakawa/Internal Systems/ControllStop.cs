@@ -20,15 +20,6 @@ public class ControllStop : MonoBehaviour
     {
         events.PlayerGoal.AddListener(DisableMovement);
     }
-
-    private void Update()
-    {
-    }
-    private void LateUpdate()
-    {
-    }
-
-
     public void EnableMovement()
     {
         isPlayerStop = false;

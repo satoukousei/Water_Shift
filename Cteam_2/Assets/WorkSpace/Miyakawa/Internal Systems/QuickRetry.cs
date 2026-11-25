@@ -21,7 +21,6 @@ public class QuickRetry : MonoBehaviour
     private void OnHold(InputAction.CallbackContext context)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Debug.Log("Retry‚ªŠJn‚³‚ê‚Ü‚µ‚½B");
     }
 
 }

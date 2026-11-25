@@ -35,7 +35,6 @@ public class ButtonSelector : MonoBehaviour
         menucurrentState = (MenuButtonState)(((int)menucurrentState + 2) % 3);
         seManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonSelecting);
         ScaleUpSelectedButton();
-        Debug.Log("åªç›ÇÃêîíl" + menucurrentState);
     }
 
     public void CurrentDown()
@@ -43,7 +42,6 @@ public class ButtonSelector : MonoBehaviour
         menucurrentState = (MenuButtonState)(((int)menucurrentState + 1) % 3);
         seManager.OnPlayOneShot(SoundEffectManager.SoundEffectName.ButtonSelecting);
         ScaleUpSelectedButton();
-        Debug.Log("åªç›ÇÃêîíl" + menucurrentState);
     }
 
     private void ScaleUpSelectedButton()

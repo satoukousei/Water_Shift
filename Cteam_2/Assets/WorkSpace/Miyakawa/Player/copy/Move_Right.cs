@@ -19,11 +19,12 @@ public class Move_Right : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!Application.isPlaying) return;
-
+        if (!Application.isPlaying)
+        {
+            return;
+        }
         if (playerActionRef == null)
         {
-            Debug.LogWarning("playerActionRefが未設定です。");
             return;
         }
 
@@ -31,26 +32,26 @@ public class Move_Right : MonoBehaviour
         action.started += OnMoveStarted;
         action.canceled += OnMoveCanceled;
         action.Enable();
-
-        Debug.Log($"OnEnable 登録: {name} action={action.name}", this);
     }
 
     private void OnDisable()
     {
-        if (playerActionRef == null) return;
-
+        if (playerActionRef == null)
+        {
+            return;
+        }
         var action = playerActionRef.action;
         action.started -= OnMoveStarted;
         action.canceled -= OnMoveCanceled;
         action.Disable();
-
-        Debug.Log($"OnDisable 解除: {name} action={action.name}", this);
     }
 
     private void Update()
     {
-        if (!isMoving) return;
-
+        if (!isMoving)
+        {
+            return;
+        }
         var state = playerState.CurrentPlayerState;
         if (state == EnumList_Player.PlayerState.Water || state == EnumList_Player.PlayerState.Ice)
         {

@@ -6,6 +6,7 @@ public class GroundChecker : MonoBehaviour
     [SerializeField] private float rayStartOffset = 0.5f;   // 足元から上にずらす量
     [SerializeField] private float rayDistance = 2f;        // 下に飛ばす長さ
     [SerializeField] private LayerMask groundLayer = ~0;    // 地面のレイヤー
+    [SerializeField] private Rigidbody rigidbodyParent;
 
     [Header("復帰位置の補正")]
     [SerializeField] private float footOffset = 0f;         // 地面の上面からのオフセット(Pivotが足元なら0)
@@ -19,11 +20,9 @@ public class GroundChecker : MonoBehaviour
 
     private Vector3 returnPosition;
     private Quaternion returnRotation;
-    private Rigidbody playerRigidbody;
 
     private void Awake()
     {
-        playerRigidbody = GetComponent<Rigidbody>();
 
         returnPosition = transform.position;
         returnRotation = transform.rotation;
@@ -43,9 +42,6 @@ public class GroundChecker : MonoBehaviour
     {
         Vector3 rayOrigin = transform.position + Vector3.up * rayStartOffset;
         float distance = rayStartOffset + rayDistance;
-
-        Debug.DrawRay(rayOrigin, Vector3.down * distance, Color.blue);
-
         if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, distance,
                             groundLayer, QueryTriggerInteraction.Ignore))
         {
@@ -57,8 +53,6 @@ public class GroundChecker : MonoBehaviour
                     transform.position.z);
 
                 returnRotation = transform.rotation;
-
-                Debug.Log(returnPosition);
             }
         }
 
@@ -77,10 +71,10 @@ public class GroundChecker : MonoBehaviour
         transform.position = returnPosition;
         transform.rotation = returnRotation;
 
-        if (playerRigidbody != null)
+        if (rigidbodyParent != null)
         {
-            playerRigidbody.linearVelocity = Vector3.zero;
-            playerRigidbody.angularVelocity = Vector3.zero;
+            rigidbodyParent.linearVelocity = Vector3.zero;
+            rigidbodyParent.angularVelocity = Vector3.zero;
         }
     }
 }

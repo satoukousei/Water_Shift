@@ -3,10 +3,11 @@ using UnityEngine.InputSystem;
 
 public class Move_Jump : MonoBehaviour
 {
-    private Rigidbody rb;
     private LayerMask groundLayer;
     private bool isGrounded;
     private bool isMoving;
+
+    [SerializeField] private Rigidbody rb;
 
     [Tooltip("InputActionを割り当て")]
     public InputActionReference playerActionRef;
@@ -25,37 +26,31 @@ public class Move_Jump : MonoBehaviour
 
     private void Start()
     {
-        rb = playerModel.GetComponent<Rigidbody>();
         groundLayer = LayerMask.GetMask("Ground"); // "Ground"レイヤーを取得
     }
 
     private void OnEnable()
     {
-        if (!Application.isPlaying) return;
-
-        if (playerActionRef == null)
+        if (!Application.isPlaying)
         {
-            Debug.LogWarning("playerActionRefが未設定です。");
+            return;
         }
-
         var action = playerActionRef.action;
         action.started += OnMoveStarted;
         action.canceled += OnMoveCanceled;
         action.Enable();
-
-        Debug.Log($"OnEnable 登録: {name} action={action.name}", this);
     }
 
     private void OnDisable()
     {
-        if (playerActionRef == null) return;
-
+        if (playerActionRef == null)
+        {
+            return;
+        }
         var action = playerActionRef.action;
         action.started -= OnMoveStarted;
         action.canceled -= OnMoveCanceled;
         action.Disable();
-
-        Debug.Log($"OnDisable 解除: {name} action={action.name}", this);
     }
 
     void Update()
@@ -63,8 +58,10 @@ public class Move_Jump : MonoBehaviour
         isGrounded = Physics.Raycast(playerModel.transform.position,
                      Vector3.down, rayLength, groundLayer);
 
-        if (!isMoving) return;
-
+        if (!isMoving)
+        {
+            return;
+        }
         OnJump();
     }   
 
@@ -81,9 +78,14 @@ public class Move_Jump : MonoBehaviour
     private void OnJump()
     {
         var state = playerState.CurrentPlayerState;
-        if (state != EnumList_Player.PlayerState.Water) return;
-        if (!isGrounded) return;
-
+        if (state != EnumList_Player.PlayerState.Water)
+        {
+            return;
+        }
+        if (!isGrounded)
+        {
+            return;
+        }
         Vector3 jump_vector = Vector3.up;
         Vector3 jump_velocity = jump_vector * jumpPower;
         rb.linearVelocity = jump_velocity;

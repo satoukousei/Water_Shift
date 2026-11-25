@@ -17,19 +17,14 @@ public class PhaseChange_Water : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!Application.isPlaying) return;
-
-        if (waterActionRef == null)
+        if (!Application.isPlaying)
         {
-            Debug.LogWarning("waterActionRefÇ™ñ¢ê›íËÇ≈Ç∑ÅB");
+            return;
         }
 
         var action = waterActionRef.action;
         action.performed += OnChangePerformed;
-      //action.canceled += OnChangeCanceled;
         action.Enable();
-
-        Debug.Log($"OnEnable ìoò^: {name} action={action.name}", this);
     }
 
     private void OnDisable()
@@ -38,22 +33,18 @@ public class PhaseChange_Water : MonoBehaviour
 
         var action = waterActionRef.action;
         action.performed -= OnChangePerformed;
-      //action.canceled -= OnChangeCanceled;
         action.Disable();
 
-        Debug.Log($"OnDisable âèú: {name} action={action.name}", this);
     }
     private void OnChangePerformed(InputAction.CallbackContext ctx)
     {
         modelChanger.ChangeModel_water();
         changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
-        Debug.Log("åªç›ÇÃèÛë‘:âtëÃ");
     }
 
     private void OnChangeCanceled(InputAction.CallbackContext ctx)
     {
         modelChanger.ChangeModel_water();
         changeStatePlayer.SetState(EnumList_Player.PlayerState.Water);
-        Debug.Log("åªç›ÇÃèÛë‘:âtëÃ");
     }
 }

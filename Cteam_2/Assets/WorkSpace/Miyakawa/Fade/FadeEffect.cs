@@ -32,22 +32,13 @@ public class FadeEffect : MonoBehaviour
         fadeDuration = fadeinTime;
         beforeWaitTime = beforeFadeinTime;
         StartCoroutine(fade(false));
-        Debug.Log("フェードイン処理実行");
     }
     public void StartFadeOut()
     {
         fadeDuration = fadeoutTime;
         beforeWaitTime = beforeFadeoutTime;
         StartCoroutine(fade(true));
-        Debug.Log("フェードアウト処理実行");
     }
-
-    void Update()
-    {
-
-    }
-
-
     private IEnumerator fade(bool isFadeOut)
     {
     float startAlphaColor = fadeImage.color.a;
@@ -95,7 +86,5 @@ public class FadeEffect : MonoBehaviour
         {
             events.EndFadeout.Invoke();
         }
-            Debug.Log("フェードイン終了");
-
     }
 }
