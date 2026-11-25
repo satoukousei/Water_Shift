@@ -10455,6 +10455,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1271032334}
     m_Modifications:
     - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 871083468}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: pushBox
       value: 
       objectReference: {fileID: 1367266216}
@@ -10535,6 +10539,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+--- !u!65 &871083468 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3207871254189588644, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+  m_PrefabInstance: {fileID: 871083467}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &876984693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21668,6 +21677,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1271032334}
     m_Modifications:
     - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 1688011805}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: pushBox
       value: 
       objectReference: {fileID: 412322218}
@@ -21748,6 +21761,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+--- !u!65 &1688011805 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3207871254189588644, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+  m_PrefabInstance: {fileID: 1688011804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1690287183
 GameObject:
   m_ObjectHideFlags: 0
@@ -25803,6 +25821,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1271032334}
     m_Modifications:
     - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 1943557196}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: pushBox
       value: 
       objectReference: {fileID: 1861189547}
@@ -25883,6 +25905,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+--- !u!65 &1943557196 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3207871254189588644, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+  m_PrefabInstance: {fileID: 1943557195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1947664767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25891,6 +25918,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1271032334}
     m_Modifications:
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 1947664768}
     - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: pushBox
       value: 
@@ -25972,6 +26003,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+--- !u!65 &1947664768 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3207871254189588644, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+  m_PrefabInstance: {fileID: 1947664767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1948649856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26091,6 +26127,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 1958113728}
+    - target: {fileID: 2817163834381608803, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
       propertyPath: pushBox
       value: 
       objectReference: {fileID: 992396304}
@@ -26187,6 +26227,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+--- !u!65 &1958113728 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 3207871254189588644, guid: b39a10cd8bf98f9439fda52cf8bf750e, type: 3}
+  m_PrefabInstance: {fileID: 1958113727}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1958535920 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b6e11be1bcf378949b6decab5f1200e2, type: 3}
