@@ -61,8 +61,9 @@ public class PushBox : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!IsPlayerCollider(other))
+        {
             return;
-
+        }
         if (canBreak &&
             !isPush &&
             enumList_Player != null &&
@@ -94,8 +95,9 @@ public class PushBox : MonoBehaviour
     private bool IsPlayerCollider(Collider other)
     {
         if (other == PlayerIceCollider)
+        {
             return true;
-
+        }
         return PlayerRigidbody != null &&
                other.attachedRigidbody == PlayerRigidbody;
     }

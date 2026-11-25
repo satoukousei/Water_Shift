@@ -13,7 +13,7 @@ public class KeyAction : MonoBehaviour
     [SerializeField] private Collider playerWaterCollider;
     [SerializeField] private Collider keyCollider;
     // Update is called once per frame
-    void Update()
+    private void Update() //privateをつけましょう
     {
         //ここで作っておくと便利
         bool ignore = enumList_Player.CurrentPlayerState == EnumList_Player.PlayerState.Water ||

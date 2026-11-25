@@ -9,28 +9,28 @@ using UnityEngine;
 public class ItemMove : MonoBehaviour
 {
     [SerializeField] private EnumList_Player enumList_Player;  // プレイヤーの状態
+    [SerializeField] private Collider col;                     // 自身のCollider(インスペクタで割り当て)
     [SerializeField] private string neighborTag = "box";
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private float checkMargin = 0.05f;
     [SerializeField] private float pushNormalThreshold = 0.5f;
-
 
     private static readonly Vector3[] CheckDirs =
     {
         Vector3.left, Vector3.right, Vector3.up, Vector3.down
     };
 
-    private Collider col;
     private Vector3 fixedPosition;
     private bool isLocked = true;
 
-    private void Awake()
-    {
-        col = GetComponent<Collider>();
-    }
-
     private void Start()
     {
+        if (col == null)
+        {
+            enabled = false;
+            return;
+        }
+
         fixedPosition = transform.position;
     }
 
@@ -44,9 +44,14 @@ public class ItemMove : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (!isLocked) return;
-        if (!IsPlayer(collision)) return;
-
+        if (!isLocked)
+        {
+            return;
+        }
+        if (!IsPlayer(collision))
+        {
+            return;
+        }
         // 氷状態のプレイヤーだけが動かせる
         if (enumList_Player == null ||
             enumList_Player.CurrentPlayerState != EnumList_Player.PlayerState.Ice)
@@ -71,7 +76,6 @@ public class ItemMove : MonoBehaviour
         if (HasNeighbor()) return;
 
         isLocked = false;
-
     }
 
     private void LateUpdate()
@@ -88,15 +92,23 @@ public class ItemMove : MonoBehaviour
         {
             isLocked = true;
             fixedPosition = transform.position;
-
         }
     }
 
     private bool IsPlayer(Collision collision)
     {
-        if (collision.collider.CompareTag(playerTag)) return true;
-        if (collision.transform.CompareTag(playerTag)) return true;
-        if (collision.transform.root.CompareTag(playerTag)) return true;
+        if (collision.collider.CompareTag(playerTag))
+        {
+            return true;
+        }
+        if (collision.transform.CompareTag(playerTag))
+        {
+            return true;
+        }
+        if (collision.transform.root.CompareTag(playerTag))
+        {
+            return true;
+        }
         return false;
     }
 
@@ -109,20 +121,23 @@ public class ItemMove : MonoBehaviour
             float extent = Mathf.Abs(Vector3.Dot(b.extents, dir));
             float distance = extent + checkMargin;
 
-
-
             RaycastHit[] hits = Physics.RaycastAll(
                 b.center, dir, distance,
                 ~0, QueryTriggerInteraction.Ignore);
 
             foreach (RaycastHit hit in hits)
             {
-                if (hit.collider == col) continue;
-                if (hit.collider.transform.IsChildOf(transform)) continue;
+                if (hit.collider == col)
+                {
+                    continue;
+                }
+                if (hit.collider.transform.IsChildOf(transform))
+                {
+                    continue;
+                }
 
                 if (hit.collider.CompareTag(neighborTag))
                 {
-
                     return true;
                 }
             }
