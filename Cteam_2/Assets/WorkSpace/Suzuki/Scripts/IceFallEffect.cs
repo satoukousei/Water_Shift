@@ -32,6 +32,7 @@ public class IceFallEffect : MonoBehaviour
     [SerializeField] private Vector3 footOffset = Vector3.zero;
     [Tooltip("エフェクトが広がりきって一時停止するまでの秒数")]
     [SerializeField] private float expandDuration = 0.25f;
+    [SerializeField] private ParticleSystem[] particleSystems = null;
 
     [Header("エフェクト色設定")]
     [SerializeField] private Color fallingEffectColor = new Color(255.0f / HexColorMax, 216.0f / HexColorMax, 74.0f / HexColorMax, 1.0f);
@@ -46,7 +47,7 @@ public class IceFallEffect : MonoBehaviour
     /// <summary>
     /// 初期参照を取得します
     /// </summary>
-    private void Awake()
+    private void Awake()//使ってないAwakeは消して
     {
         
     }
@@ -125,7 +126,6 @@ public class IceFallEffect : MonoBehaviour
     private bool CheckGrounded()
     {
         Vector3 origin = footPoint != null ? footPoint.position : transform.position;
-        Debug.DrawRay(origin, Vector3.down * groundCheckDistance, Color.red);
         return Physics.Raycast(origin, Vector3.down, groundCheckDistance, groundLayer);
     }
 
@@ -212,7 +212,6 @@ public class IceFallEffect : MonoBehaviour
             return;
         }
 
-        ParticleSystem[] particleSystems = targetObject.GetComponentsInChildren<ParticleSystem>(true);
         foreach (ParticleSystem ps in particleSystems)
         {
             ParticleSystem.MainModule mainModule = ps.main;
@@ -233,7 +232,6 @@ public class IceFallEffect : MonoBehaviour
             return;
         }
 
-        ParticleSystem[] particleSystems = targetObject.GetComponentsInChildren<ParticleSystem>(true);
         foreach (ParticleSystem ps in particleSystems)
         {
             ps.Pause(true);
@@ -285,7 +283,6 @@ public class IceFallEffect : MonoBehaviour
             return;
         }
 
-        ParticleSystem[] particleSystems = targetObject.GetComponentsInChildren<ParticleSystem>(true);
         foreach (ParticleSystem ps in particleSystems)
         {
             ParticleSystem.MainModule mainModule = ps.main;

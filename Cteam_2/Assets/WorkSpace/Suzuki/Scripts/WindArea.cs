@@ -1,9 +1,13 @@
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using static EnumList_Player;
 
 /// <summary>
 /// 風の向きを定義する列挙型
 /// </summary>
+/// 
+
 public enum WindDirection
 {
     Right,
@@ -25,6 +29,7 @@ public class WindArea : MonoBehaviour
     [Header("風の設定")]
     [SerializeField] private WindDirection windDirection = WindDirection.Right;
     [SerializeField] private float windPower = 10.0f;
+    [SerializeField] private EnumList_Player enumPlayer;
 
     /// <summary>
     /// トリガー範囲内にいる間、気体状態のプレイヤーに風力を与え続ける
@@ -41,13 +46,12 @@ public class WindArea : MonoBehaviour
     /// <param name="other">接触したコライダー</param>
     private void ApplyWindForce(Collider other)
     {
-        EnumList_Player playerEnum = other.GetComponentInParent<EnumList_Player>();
-        if (playerEnum == null)
+        if (enumPlayer == null)
         {
             return;
         }
 
-        if (playerEnum.CurrentPlayerState == PlayerState.Steam)
+        if (enumPlayer.CurrentPlayerState == PlayerState.Steam)
         {
             Rigidbody targetRigidbody = other.attachedRigidbody;
             if (targetRigidbody != null)

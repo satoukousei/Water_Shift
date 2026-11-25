@@ -14,6 +14,7 @@ using static EnumList_Player;
 /// </summary>
 public class IceSwitchGimmick : MonoBehaviour
 {
+    [SerializeField] private EnumList_Player enumPlayer;
     [Header("現在の押下状態(読み取り専用)")]
     public bool IsPressed = false;
 
@@ -22,16 +23,13 @@ public class IceSwitchGimmick : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
-        EnumList_Player player = other.GetComponentInParent<EnumList_Player>();
 
-        if (player == null)
+        if (enumPlayer == null) //｛｝つけて
             return;
 
-        if (player.CurrentPlayerState == PlayerState.Ice)
+        if (enumPlayer.CurrentPlayerState == PlayerState.Ice)
         {
             IsPressed = true;
-
-            Debug.Log("IceSwitch ON");
         }
     }
 
@@ -40,16 +38,13 @@ public class IceSwitchGimmick : MonoBehaviour
     /// </summary>
     private void OnTriggerExit(Collider other)
     {
-        EnumList_Player player = other.GetComponentInParent<EnumList_Player>();
 
-        if (player == null)
+        if (enumPlayer == null)//｛｝つけて
             return;
 
-        if (player.CurrentPlayerState == PlayerState.Ice)
+        if (enumPlayer.CurrentPlayerState == PlayerState.Ice)
         {
             IsPressed = false;
-
-            Debug.Log("IceSwitch OFF");
         }
     }
 }

@@ -9,6 +9,7 @@ public class FloatingWaterArea : MonoBehaviour
 {
     [Header("浮力の設定")]
     [SerializeField] private float buoyancyForce = 15f;
+    [SerializeField] private EnumList_Player playerEnum;
 
     private void OnTriggerStay(Collider other)
     {
@@ -21,7 +22,6 @@ public class FloatingWaterArea : MonoBehaviour
     /// <param name="other">接触したコライダー</param>
     private void ApplyBuoyancy(Collider other)
     {
-        EnumList_Player playerEnum = other.GetComponentInParent<EnumList_Player>();
         if (playerEnum == null)
         {
             return;

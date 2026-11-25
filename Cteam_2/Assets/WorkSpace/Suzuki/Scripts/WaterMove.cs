@@ -28,9 +28,6 @@ public class WaterMove : MonoBehaviour
 
     private bool isGrounded = false;
 
-    /// <summary>
-    /// コンポーネントの初期参照取得を行います
-    /// </summary>
     private void Start()
     {
 
