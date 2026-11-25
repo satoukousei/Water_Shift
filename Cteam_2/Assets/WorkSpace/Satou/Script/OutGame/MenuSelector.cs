@@ -60,8 +60,10 @@ public class MenuSelector : MonoBehaviour
         // ---- 移動 ----
         int moveInput = GetKeyboardMove();
         int padMove = GetGamepadMove();
-        if (padMove != 0) moveInput = padMove;
-
+        if (padMove != 0)
+        {
+            moveInput = padMove;
+        }
         if (moveInput != 0)
         {
             MenuMove(moveInput);
@@ -91,19 +93,34 @@ public class MenuSelector : MonoBehaviour
     private int GetKeyboardMove()
     {
         var keyboard = Keyboard.current;
-        if (keyboard == null) return 0;
+        if (keyboard == null)
+        {
+            return 0;
+        }
 
         int move = 0;
 
         if (moveMode == MoveMode.Vertical)
         {
-            if (keyboard.wKey.wasPressedThisFrame) move = -enumIndex; // 上
-            if (keyboard.sKey.wasPressedThisFrame) move = enumIndex;  // 下
+            if (keyboard.wKey.wasPressedThisFrame)
+            {
+                move = -enumIndex; // 上
+            }
+            if (keyboard.sKey.wasPressedThisFrame)
+            {
+                move = enumIndex;  // 下
+            }
         }
         else
         {
-            if (keyboard.aKey.wasPressedThisFrame) move = -enumIndex; // 左
-            if (keyboard.dKey.wasPressedThisFrame) move = enumIndex;  // 右
+            if (keyboard.aKey.wasPressedThisFrame)
+            {
+                move = -enumIndex; // 左
+            }
+                if (keyboard.dKey.wasPressedThisFrame)
+                {
+                    move = enumIndex;  // 右
+                }
         }
 
         return move;
@@ -113,9 +130,11 @@ public class MenuSelector : MonoBehaviour
     private bool IsKeyboardDecide()
     {
         var keyboard = Keyboard.current;
-        if (keyboard == null) return false;
-
-        return keyboard.enterKey.wasPressedThisFrame
+        if (keyboard == null) 
+        { 
+            return false;
+        }
+            return keyboard.enterKey.wasPressedThisFrame
             || keyboard.spaceKey.wasPressedThisFrame;
     }
 
@@ -123,8 +142,10 @@ public class MenuSelector : MonoBehaviour
     private bool IsKeyboardBack()
     {
         var keyboard = Keyboard.current;
-        if (keyboard == null) return false;
-
+        if (keyboard == null)
+        {
+            return false;
+        }
         return keyboard.escapeKey.wasPressedThisFrame;
     }
 
@@ -135,26 +156,42 @@ public class MenuSelector : MonoBehaviour
     private int GetGamepadMove()
     {
         var gamepad = Gamepad.current;
-        if (gamepad == null) return 0;
-
+        if (gamepad == null)
+        {
+            return 0;
+        }
         int move = 0;
 
         // 十字キー
         if (moveMode == MoveMode.Vertical)
         {
-            if (gamepad.dpad.up.wasPressedThisFrame) move = -enumIndex;
-            if (gamepad.dpad.down.wasPressedThisFrame) move = enumIndex;
+            if (gamepad.dpad.up.wasPressedThisFrame)
+            {
+                move = -enumIndex;
+            }
+            if (gamepad.dpad.down.wasPressedThisFrame)
+            {
+                move = enumIndex;
+            }
         }
         else
         {
-            if (gamepad.dpad.left.wasPressedThisFrame) move = -enumIndex;
-            if (gamepad.dpad.right.wasPressedThisFrame) move = enumIndex;
+            if (gamepad.dpad.left.wasPressedThisFrame)
+            {
+                move = -enumIndex;
+            }
+            if (gamepad.dpad.right.wasPressedThisFrame)
+            {
+                move = enumIndex;
+            }
         }
 
         // 左スティック
         int stickMove = GetStickMove(gamepad);
-        if (stickMove != 0) move = stickMove;
-
+        if (stickMove != 0)
+        {
+            move = stickMove;
+        }
         return move;
     }
 
@@ -193,8 +230,10 @@ public class MenuSelector : MonoBehaviour
     private bool IsGamepadDecide()
     {
         var gamepad = Gamepad.current;
-        if (gamepad == null) return false;
-
+        if (gamepad == null)
+        {
+            return false;
+        }
         return gamepad.buttonWest.wasPressedThisFrame;
     }
 
@@ -202,8 +241,10 @@ public class MenuSelector : MonoBehaviour
     private bool IsGamepadBack()
     {
         var gamepad = Gamepad.current;
-        if (gamepad == null) return false;
-
+        if (gamepad == null)
+        {
+            return false;
+        }
         return gamepad.buttonSouth.wasPressedThisFrame;
     }
     //  メニュー動作
@@ -234,8 +275,10 @@ public class MenuSelector : MonoBehaviour
 
     private void Decide()
     {
-        if (currentIndex >= destinationScenes.Length) return;
-
+        if (currentIndex >= destinationScenes.Length)
+        {
+            return;
+        }
         string destination = destinationScenes[currentIndex];
 
         // "EndGame" が指定されていたらゲームを終了

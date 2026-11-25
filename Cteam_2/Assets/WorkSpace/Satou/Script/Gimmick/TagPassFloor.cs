@@ -28,11 +28,6 @@ public class TagPassFloor : MonoBehaviour
                 break;
             }
         }
-
-        if (solidCollider == null)
-        {
-            Debug.LogWarning("IsTriggerがオフのColliderが見つかりません", this);
-        }
     }
 
     /// <summary>

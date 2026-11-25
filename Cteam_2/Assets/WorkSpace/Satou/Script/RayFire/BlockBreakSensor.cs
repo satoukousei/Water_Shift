@@ -111,10 +111,7 @@ public class BlockBreakSensor : MonoBehaviour
     private void BlowFragments(Vector3 direction)
     {
         int fragmentLayer = LayerMask.NameToLayer(fragmentLayerName);
-        if (fragmentLayer < 0)
-        {
-            Debug.LogWarning("レイヤー '" + fragmentLayerName + "' が存在しません。Project Settings > Tags and Layers で追加してください");
-        }
+
 
         foreach (GameObject fragment in fragments)
         {
@@ -151,7 +148,6 @@ public class BlockBreakSensor : MonoBehaviour
 
         if (playerLayerIndex < 0 || fragmentLayer < 0)
         {
-            Debug.LogWarning("Player / Fragment のレイヤーが見つからないため、衝突設定を変更できません");
             return;
         }
 
